@@ -134,6 +134,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 480E00F42788351700EEA4E6 /* Build configuration list for PBXNativeTarget "PlanShare" */;
 			buildPhases = (
+				480E00FE278836AD00EEA4E6 /* SwiftLint & Swiftformat */,
 				480E00C32788351400EEA4E6 /* Sources */,
 				480E00C42788351400EEA4E6 /* Frameworks */,
 				480E00C52788351400EEA4E6 /* Resources */,
@@ -251,6 +252,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		480E00FE278836AD00EEA4E6 /* SwiftLint & Swiftformat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint & Swiftformat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n   swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		480E00C32788351400EEA4E6 /* Sources */ = {
