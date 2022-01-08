@@ -6,7 +6,9 @@
 //
 
 import CoreData
-import UIKit
+import Firebase
+import GooglePlaces
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -41,8 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    true
+    // configure Firebase
+    FirebaseApp.configure()
+    GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
+
+    return true
   }
 
   // MARK: UISceneSession Lifecycle
