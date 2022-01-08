@@ -17,6 +17,11 @@
 		480E00EF2788351700EEA4E6 /* PlanShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */; };
 		480E00F12788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */; };
 		480E0100278837CF00EEA4E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */; };
+		483EE869278957A60030DE1B /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE868278957A60030DE1B /* KakaoSDKCommon */; };
+		483EE86B278957A60030DE1B /* KakaoSDKLink in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE86A278957A60030DE1B /* KakaoSDKLink */; };
+		483EE86D278957A60030DE1B /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE86C278957A60030DE1B /* KakaoSDKTemplate */; };
+		483EE87027895D4A0030DE1B /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE86F27895D4A0030DE1B /* RxKakaoSDKCommon */; };
+		483EE87227895D4A0030DE1B /* RxKakaoSDKLink in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE87127895D4A0030DE1B /* RxKakaoSDKLink */; };
 		48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 48716A3D278856BF00D24722 /* GooglePlaces */; };
 		48716A40278858B900D24722 /* shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 48716A3F278858B900D24722 /* shared.xcconfig */; };
 		48716A42278859A200D24722 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48716A41278859A200D24722 /* Constraints.swift */; };
@@ -72,8 +77,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				487C7A242788700B00F1528B /* RxRelay in Frameworks */,
+				483EE869278957A60030DE1B /* KakaoSDKCommon in Frameworks */,
 				48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */,
+				483EE86B278957A60030DE1B /* KakaoSDKLink in Frameworks */,
 				48716A4527885C2400D24722 /* FirebaseDynamicLinks in Frameworks */,
+				483EE87227895D4A0030DE1B /* RxKakaoSDKLink in Frameworks */,
+				483EE86D278957A60030DE1B /* KakaoSDKTemplate in Frameworks */,
+				483EE87027895D4A0030DE1B /* RxKakaoSDKCommon in Frameworks */,
 				487C7A222788700B00F1528B /* RxCocoa in Frameworks */,
 				48716A4727885C2400D24722 /* FirebaseFirestore in Frameworks */,
 				487C7A262788700B00F1528B /* RxSwift in Frameworks */,
@@ -186,6 +196,11 @@
 				487C7A212788700B00F1528B /* RxCocoa */,
 				487C7A232788700B00F1528B /* RxRelay */,
 				487C7A252788700B00F1528B /* RxSwift */,
+				483EE868278957A60030DE1B /* KakaoSDKCommon */,
+				483EE86A278957A60030DE1B /* KakaoSDKLink */,
+				483EE86C278957A60030DE1B /* KakaoSDKTemplate */,
+				483EE86F27895D4A0030DE1B /* RxKakaoSDKCommon */,
+				483EE87127895D4A0030DE1B /* RxKakaoSDKLink */,
 			);
 			productName = PlanShare;
 			productReference = 480E00C72788351500EEA4E6 /* PlanShare.app */;
@@ -267,6 +282,8 @@
 				48716A3C278856BE00D24722 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */,
 				48716A4327885C2400D24722 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				487C7A1E2788700B00F1528B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */,
+				483EE86E27895D4A0030DE1B /* XCRemoteSwiftPackageReference "RxKakaoSDK" */,
 			);
 			productRefGroup = 480E00C82788351500EEA4E6 /* Products */;
 			projectDirPath = "";
@@ -509,6 +526,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78X32W2D44;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -538,6 +556,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78X32W2D44;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -673,6 +692,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elppaaa/KakaoSDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		483EE86E27895D4A0030DE1B /* XCRemoteSwiftPackageReference "RxKakaoSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elppaaa/RxKakaoSDK";
+			requirement = {
+				branch = test;
+				kind = branch;
+			};
+		};
 		48716A3C278856BE00D24722 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/YAtechnologies/GoogleMaps-SP.git";
@@ -700,6 +735,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		483EE868278957A60030DE1B /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */;
+			productName = KakaoSDKCommon;
+		};
+		483EE86A278957A60030DE1B /* KakaoSDKLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */;
+			productName = KakaoSDKLink;
+		};
+		483EE86C278957A60030DE1B /* KakaoSDKTemplate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */;
+			productName = KakaoSDKTemplate;
+		};
+		483EE86F27895D4A0030DE1B /* RxKakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE86E27895D4A0030DE1B /* XCRemoteSwiftPackageReference "RxKakaoSDK" */;
+			productName = RxKakaoSDKCommon;
+		};
+		483EE87127895D4A0030DE1B /* RxKakaoSDKLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE86E27895D4A0030DE1B /* XCRemoteSwiftPackageReference "RxKakaoSDK" */;
+			productName = RxKakaoSDKLink;
+		};
 		48716A3D278856BF00D24722 /* GooglePlaces */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 48716A3C278856BE00D24722 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;

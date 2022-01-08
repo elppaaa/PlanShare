@@ -11,5 +11,6 @@ import XCTest
 class PlanShareTests: XCTestCase {
   func testAPIKEY() {
     debugPrint(Constraints.GCP_KEY)
+    debugPrint(Constraints.KAKAO_KEY)
   }
 }

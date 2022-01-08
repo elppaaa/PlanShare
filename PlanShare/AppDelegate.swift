@@ -8,7 +8,7 @@
 import CoreData
 import Firebase
 import GooglePlaces
-
+import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // configure Firebase
     FirebaseApp.configure()
     GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
+    KakaoSDK.initSDK(appKey: Constraints.KAKAO_KEY)
 
     return true
   }
