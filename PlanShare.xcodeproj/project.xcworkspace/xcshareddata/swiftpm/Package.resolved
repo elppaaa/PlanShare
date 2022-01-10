@@ -137,6 +137,15 @@
         }
       },
       {
+        "package": "RIBs",
+        "repositoryURL": "https://github.com/uber/RIBs.git",
+        "state": {
+          "branch": null,
+          "revision": "0103871f373a65e912868d7a3fc303a8095e81e1",
+          "version": "0.12.1"
+        }
+      },
+      {
         "package": "RxAlamofire",
         "repositoryURL": "https://github.com/RxSwiftCommunity/RxAlamofire",
         "state": {
@@ -152,6 +161,15 @@
           "branch": "test",
           "revision": "82c79bf210b3f59f48a6125153e87d1f3a0a5c37",
           "version": null
+        }
+      },
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "7c17a6ccca06b5c107cfa4284e634562ddaf5951",
+          "version": "6.2.0"
         }
       },
       {

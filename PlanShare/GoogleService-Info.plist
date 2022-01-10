@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>684203271050-6272aud5ariavp9g1rhbs2vdnr7bvlqh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.684203271050-6272aud5ariavp9g1rhbs2vdnr7bvlqh</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC1NN2bI5tiBeAsbKf2-JMf4u0Ky7y5Juc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>684203271050</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>songjk.dev.PlanShare</string>
+	<key>PROJECT_ID</key>
+	<string>plan-share-d89cf</string>
+	<key>STORAGE_BUCKET</key>
+	<string>plan-share-d89cf.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:684203271050:ios:9bcb474be8ea60e25fde73</string>
+</dict>
+</plist>

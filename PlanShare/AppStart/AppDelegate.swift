@@ -9,6 +9,7 @@ import CoreData
 import Firebase
 import GooglePlaces
 import KakaoSDKCommon
+import RIBs
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   lazy var persistentContainer: NSPersistentContainer = {
     /*
-      The persistent container for the application. This implementation
-      creates and returns a container, having loaded the store for the
-      application to it. This property is optional since there are legitimate
-      error conditions that could cause the creation of the store to fail.
+     The persistent container for the application. This implementation
+     creates and returns a container, having loaded the store for the
+     application to it. This property is optional since there are legitimate
+     error conditions that could cause the creation of the store to fail.
      */
     let container = NSPersistentContainer(name: "PlanShare")
     container.loadPersistentStores(completionHandler: { _, error in
