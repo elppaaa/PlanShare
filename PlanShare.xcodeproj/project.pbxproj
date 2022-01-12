@@ -16,6 +16,11 @@
 		480E00EF2788351700EEA4E6 /* PlanShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */; };
 		480E00F12788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */; };
 		480E0100278837CF00EEA4E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */; };
+		483CAAC2278E88C100749657 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 483CAAC1278E88C100749657 /* FirebaseDatabase */; };
+		483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483CAAC3278E91C100749657 /* FireStore+Extension.swift */; };
+		483CAAC6278ECF3800749657 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */; };
+		483CAAC8278EE56100749657 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 483CAAC7278EE56100749657 /* FirebaseFirestoreSwift-Beta */; };
+		483CAACA278EF2F200749657 /* FirestoreCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483CAAC9278EF2F200749657 /* FirestoreCodable.swift */; };
 		483EE869278957A60030DE1B /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE868278957A60030DE1B /* KakaoSDKCommon */; };
 		483EE86B278957A60030DE1B /* KakaoSDKLink in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE86A278957A60030DE1B /* KakaoSDKLink */; };
 		483EE86D278957A60030DE1B /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE86C278957A60030DE1B /* KakaoSDKTemplate */; };
@@ -37,6 +42,13 @@
 		483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE92D278C29700030DE1B /* EditingInteractor.swift */; };
 		483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE932278C2A950030DE1B /* RootComponent+Home.swift */; };
 		483EE935278C2AA50030DE1B /* RootComponent+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE934278C2AA50030DE1B /* RootComponent+Editing.swift */; };
+		483EE93A278C32F60030DE1B /* FlexLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE939278C32F60030DE1B /* FlexLayout */; };
+		483EE93C278C32F60030DE1B /* FlexLayoutYoga in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE93B278C32F60030DE1B /* FlexLayoutYoga */; };
+		483EE93E278C32F60030DE1B /* FlexLayoutYogaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE93D278C32F60030DE1B /* FlexLayoutYogaKit */; };
+		483EE941278C33A20030DE1B /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE940278C33A20030DE1B /* PinLayout */; };
+		483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE947278C3D9C0030DE1B /* FirebaseService.swift */; };
+		483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE94A278C3EAF0030DE1B /* Plan.swift */; };
+		483EE94D278CBF2B0030DE1B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE94C278CBF2A0030DE1B /* Place.swift */; };
 		48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 48716A3D278856BF00D24722 /* GooglePlaces */; };
 		48716A40278858B900D24722 /* shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 48716A3F278858B900D24722 /* shared.xcconfig */; };
 		48716A42278859A200D24722 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48716A41278859A200D24722 /* Constraints.swift */; };
@@ -80,6 +92,9 @@
 		480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareUITests.swift; sourceTree = "<group>"; };
 		480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		483CAAC3278E91C100749657 /* FireStore+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStore+Extension.swift"; sourceTree = "<group>"; };
+		483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
+		483CAAC9278EF2F200749657 /* FirestoreCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCodable.swift; sourceTree = "<group>"; };
 		483EE90F278C25920030DE1B /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		483EE910278C25920030DE1B /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		483EE911278C25920030DE1B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +110,9 @@
 		483EE92D278C29700030DE1B /* EditingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingInteractor.swift; sourceTree = "<group>"; };
 		483EE932278C2A950030DE1B /* RootComponent+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+Home.swift"; sourceTree = "<group>"; };
 		483EE934278C2AA50030DE1B /* RootComponent+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+Editing.swift"; sourceTree = "<group>"; };
+		483EE947278C3D9C0030DE1B /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		483EE94A278C3EAF0030DE1B /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		483EE94C278CBF2A0030DE1B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		48716A3F278858B900D24722 /* shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
 		48716A41278859A200D24722 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		48716A4927886B6200D24722 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -106,16 +124,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				487C7A242788700B00F1528B /* RxRelay in Frameworks */,
+				483EE93C278C32F60030DE1B /* FlexLayoutYoga in Frameworks */,
+				483EE93A278C32F60030DE1B /* FlexLayout in Frameworks */,
 				483EE869278957A60030DE1B /* KakaoSDKCommon in Frameworks */,
 				48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */,
 				483EE86B278957A60030DE1B /* KakaoSDKLink in Frameworks */,
 				48716A4527885C2400D24722 /* FirebaseDynamicLinks in Frameworks */,
+				483CAAC2278E88C100749657 /* FirebaseDatabase in Frameworks */,
 				483EE87227895D4A0030DE1B /* RxKakaoSDKLink in Frameworks */,
 				483EE86D278957A60030DE1B /* KakaoSDKTemplate in Frameworks */,
 				483EE87027895D4A0030DE1B /* RxKakaoSDKCommon in Frameworks */,
 				483EE91E278C272F0030DE1B /* RIBs in Frameworks */,
+				483EE93E278C32F60030DE1B /* FlexLayoutYogaKit in Frameworks */,
 				487C7A222788700B00F1528B /* RxCocoa in Frameworks */,
 				48716A4727885C2400D24722 /* FirebaseFirestore in Frameworks */,
+				483CAAC8278EE56100749657 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				483EE941278C33A20030DE1B /* PinLayout in Frameworks */,
 				487C7A262788700B00F1528B /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +189,7 @@
 			children = (
 				483EE918278C261D0030DE1B /* AppStart */,
 				483EE91B278C26BC0030DE1B /* RIBs */,
+				483EE944278C3C4F0030DE1B /* Domain */,
 				480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */,
 				48716A3F278858B900D24722 /* shared.xcconfig */,
 				48716A41278859A200D24722 /* Constraints.swift */,
@@ -180,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				480E00E42788351700EEA4E6 /* PlanShareTests.swift */,
+				483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */,
 			);
 			path = PlanShareTests;
 			sourceTree = "<group>";
@@ -248,6 +274,26 @@
 			path = Editing;
 			sourceTree = "<group>";
 		};
+		483EE944278C3C4F0030DE1B /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				483EE949278C3EA60030DE1B /* Model */,
+				483EE947278C3D9C0030DE1B /* FirebaseService.swift */,
+				483CAAC3278E91C100749657 /* FireStore+Extension.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		483EE949278C3EA60030DE1B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				483EE94A278C3EAF0030DE1B /* Plan.swift */,
+				483EE94C278CBF2A0030DE1B /* Place.swift */,
+				483CAAC9278EF2F200749657 /* FirestoreCodable.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		48716A4827886B6200D24722 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +332,12 @@
 				483EE86F27895D4A0030DE1B /* RxKakaoSDKCommon */,
 				483EE87127895D4A0030DE1B /* RxKakaoSDKLink */,
 				483EE91D278C272F0030DE1B /* RIBs */,
+				483EE939278C32F60030DE1B /* FlexLayout */,
+				483EE93B278C32F60030DE1B /* FlexLayoutYoga */,
+				483EE93D278C32F60030DE1B /* FlexLayoutYogaKit */,
+				483EE940278C33A20030DE1B /* PinLayout */,
+				483CAAC1278E88C100749657 /* FirebaseDatabase */,
+				483CAAC7278EE56100749657 /* FirebaseFirestoreSwift-Beta */,
 			);
 			productName = PlanShare;
 			productReference = 480E00C72788351500EEA4E6 /* PlanShare.app */;
@@ -370,6 +422,8 @@
 				483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */,
 				483EE86E27895D4A0030DE1B /* XCRemoteSwiftPackageReference "RxKakaoSDK" */,
 				483EE91C278C272F0030DE1B /* XCRemoteSwiftPackageReference "RIBs" */,
+				483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */,
+				483EE93F278C33A20030DE1B /* XCRemoteSwiftPackageReference "PinLayout" */,
 			);
 			productRefGroup = 480E00C82788351500EEA4E6 /* Products */;
 			projectDirPath = "";
@@ -438,11 +492,15 @@
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
 				480E00D52788351500EEA4E6 /* PlanShare.xcdatamodeld in Sources */,
+				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
+				483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */,
 				483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */,
 				483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */,
+				483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
+				483EE94D278CBF2B0030DE1B /* Place.swift in Sources */,
 				483EE913278C25920030DE1B /* RootRouter.swift in Sources */,
 				483EE916278C25920030DE1B /* RootInteractor.swift in Sources */,
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
@@ -454,6 +512,7 @@
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
+				483CAACA278EF2F200749657 /* FirestoreCodable.swift in Sources */,
 				483EE927278C28A30030DE1B /* HomeInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				483CAAC6278ECF3800749657 /* XCTestCase+Extension.swift in Sources */,
 				480E00E52788351700EEA4E6 /* PlanShareTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,6 +688,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78X32W2D44;
+				GCC_PREPROCESSOR_DEFINITIONS = "FLEXLAYOUT_SWIFT_PACKAGE=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -660,6 +721,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78X32W2D44;
+				GCC_PREPROCESSOR_DEFINITIONS = "FLEXLAYOUT_SWIFT_PACKAGE=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -689,6 +751,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78X32W2D44;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
@@ -708,6 +771,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78X32W2D44;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
@@ -820,6 +884,22 @@
 				minimumVersion = 0.9.2;
 			};
 		};
+		483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/FlexLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		483EE93F278C33A20030DE1B /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/PinLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		48716A3C278856BE00D24722 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/YAtechnologies/GoogleMaps-SP.git";
@@ -847,6 +927,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		483CAAC1278E88C100749657 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48716A4327885C2400D24722 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		483CAAC7278EE56100749657 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48716A4327885C2400D24722 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
 		483EE868278957A60030DE1B /* KakaoSDKCommon */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */;
@@ -876,6 +966,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 483EE91C278C272F0030DE1B /* XCRemoteSwiftPackageReference "RIBs" */;
 			productName = RIBs;
+		};
+		483EE939278C32F60030DE1B /* FlexLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */;
+			productName = FlexLayout;
+		};
+		483EE93B278C32F60030DE1B /* FlexLayoutYoga */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */;
+			productName = FlexLayoutYoga;
+		};
+		483EE93D278C32F60030DE1B /* FlexLayoutYogaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */;
+			productName = FlexLayoutYogaKit;
+		};
+		483EE940278C33A20030DE1B /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483EE93F278C33A20030DE1B /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
 		};
 		48716A3D278856BF00D24722 /* GooglePlaces */ = {
 			isa = XCSwiftPackageProductDependency;

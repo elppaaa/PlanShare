@@ -6,7 +6,6 @@
 //
 
 import CoreData
-import Firebase
 import GooglePlaces
 import KakaoSDKCommon
 import RIBs
@@ -45,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // configure Firebase
-    FirebaseApp.configure()
+    FirebaseService.configure()
     GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
     KakaoSDK.initSDK(appKey: Constraints.KAKAO_KEY)
 

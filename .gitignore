@@ -92,3 +92,5 @@ iOSInjectionProject/
 # API KEY
 *.xcconfig
 
+# Firebase Config
+GoogleService-Info.plist 
