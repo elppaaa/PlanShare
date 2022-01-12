@@ -6,12 +6,13 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Foundation
 
 // MARK: - Plan
 
-struct Plan {
-  let id: String
+struct Plan: Codable, Identifiable {
+  @DocumentID var id: String?
   var title: String
   var startAt: Date
   var endAt: Date
@@ -20,7 +21,7 @@ struct Plan {
 }
 
 extension Plan {
-  struct Upload {
+  struct Upload: Codable {
     let title: String
     var startAt: Date
     var endAt: Date

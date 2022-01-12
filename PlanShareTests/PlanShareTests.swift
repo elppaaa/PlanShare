@@ -21,8 +21,7 @@ class PlanShareTests: XCTestCase {
     let deletionRequest = try URLRequest(
       url: "http://localhost:8080/emulator/v1/projects/plan-share-d89cf/databases/(default)/documents",
       method: .delete,
-      headers: nil
-    )
+      headers: nil)
     let expectation = expectation(description: "request finished")
     let request = URLSession.shared.dataTask(with: deletionRequest) { _, response, _ in
       guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
@@ -107,5 +106,32 @@ class PlanShareTests: XCTestCase {
         XCTFail(err.localizedDescription)
       }
     }
+  }
+
+  /// read / write with Firstore.Decoder() Firestore.Encoder()
+  func testWriteAndRead() throws {
+    let date = Date()
+    let plan = Plan.Upload(title: "title", startAt: date, endAt: date, place: Place(id: "id", title: "타이틀", link: "link", address: "address"))
+
+    let doc = try FirebaseService.planRef.rx.new(document: plan)
+      .toBlocking(timeout: 5)
+      .first()?
+      .documentID
+
+    guard let doc = doc else {
+      XCTFail("doc")
+      return
+    }
+
+    let result: Plan? = try FirebaseService.planRef.rx.get(id: doc)
+      .toBlocking(timeout: 5)
+      .first()
+
+    XCTAssert(plan.title == result?.title)
+    XCTAssert(plan.startAt == result?.startAt)
+    XCTAssert(plan.place == result?.place)
+    XCTAssert(date == result?.startAt)
+    XCTAssert(date == result?.endAt)
+    XCTAssert(plan.additionalPlaces == result?.additionalPlaces)
   }
 }

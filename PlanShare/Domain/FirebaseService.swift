@@ -7,6 +7,8 @@
 
 import Firebase
 import FirebaseDatabase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Foundation
 import RxSwift
 
@@ -23,9 +25,8 @@ final class FirebaseService: FirebaseServieType {
 
   enum Err: Error {
     case serialized
+    case request
   }
-
-//  static let shared = FirebaseService()
 
   static let planRef = db.collection("Plan")
 
@@ -39,12 +40,6 @@ final class FirebaseService: FirebaseServieType {
     settings.isSSLEnabled = false
     Self.db.settings = settings
     #endif
-  }
-
-  static func write(path: String, data: FirestoreEncodable) -> Maybe<DocumentReference> {
-    guard let data = data.dict else { return .error(Err.serialized) }
-
-    return db.rx.addDocument(path: path, data: data)
   }
 
   static func write(path: String, data: FirestoreEncodable) async -> Result<DocumentReference, Error> {
