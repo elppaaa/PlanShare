@@ -41,7 +41,7 @@ class PlanShareTests: XCTestCase {
   func testPlanEncodable() {
     let date = Date.now
     let place = Place(id: "testPlace", title: "testTitle", link: "testLink", address: "testAddress")
-    let plan = Plan.Upload(title: "testTitle", startAt: date, endAt: date, place: place)
+    let plan = Plan.Upload(title: "testTitle", startAt: date, endAt: date, place: place, memo: "testMemo")
 
     guard let serialized = plan.dict else {
       XCTFail("Failed to serialized")
@@ -53,6 +53,7 @@ class PlanShareTests: XCTestCase {
     XCTAssert((serialized["endAt"] as? Timestamp) ?? Timestamp() == Timestamp(date: date))
     XCTAssert((serialized["startAt"] as? Timestamp)?.dateValue() ?? Date.now == date)
     XCTAssert((serialized["endAt"] as? Timestamp)?.dateValue() ?? Date.now == date)
+    XCTAssert((serialized["memo"] as? String)? ?? "" == plan.memo)
     guard let serializedPlace = serialized["place"] as? [String: Any] else {
       XCTFail("Place Serialized failed")
       return
@@ -71,6 +72,7 @@ class PlanShareTests: XCTestCase {
     place["title"] = "placeTitle"
     place["link"] = "placeLink"
     place["address"] = "placeAddress"
+    place["memo"] = "placeMemo"
 
     var plan = [String: Any]()
     plan["id"] = "planID"
@@ -89,6 +91,7 @@ class PlanShareTests: XCTestCase {
     XCTAssert(planObject.title == "planTitle")
     XCTAssert(planObject.startAt == date)
     XCTAssert(planObject.endAt == date)
+    XCTAssert(planObject.memo == "placeMemo")
     let _place = Place(id: "placeID", title: "placeTitle", link: "placeLink", address: "placeAddress")
     XCTAssert(planObject.place == _place)
     XCTAssert(planObject.additionalPlaces == Array(repeating: _place, count: 2))
@@ -97,7 +100,7 @@ class PlanShareTests: XCTestCase {
 
   func testConcurrencyWrite() throws {
     runAsyncTest {
-      let value = Plan.Upload(title: "Title", startAt: Date.now, endAt: Date.now, place: Place(id: "new_id", title: "string", link: "links", address: "address"))
+      let value = Plan.Upload(title: "Title", startAt: Date.now, endAt: Date.now, place: Place(id: "new_id", title: "string", link: "links", address: "address"), memo: "memo")
       let result = await FirebaseService.write(path: "Plan", data: value)
 
       debugPrint(try result.get().documentID)
@@ -111,7 +114,7 @@ class PlanShareTests: XCTestCase {
   /// read / write with Firstore.Decoder() Firestore.Encoder()
   func testWriteAndRead() throws {
     let date = Date()
-    let plan = Plan.Upload(title: "title", startAt: date, endAt: date, place: Place(id: "id", title: "타이틀", link: "link", address: "address"))
+    let plan = Plan.Upload(title: "title", startAt: date, endAt: date, place: Place(id: "id", title: "타이틀", link: "link", address: "address"), memo: "memo")
 
     let doc = try FirebaseService.planRef.rx.new(document: plan)
       .toBlocking(timeout: 5)
@@ -130,6 +133,7 @@ class PlanShareTests: XCTestCase {
     XCTAssert(plan.title == result?.title)
     XCTAssert(plan.startAt == result?.startAt)
     XCTAssert(plan.place == result?.place)
+    XCTAssert(plan.memo == result?.memo)
     XCTAssert(date == result?.startAt)
     XCTAssert(date == result?.endAt)
     XCTAssert(plan.additionalPlaces == result?.additionalPlaces)

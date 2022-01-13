@@ -17,6 +17,7 @@ struct Plan: Codable, Identifiable {
   var startAt: Date
   var endAt: Date
   var place: Place
+  var memo: String
   var additionalPlaces: [Place] = []
 }
 
@@ -26,6 +27,7 @@ extension Plan {
     var startAt: Date
     var endAt: Date
     var place: Place
+    var memo: String
     var additionalPlaces: [Place] = []
   }
 }
@@ -39,6 +41,7 @@ extension Plan: FirestoreDecodable {
       let title = dict["title"] as? String,
       let startAt = (dict["startAt"] as? Timestamp)?.dateValue(),
       let endAt = (dict["endAt"] as? Timestamp)?.dateValue(),
+      let memo = dict["memo"] as? String,
       let placeDict = (dict["place"] as? [String: Any]),
       let place = Place.parse(from: placeDict),
       let additionalPlaces = dict["additionalPlaces"] as? [[String: Any]]
@@ -50,7 +53,7 @@ extension Plan: FirestoreDecodable {
       placesArray.append(value)
     }
 
-    return Plan(id: id, title: title, startAt: startAt, endAt: endAt, place: place, additionalPlaces: placesArray)
+    return Plan(id: id, title: title, startAt: startAt, endAt: endAt, place: place, memo: memo, additionalPlaces: placesArray)
   }
 }
 
@@ -63,6 +66,7 @@ extension Plan.Upload: FirestoreEncodable {
     dict["startAt"] = Timestamp(date: startAt)
     dict["endAt"] = Timestamp(date: endAt)
     dict["place"] = place.dict
+    dict["memo"] = memo
     dict["additionalPlaces"] = additionalPlaces.map { $0.dict }
 
     return dict
