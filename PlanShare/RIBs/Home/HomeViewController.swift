@@ -20,12 +20,30 @@ protocol HomePresentableListener: AnyObject {
 // MARK: - HomeViewController
 
 final class HomeViewController: UIViewController, HomePresentable, HomeViewControllable {
+
+  // MARK: Internal
+
   weak var listener: HomePresentableListener?
+
+  override func loadView() {
+    super.loadView()
+    view = tableView
+    view.backgroundColor = .systemTeal
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     debugPrint("Init")
-    view.backgroundColor = .systemTeal
   }
 
+  // MARK: Private
+
+  private let tableView = UITableView()
+}
+
+// MARK: - HomePresentable
+
+extension HomeViewController {
+  // TODO: -  함수 구현 필요
+  func set(plans _: [Plan]) {}
 }

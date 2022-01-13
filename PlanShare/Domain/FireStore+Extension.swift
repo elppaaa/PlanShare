@@ -73,12 +73,6 @@ extension Reactive where Base: CollectionReference {
             print("ERROR ::::", error)
             subscriber(.failure(error))
           }
-
-//          guard let value = try? snapshot.data(as: T.self, decoder: Firestore.Decoder()) else {
-//            subscriber(.failure(FirebaseService.Err.serialized))
-//            return
-//          }
-//          subscriber(.success(value))
         }
       }
 

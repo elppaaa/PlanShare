@@ -19,6 +19,7 @@ protocol HomeRouting: ViewableRouting {
 protocol HomePresentable: Presentable {
   var listener: HomePresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
+  func set(plans: [Plan])
 }
 
 // MARK: - HomeListener

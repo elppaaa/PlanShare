@@ -17,7 +17,6 @@ protocol HomeDependency: Dependency {
 // MARK: - HomeComponent
 
 final class HomeComponent: Component<HomeDependency> {
-
   // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
 

@@ -23,7 +23,6 @@ protocol EditingViewControllable: ViewControllable {
 // MARK: - EditingRouter
 
 final class EditingRouter: ViewableRouter<EditingInteractable, EditingViewControllable>, EditingRouting {
-
   // TODO: Constructor inject child builder protocols to allow building children.
   override init(interactor: EditingInteractable, viewController: EditingViewControllable) {
     super.init(interactor: interactor, viewController: viewController)

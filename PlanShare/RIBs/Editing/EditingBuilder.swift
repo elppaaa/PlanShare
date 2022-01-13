@@ -17,7 +17,6 @@ protocol EditingDependency: Dependency {
 // MARK: - EditingComponent
 
 final class EditingComponent: Component<EditingDependency> {
-
   // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
 

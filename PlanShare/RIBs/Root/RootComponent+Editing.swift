@@ -19,6 +19,5 @@ protocol RootDependencyEditing: Dependency {
 // MARK: - RootComponent + EditingDependency
 
 extension RootComponent: EditingDependency {
-
   // TODO: Implement properties to provide for Editing scope.
 }

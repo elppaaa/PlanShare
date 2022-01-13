@@ -19,6 +19,5 @@ protocol RootDependencyHome: Dependency {
 // MARK: - RootComponent + HomeDependency
 
 extension RootComponent: HomeDependency {
-
   // TODO: Implement properties to provide for Home scope.
 }

@@ -20,6 +20,5 @@ protocol EditingPresentableListener: AnyObject {
 // MARK: - EditingViewController
 
 final class EditingViewController: UIViewController, EditingPresentable, EditingViewControllable {
-
   weak var listener: EditingPresentableListener?
 }

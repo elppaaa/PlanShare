@@ -20,11 +20,11 @@ protocol RootPresentableListener: AnyObject {
 // MARK: - RootViewController
 
 final class RootViewController: UINavigationController, RootPresentable, RootViewControllable {
-
   weak var listener: RootPresentableListener?
 }
 
 // MARK: - RootViewControllable
+
 extension RootViewController {
   func push(viewController: ViewControllable, animated: Bool = true) {
     pushViewController(viewController.uiviewController, animated: animated)

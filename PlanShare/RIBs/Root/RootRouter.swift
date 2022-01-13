@@ -56,5 +56,4 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     attachChild(homeRouter)
     viewController.push(viewController: homeRouter.viewControllable, animated: false)
   }
-
 }

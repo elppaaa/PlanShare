@@ -7,5 +7,4 @@
 
 import XCTest
 
-class PlanShareUITests: XCTestCase {
-}
+class PlanShareUITests: XCTestCase {}
