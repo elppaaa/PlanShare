@@ -30,6 +30,5 @@ extension Dictionary where Key == String {
   func get<T: Decodable>() -> T? {
     guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.fragmentsAllowed]) else { return nil }
     return (try? JSONDecoder().decode(T.self, from: data))
-
   }
 }

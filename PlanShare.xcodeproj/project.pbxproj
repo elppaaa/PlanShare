@@ -59,6 +59,8 @@
 		487C7A242788700B00F1528B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A232788700B00F1528B /* RxRelay */; };
 		487C7A262788700B00F1528B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A252788700B00F1528B /* RxSwift */; };
 		487C7A282788700B00F1528B /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A272788700B00F1528B /* RxTest */; };
+		48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DAF27908BB800E240F5 /* UpdateModel.swift */; };
+		48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,8 @@
 		48716A3F278858B900D24722 /* shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
 		48716A41278859A200D24722 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		48716A4927886B6200D24722 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		48C93DAF27908BB800E240F5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
+		48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				480E00E42788351700EEA4E6 /* PlanShareTests.swift */,
+				48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */,
 				483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */,
 			);
 			path = PlanShareTests;
@@ -288,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				483EE94A278C3EAF0030DE1B /* Plan.swift */,
+				48C93DAF27908BB800E240F5 /* UpdateModel.swift */,
 				483EE94C278CBF2A0030DE1B /* Place.swift */,
 				483CAAC9278EF2F200749657 /* FirestoreCodable.swift */,
 			);
@@ -499,6 +505,7 @@
 				483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */,
 				483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */,
 				483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */,
+				48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
 				483EE94D278CBF2B0030DE1B /* Place.swift in Sources */,
 				483EE913278C25920030DE1B /* RootRouter.swift in Sources */,
@@ -523,6 +530,7 @@
 			files = (
 				483CAAC6278ECF3800749657 /* XCTestCase+Extension.swift in Sources */,
 				480E00E52788351700EEA4E6 /* PlanShareTests.swift in Sources */,
+				48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

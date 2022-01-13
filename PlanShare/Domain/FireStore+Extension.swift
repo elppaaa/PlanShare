@@ -62,15 +62,74 @@ extension Reactive where Base: CollectionReference {
             return
           }
 
-          guard let value = try? snapshot.data(as: T.self, decoder: Firestore.Decoder()) else {
-            subscriber(.failure(FirebaseService.Err.serialized))
-            return
+          do {
+            guard let value = try snapshot.data(as: T.self, decoder: Firestore.Decoder()) else {
+              print("ERROR :::: NIL")
+              subscriber(.failure(FirebaseService.Err.serialized))
+              return
+            }
+            subscriber(.success(value))
+          } catch {
+            print("ERROR ::::", error)
+            subscriber(.failure(error))
           }
-          subscriber(.success(value))
-        }
 
+//          guard let value = try? snapshot.data(as: T.self, decoder: Firestore.Decoder()) else {
+//            subscriber(.failure(FirebaseService.Err.serialized))
+//            return
+//          }
+//          subscriber(.success(value))
+        }
       }
 
+      return Disposables.create()
+    }
+  }
+
+//  func update<T: Decodable>(id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
+//    get(id: id)
+//      .map { updateBlock($0) }
+//      .flatMapCompletable({ updateValue in
+//        .create { subscriber in
+//          let document = base.document(id)
+//
+//          document.updateData(updateValue) { err in
+//            if let err = err {
+//              subscriber(.error(err))
+//            } else {
+//              subscriber(.completed)
+//            }
+//          }
+//
+//          return Disposables.create()
+//        }
+//      })
+//  }
+
+  func delete(id: String) -> Completable {
+    .create { subscriber in
+      base.document(id).delete { err in
+        if let err = err {
+          subscriber(.error(err))
+        } else {
+          subscriber(.completed)
+        }
+      }
+      return Disposables.create()
+    }
+  }
+}
+
+extension Reactive where Base: DocumentReference {
+  func update(to updateValue: [String: Any]) -> Completable {
+    .create { subscriber in
+      base.updateData(updateValue) { err in
+        if let err = err {
+          subscriber(.error(err))
+        } else {
+          subscriber(.completed)
+        }
+      }
       return Disposables.create()
     }
   }

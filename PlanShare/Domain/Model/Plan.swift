@@ -11,7 +11,7 @@ import Foundation
 
 // MARK: - Plan
 
-struct Plan: Codable, Identifiable {
+struct Plan: Codable, Identifiable, Equatable {
   @DocumentID var id: String?
   var title: String
   var startAt: Date

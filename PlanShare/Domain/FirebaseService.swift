@@ -14,8 +14,7 @@ import RxSwift
 
 // MARK: - FirebaseServieType
 
-protocol FirebaseServieType {
-}
+protocol FirebaseServieType {}
 
 // MARK: - FirebaseService
 
@@ -42,7 +41,7 @@ final class FirebaseService: FirebaseServieType {
     #endif
   }
 
-  static func write(path: String, data: FirestoreEncodable) async -> Result<DocumentReference, Error> {
+  static func create(path: String, data: FirestoreEncodable) async -> Result<DocumentReference, Error> {
     guard let data = data.dict else { return .failure(Err.serialized) }
 
     return await withCheckedContinuation { continueation in
@@ -55,6 +54,29 @@ final class FirebaseService: FirebaseServieType {
         }
       }
     }
+  }
+
+  static func create<T: Encodable>(path: String, data: T) -> Single<DocumentReference> {
+    db.collection(path).rx.new(document: data)
+  }
+
+  static func read<T: Decodable>(path: String, id: String) -> Single<T> {
+    db.collection(path).rx.get(id: id)
+  }
+
+  static func delete(path: String, id: String) -> Completable {
+    db.collection(path).rx.delete(id: id)
+  }
+
+  static func update<T: Decodable>(path: String, id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
+    let document = db.collection(path)
+    let observable: Single<T> = document.rx.get(id: id)
+
+    return observable
+      .flatMapCompletable { (value: T) in
+        let updateValue = updateBlock(value)
+        return document.document(id).rx.update(to: updateValue)
+      }
   }
 
   // MARK: Private
