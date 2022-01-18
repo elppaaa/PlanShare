@@ -54,7 +54,7 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
       }
       .disposed(by: disposeBag)
   }
-  
+
   private func configTableView() {
     tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.describe)
     tableView.rowHeight = 70

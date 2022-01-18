@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790152796ADA900FB6F9B /* HomeTableViewCell.swift */; };
 		480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790172796ADF100FB6F9B /* NSObject+Extension.swift */; };
+		4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807901B27970F0200FB6F9B /* UserDefault.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 /* Begin PBXFileReference section */
 		480790152796ADA900FB6F9B /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		480790172796ADF100FB6F9B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		4807901B27970F0200FB6F9B /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			children = (
 				483EE949278C3EA60030DE1B /* Model */,
 				483EE947278C3D9C0030DE1B /* FirebaseService.swift */,
+				4807901B27970F0200FB6F9B /* UserDefault.swift */,
 				483CAAC3278E91C100749657 /* FireStore+Extension.swift */,
 			);
 			path = Domain;
@@ -522,6 +525,7 @@
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
+				4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
 				483CAACA278EF2F200749657 /* FirestoreCodable.swift in Sources */,
 				483EE927278C28A30030DE1B /* HomeInteractor.swift in Sources */,

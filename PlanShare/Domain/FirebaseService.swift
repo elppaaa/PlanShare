@@ -31,14 +31,15 @@ final class FirebaseService: FirebaseServieType {
 
   static func configure() {
     FirebaseApp.configure()
+    let settings = Self.db.settings
+    settings.isPersistenceEnabled = true
 
     #if DEBUG
-    let settings = Self.db.settings
     settings.host = "localhost:8080"
     settings.isPersistenceEnabled = false
     settings.isSSLEnabled = false
-    Self.db.settings = settings
     #endif
+    Self.db.settings = settings
   }
 
   static func create(path: String, data: FirestoreEncodable) async -> Result<DocumentReference, Error> {
