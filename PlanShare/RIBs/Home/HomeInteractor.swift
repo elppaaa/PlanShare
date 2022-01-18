@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/10.
 //
 
+import Foundation
 import RIBs
 import RxSwift
 
@@ -49,6 +50,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
+    // TODO: - 데이터를 받아온 뒤 `Presentable.set(plans:)` 함수 호출 필요.
   }
 
   override func willResignActive() {

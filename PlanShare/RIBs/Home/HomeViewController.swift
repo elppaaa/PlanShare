@@ -6,6 +6,8 @@
 //
 
 import RIBs
+import RxCocoa
+import RxRelay
 import RxSwift
 import UIKit
 
@@ -34,16 +36,35 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
   override func viewDidLoad() {
     super.viewDidLoad()
     debugPrint("Init")
+    configTableView()
+    bindings()
   }
 
   // MARK: Private
 
   private let tableView = UITableView()
+  private let disposeBag = DisposeBag()
+  private let plans = BehaviorRelay<[Plan]>(value: [])
+
+  private func bindings() {
+    plans
+      .asDriver()
+      .drive(tableView.rx.items(cellIdentifier: HomeTableViewCell.describe, cellType: HomeTableViewCell.self)) { _, element, cell in
+        cell.set(plan: element)
+      }
+      .disposed(by: disposeBag)
+  }
+  
+  private func configTableView() {
+    tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.describe)
+    tableView.rowHeight = 70
+  }
 }
 
 // MARK: - HomePresentable
 
 extension HomeViewController {
-  // TODO: -  함수 구현 필요
-  func set(plans _: [Plan]) {}
+  func set(plans: [Plan]) {
+    self.plans.accept(plans)
+  }
 }

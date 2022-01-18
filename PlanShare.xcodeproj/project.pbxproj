@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790152796ADA900FB6F9B /* HomeTableViewCell.swift */; };
+		480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790172796ADF100FB6F9B /* NSObject+Extension.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D52788351500EEA4E6 /* PlanShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 480E00D32788351500EEA4E6 /* PlanShare.xcdatamodeld */; };
@@ -81,6 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		480790152796ADA900FB6F9B /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		480790172796ADF100FB6F9B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				483EE944278C3C4F0030DE1B /* Domain */,
 				480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */,
 				48716A3F278858B900D24722 /* shared.xcconfig */,
+				480790172796ADF100FB6F9B /* NSObject+Extension.swift */,
 				48716A41278859A200D24722 /* Constraints.swift */,
 				480E00D62788351700EEA4E6 /* Assets.xcassets */,
 				480E00D82788351700EEA4E6 /* LaunchScreen.storyboard */,
@@ -263,6 +268,7 @@
 				483EE920278C28A30030DE1B /* HomeRouter.swift */,
 				483EE921278C28A30030DE1B /* HomeBuilder.swift */,
 				483EE922278C28A30030DE1B /* HomeViewController.swift */,
+				480790152796ADA900FB6F9B /* HomeTableViewCell.swift */,
 				483EE923278C28A30030DE1B /* HomeInteractor.swift */,
 			);
 			path = Home;
@@ -498,6 +504,7 @@
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
 				480E00D52788351500EEA4E6 /* PlanShare.xcdatamodeld in Sources */,
+				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
@@ -506,6 +513,7 @@
 				483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */,
 				483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */,
 				48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */,
+				480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
 				483EE94D278CBF2B0030DE1B /* Place.swift in Sources */,
 				483EE913278C25920030DE1B /* RootRouter.swift in Sources */,
