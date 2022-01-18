@@ -10,6 +10,7 @@
 		480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790152796ADA900FB6F9B /* HomeTableViewCell.swift */; };
 		480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790172796ADF100FB6F9B /* NSObject+Extension.swift */; };
 		4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807901B27970F0200FB6F9B /* UserDefault.swift */; };
+		4807902027973D6C00FB6F9B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4807901F27973D6C00FB6F9B /* Then */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -136,6 +137,7 @@
 				483EE93A278C32F60030DE1B /* FlexLayout in Frameworks */,
 				483EE869278957A60030DE1B /* KakaoSDKCommon in Frameworks */,
 				48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */,
+				4807902027973D6C00FB6F9B /* Then in Frameworks */,
 				483EE86B278957A60030DE1B /* KakaoSDKLink in Frameworks */,
 				48716A4527885C2400D24722 /* FirebaseDynamicLinks in Frameworks */,
 				483CAAC2278E88C100749657 /* FirebaseDatabase in Frameworks */,
@@ -350,6 +352,7 @@
 				483EE940278C33A20030DE1B /* PinLayout */,
 				483CAAC1278E88C100749657 /* FirebaseDatabase */,
 				483CAAC7278EE56100749657 /* FirebaseFirestoreSwift-Beta */,
+				4807901F27973D6C00FB6F9B /* Then */,
 			);
 			productName = PlanShare;
 			productReference = 480E00C72788351500EEA4E6 /* PlanShare.app */;
@@ -436,6 +439,7 @@
 				483EE91C278C272F0030DE1B /* XCRemoteSwiftPackageReference "RIBs" */,
 				483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */,
 				483EE93F278C33A20030DE1B /* XCRemoteSwiftPackageReference "PinLayout" */,
+				4807901E27973D6C00FB6F9B /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 480E00C82788351500EEA4E6 /* Products */;
 			projectDirPath = "";
@@ -876,6 +880,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4807901E27973D6C00FB6F9B /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		483EE867278957A60030DE1B /* XCRemoteSwiftPackageReference "KakaoSDK" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elppaaa/KakaoSDK";
@@ -943,6 +955,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4807901F27973D6C00FB6F9B /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4807901E27973D6C00FB6F9B /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
 		483CAAC1278E88C100749657 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 48716A4327885C2400D24722 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

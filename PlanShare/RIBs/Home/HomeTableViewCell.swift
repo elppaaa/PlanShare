@@ -7,6 +7,7 @@
 
 import FlexLayout
 import PinLayout
+import RxSwift
 import UIKit
 
 // MARK: - HomeTableViewCell
@@ -38,14 +39,28 @@ final class HomeTableViewCell: UITableViewCell {
   }
 
   func set(plan: Plan) {
-    // TODO: - Fill Content
+    title.text = plan.title
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MM/dd HH:mm"
+    formatter.timeZone = .current
+    date.text = formatter.string(from: plan.startAt) + " - " + formatter.string(from: plan.endAt)
+  }
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    disposeBag = DisposeBag()
   }
 
   // MARK: Private
 
-  private let title = UILabel()
-  private let date = UILabel()
-  private let shareButton = UIButton()
+  private let title = UILabel().then {
+    $0.font = .preferredFont(forTextStyle: .title3)
+  }
+  private let date = UILabel().then {
+    $0.font = .preferredFont(forTextStyle: .caption1)
+    $0.textColor = .systemGray2
+  }
+  private var disposeBag = DisposeBag()
 
   private func configView() {
     contentView.flex.define {
@@ -55,7 +70,6 @@ final class HomeTableViewCell: UITableViewCell {
             $0.addItem(title).paddingBottom(10)
             $0.addItem(date)
           }
-        $0.addItem(shareButton).size(25).margin(5).shrink(0)
       }
     }
   }

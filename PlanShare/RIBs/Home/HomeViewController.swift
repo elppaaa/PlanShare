@@ -9,6 +9,7 @@ import RIBs
 import RxCocoa
 import RxRelay
 import RxSwift
+import Then
 import UIKit
 
 // MARK: - HomePresentableListener
@@ -36,13 +37,16 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
   override func viewDidLoad() {
     super.viewDidLoad()
     debugPrint("Init")
-    configTableView()
     bindings()
   }
 
   // MARK: Private
 
-  private let tableView = UITableView()
+  private let tableView = UITableView().then {
+    $0.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.describe)
+    $0.rowHeight = 70
+  }
+
   private let disposeBag = DisposeBag()
   private let plans = BehaviorRelay<[Plan]>(value: [])
 
@@ -53,11 +57,6 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
         cell.set(plan: element)
       }
       .disposed(by: disposeBag)
-  }
-
-  private func configTableView() {
-    tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.describe)
-    tableView.rowHeight = 70
   }
 }
 
