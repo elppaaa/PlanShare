@@ -11,7 +11,6 @@
 		480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790172796ADF100FB6F9B /* NSObject+Extension.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
-		480E00D52788351500EEA4E6 /* PlanShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 480E00D32788351500EEA4E6 /* PlanShare.xcdatamodeld */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
 		480E00DA2788351700EEA4E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D82788351700EEA4E6 /* LaunchScreen.storyboard */; };
 		480E00E52788351700EEA4E6 /* PlanShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00E42788351700EEA4E6 /* PlanShareTests.swift */; };
@@ -88,7 +87,6 @@
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		480E00D42788351500EEA4E6 /* PlanShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlanShare.xcdatamodel; sourceTree = "<group>"; };
 		480E00D62788351700EEA4E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		480E00D92788351700EEA4E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		480E00DB2788351700EEA4E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				480E00D62788351700EEA4E6 /* Assets.xcassets */,
 				480E00D82788351700EEA4E6 /* LaunchScreen.storyboard */,
 				480E00DB2788351700EEA4E6 /* Info.plist */,
-				480E00D32788351500EEA4E6 /* PlanShare.xcdatamodeld */,
 			);
 			path = PlanShare;
 			sourceTree = "<group>";
@@ -503,7 +500,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
-				480E00D52788351500EEA4E6 /* PlanShare.xcdatamodeld in Sources */,
 				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
@@ -1044,19 +1040,6 @@
 			productName = RxTest;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		480E00D32788351500EEA4E6 /* PlanShare.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				480E00D42788351500EEA4E6 /* PlanShare.xcdatamodel */,
-			);
-			currentVersion = 480E00D42788351500EEA4E6 /* PlanShare.xcdatamodel */;
-			path = PlanShare.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 480E00BF2788351400EEA4E6 /* Project object */;
 }
