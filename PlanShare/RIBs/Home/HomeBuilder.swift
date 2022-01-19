@@ -43,6 +43,11 @@ final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
     let viewController = HomeViewController()
     let interactor = HomeInteractor(presenter: viewController)
     interactor.listener = listener
-    return HomeRouter(interactor: interactor, viewController: viewController)
+
+    let detailPlanBuilder = DetailPlanBuilder(dependency: component)
+    return HomeRouter(
+      interactor: interactor,
+      viewController: viewController,
+      detailPlanBuilder: detailPlanBuilder)
   }
 }

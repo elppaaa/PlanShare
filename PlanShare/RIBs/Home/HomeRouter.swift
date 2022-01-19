@@ -9,7 +9,7 @@ import RIBs
 
 // MARK: - HomeInteractable
 
-protocol HomeInteractable: Interactable {
+protocol HomeInteractable: Interactable, DetailPlanListener {
   var router: HomeRouting? { get set }
   var listener: HomeListener? { get set }
 }
@@ -18,14 +18,45 @@ protocol HomeInteractable: Interactable {
 
 protocol HomeViewControllable: ViewControllable {
   // TODO: Declare methods the router invokes to manipulate the view hierarchy.
+  func addChild(viewContronller: ViewControllable)
 }
 
 // MARK: - HomeRouter
 
 final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, HomeRouting {
-  // TODO: Constructor inject child builder protocols to allow building children.
-  override init(interactor: HomeInteractable, viewController: HomeViewControllable) {
+
+  // MARK: Lifecycle
+
+  init(
+    interactor: HomeInteractable,
+    viewController: HomeViewControllable,
+    detailPlanBuilder: DetailPlanBuildable)
+  {
+    self.detailPlanBuilder = detailPlanBuilder
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
+  }
+
+  // MARK: Private
+
+  private let detailPlanBuilder: DetailPlanBuildable
+}
+
+// MARK: - HomeRouting
+
+extension HomeRouter {
+
+  // MARK: Internal
+
+  func routeToDetailPlan(plan: Plan) {
+    let router = detailPlanBuilder.build(withListener: interactor, currentPlan: plan)
+    attachChild(router)
+    viewController.addChild(viewContronller: router.viewControllable)
+  }
+
+  // MARK: Private
+
+  private func detachChilds() {
+    children.forEach { detachChild($0) }
   }
 }

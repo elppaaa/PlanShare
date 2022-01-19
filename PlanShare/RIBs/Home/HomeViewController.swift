@@ -18,6 +18,8 @@ protocol HomePresentableListener: AnyObject {
   // TODO: Declare properties and methods that the view controller can invoke to perform
   // business logic, such as signIn(). This protocol is implemented by the corresponding
   // interactor class.
+  func planSelected(index: Int)
+  var output: HomePresentableOutput { get }
 }
 
 // MARK: - HomeViewController
@@ -48,22 +50,35 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
   }
 
   private let disposeBag = DisposeBag()
-  private let plans = BehaviorRelay<[Plan]>(value: [])
 
   private func bindings() {
-    plans
+    guard let output = listener?.output else { return }
+
+    output.plans
       .asDriver()
       .drive(tableView.rx.items(cellIdentifier: HomeTableViewCell.describe, cellType: HomeTableViewCell.self)) { _, element, cell in
         cell.set(plan: element)
       }
       .disposed(by: disposeBag)
+
+    tableView.rx.itemSelected
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] indexPath in
+        self?.listener?.planSelected(index: indexPath.row)
+      })
+      .disposed(by: disposeBag)
   }
 }
 
 // MARK: - HomePresentable
+extension HomeViewController { }
 
+// MARK: - HomeViewControllable
 extension HomeViewController {
-  func set(plans: [Plan]) {
-    self.plans.accept(plans)
+  func addChild(viewContronller: ViewControllable) {
+    let vc = viewContronller.uiviewController
+    addChild(vc)
+    view.addSubview(vc.view)
+    vc.didMove(toParent: self)
   }
 }

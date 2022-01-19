@@ -11,6 +11,11 @@
 		480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790172796ADF100FB6F9B /* NSObject+Extension.swift */; };
 		4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807901B27970F0200FB6F9B /* UserDefault.swift */; };
 		4807902027973D6C00FB6F9B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4807901F27973D6C00FB6F9B /* Then */; };
+		480790262797469900FB6F9B /* DetailPlanRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790222797469900FB6F9B /* DetailPlanRouter.swift */; };
+		480790272797469900FB6F9B /* DetailPlanBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790232797469900FB6F9B /* DetailPlanBuilder.swift */; };
+		480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790242797469900FB6F9B /* DetailPlanViewController.swift */; };
+		480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790252797469900FB6F9B /* DetailPlanInteractor.swift */; };
+		4807902B279746B900FB6F9B /* HomeComponent+DetailPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -87,6 +92,11 @@
 		480790152796ADA900FB6F9B /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		480790172796ADF100FB6F9B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		4807901B27970F0200FB6F9B /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		480790222797469900FB6F9B /* DetailPlanRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanRouter.swift; sourceTree = "<group>"; };
+		480790232797469900FB6F9B /* DetailPlanBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanBuilder.swift; sourceTree = "<group>"; };
+		480790242797469900FB6F9B /* DetailPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanViewController.swift; sourceTree = "<group>"; };
+		480790252797469900FB6F9B /* DetailPlanInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanInteractor.swift; sourceTree = "<group>"; };
+		4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeComponent+DetailPlan.swift"; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +183,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		480790212797468A00FB6F9B /* DetailPlan */ = {
+			isa = PBXGroup;
+			children = (
+				480790222797469900FB6F9B /* DetailPlanRouter.swift */,
+				480790232797469900FB6F9B /* DetailPlanBuilder.swift */,
+				480790242797469900FB6F9B /* DetailPlanViewController.swift */,
+				480790252797469900FB6F9B /* DetailPlanInteractor.swift */,
+			);
+			path = DetailPlan;
+			sourceTree = "<group>";
+		};
 		480E00BE2788351400EEA4E6 = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +277,7 @@
 		483EE91B278C26BC0030DE1B /* RIBs */ = {
 			isa = PBXGroup;
 			children = (
+				480790212797468A00FB6F9B /* DetailPlan */,
 				483EE90E278C25860030DE1B /* Root */,
 				483EE91F278C288F0030DE1B /* Home */,
 				483EE929278C295B0030DE1B /* Editing */,
@@ -268,6 +290,7 @@
 			children = (
 				483EE920278C28A30030DE1B /* HomeRouter.swift */,
 				483EE921278C28A30030DE1B /* HomeBuilder.swift */,
+				4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */,
 				483EE922278C28A30030DE1B /* HomeViewController.swift */,
 				480790152796ADA900FB6F9B /* HomeTableViewCell.swift */,
 				483EE923278C28A30030DE1B /* HomeInteractor.swift */,
@@ -507,9 +530,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
+				480790272797469900FB6F9B /* DetailPlanBuilder.swift in Sources */,
 				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
+				480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */,
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
+				480790262797469900FB6F9B /* DetailPlanRouter.swift in Sources */,
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
 				483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */,
 				483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */,
@@ -522,6 +548,7 @@
 				483EE913278C25920030DE1B /* RootRouter.swift in Sources */,
 				483EE916278C25920030DE1B /* RootInteractor.swift in Sources */,
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
+				480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */,
 				483EE915278C25920030DE1B /* RootViewController.swift in Sources */,
 				483EE935278C2AA50030DE1B /* RootComponent+Editing.swift in Sources */,
 				483EE92F278C29700030DE1B /* EditingBuilder.swift in Sources */,
@@ -532,6 +559,7 @@
 				4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
 				483CAACA278EF2F200749657 /* FirestoreCodable.swift in Sources */,
+				4807902B279746B900FB6F9B /* HomeComponent+DetailPlan.swift in Sources */,
 				483EE927278C28A30030DE1B /* HomeInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
