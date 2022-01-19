@@ -30,11 +30,9 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
   init(
     interactor: RootInteractor,
     viewController: RootViewControllable,
-    homeBuilder: HomeBuildable,
-    editingBuilder: EditingBuildable)
+    homeBuilder: HomeBuildable)
   {
     self.homeBuilder = homeBuilder
-    self.editingBuilder = editingBuilder
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
@@ -49,7 +47,6 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
   // MARK: Private
 
   private let homeBuilder: HomeBuildable
-  private let editingBuilder: EditingBuildable
 
   private func routeToHome() {
     let homeRouter = homeBuilder.build(withListener: interactor)

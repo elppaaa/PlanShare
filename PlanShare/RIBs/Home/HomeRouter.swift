@@ -30,9 +30,11 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
   init(
     interactor: HomeInteractable,
     viewController: HomeViewControllable,
-    detailPlanBuilder: DetailPlanBuildable)
+    detailPlanBuilder: DetailPlanBuildable,
+    editingBuilder: EditingBuildable)
   {
     self.detailPlanBuilder = detailPlanBuilder
+    self.editingBuilder = editingBuilder
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
@@ -40,6 +42,7 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
   // MARK: Private
 
   private let detailPlanBuilder: DetailPlanBuildable
+  private let editingBuilder: EditingBuildable
 }
 
 // MARK: - HomeRouting

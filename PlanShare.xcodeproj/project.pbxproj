@@ -49,7 +49,6 @@
 		483EE930278C29700030DE1B /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE92C278C29700030DE1B /* EditingViewController.swift */; };
 		483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE92D278C29700030DE1B /* EditingInteractor.swift */; };
 		483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE932278C2A950030DE1B /* RootComponent+Home.swift */; };
-		483EE935278C2AA50030DE1B /* RootComponent+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE934278C2AA50030DE1B /* RootComponent+Editing.swift */; };
 		483EE93A278C32F60030DE1B /* FlexLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE939278C32F60030DE1B /* FlexLayout */; };
 		483EE93C278C32F60030DE1B /* FlexLayoutYoga in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE93B278C32F60030DE1B /* FlexLayoutYoga */; };
 		483EE93E278C32F60030DE1B /* FlexLayoutYogaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 483EE93D278C32F60030DE1B /* FlexLayoutYogaKit */; };
@@ -57,6 +56,7 @@
 		483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE947278C3D9C0030DE1B /* FirebaseService.swift */; };
 		483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE94A278C3EAF0030DE1B /* Plan.swift */; };
 		483EE94D278CBF2B0030DE1B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE94C278CBF2A0030DE1B /* Place.swift */; };
+		484FF12C279831DB0065317B /* HomeComponent+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF12B279831DB0065317B /* HomeComponent+Editing.swift */; };
 		48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 48716A3D278856BF00D24722 /* GooglePlaces */; };
 		48716A40278858B900D24722 /* shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 48716A3F278858B900D24722 /* shared.xcconfig */; };
 		48716A42278859A200D24722 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48716A41278859A200D24722 /* Constraints.swift */; };
@@ -126,10 +126,10 @@
 		483EE92C278C29700030DE1B /* EditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewController.swift; sourceTree = "<group>"; };
 		483EE92D278C29700030DE1B /* EditingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingInteractor.swift; sourceTree = "<group>"; };
 		483EE932278C2A950030DE1B /* RootComponent+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+Home.swift"; sourceTree = "<group>"; };
-		483EE934278C2AA50030DE1B /* RootComponent+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+Editing.swift"; sourceTree = "<group>"; };
 		483EE947278C3D9C0030DE1B /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		483EE94A278C3EAF0030DE1B /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		483EE94C278CBF2A0030DE1B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		484FF12B279831DB0065317B /* HomeComponent+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeComponent+Editing.swift"; sourceTree = "<group>"; };
 		48716A3F278858B900D24722 /* shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
 		48716A41278859A200D24722 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		48716A4927886B6200D24722 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -259,7 +259,6 @@
 				483EE911278C25920030DE1B /* RootViewController.swift */,
 				483EE912278C25920030DE1B /* RootInteractor.swift */,
 				483EE932278C2A950030DE1B /* RootComponent+Home.swift */,
-				483EE934278C2AA50030DE1B /* RootComponent+Editing.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -277,8 +276,8 @@
 		483EE91B278C26BC0030DE1B /* RIBs */ = {
 			isa = PBXGroup;
 			children = (
-				480790212797468A00FB6F9B /* DetailPlan */,
 				483EE90E278C25860030DE1B /* Root */,
+				480790212797468A00FB6F9B /* DetailPlan */,
 				483EE91F278C288F0030DE1B /* Home */,
 				483EE929278C295B0030DE1B /* Editing */,
 			);
@@ -291,6 +290,7 @@
 				483EE920278C28A30030DE1B /* HomeRouter.swift */,
 				483EE921278C28A30030DE1B /* HomeBuilder.swift */,
 				4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */,
+				484FF12B279831DB0065317B /* HomeComponent+Editing.swift */,
 				483EE922278C28A30030DE1B /* HomeViewController.swift */,
 				480790152796ADA900FB6F9B /* HomeTableViewCell.swift */,
 				483EE923278C28A30030DE1B /* HomeInteractor.swift */,
@@ -530,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
+				484FF12C279831DB0065317B /* HomeComponent+Editing.swift in Sources */,
 				480790272797469900FB6F9B /* DetailPlanBuilder.swift in Sources */,
 				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
@@ -550,7 +551,6 @@
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
 				480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */,
 				483EE915278C25920030DE1B /* RootViewController.swift in Sources */,
-				483EE935278C2AA50030DE1B /* RootComponent+Editing.swift in Sources */,
 				483EE92F278C29700030DE1B /* EditingBuilder.swift in Sources */,
 				480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */,
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
