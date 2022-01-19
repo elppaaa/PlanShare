@@ -31,8 +31,8 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
     interactor: HomeInteractable,
     viewController: HomeViewControllable,
     detailPlanBuilder: DetailPlanBuildable,
-    editingBuilder: EditingBuildable)
-  {
+    editingBuilder: EditingBuildable
+  ) {
     self.detailPlanBuilder = detailPlanBuilder
     self.editingBuilder = editingBuilder
     super.init(interactor: interactor, viewController: viewController)

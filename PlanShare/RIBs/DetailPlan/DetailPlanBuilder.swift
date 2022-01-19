@@ -24,9 +24,7 @@ final class DetailPlanComponent: Component<DetailPlanDependency> {
 // MARK: - DetailPlanBuildable
 
 protocol DetailPlanBuildable: Buildable {
-  func build(
-    withListener listener: DetailPlanListener,
-    currentPlan: Plan) -> DetailPlanRouting
+  func build(withListener listener: DetailPlanListener, currentPlan: Plan) -> DetailPlanRouting
 }
 
 // MARK: - DetailPlanBuilder

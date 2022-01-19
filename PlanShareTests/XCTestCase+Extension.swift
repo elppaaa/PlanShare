@@ -14,7 +14,8 @@ extension XCTestCase {
     in file: StaticString = #file,
     at line: UInt = #line,
     withTimeout timeout: TimeInterval = 10,
-    test: @escaping () async throws -> Void)
+    test: @escaping () async throws -> Void
+  )
   {
     var thrownError: Error?
     let errorHandler = { thrownError = $0 }
@@ -36,7 +37,8 @@ extension XCTestCase {
       XCTFail(
         "Async error thrown: \(error)",
         file: file,
-        line: line)
+        line: line
+      )
     }
   }
 }

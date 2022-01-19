@@ -51,6 +51,7 @@ final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
       interactor: interactor,
       viewController: viewController,
       detailPlanBuilder: detailPlanBuilder,
-      editingBuilder: editingBuilder)
+      editingBuilder: editingBuilder
+    )
   }
 }

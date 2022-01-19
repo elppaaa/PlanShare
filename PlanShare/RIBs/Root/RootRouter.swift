@@ -30,7 +30,8 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
   init(
     interactor: RootInteractor,
     viewController: RootViewControllable,
-    homeBuilder: HomeBuildable)
+    homeBuilder: HomeBuildable
+  )
   {
     self.homeBuilder = homeBuilder
     super.init(interactor: interactor, viewController: viewController)

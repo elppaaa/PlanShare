@@ -43,6 +43,12 @@ final class EditingBuilder: Builder<EditingDependency>, EditingBuildable {
     let viewController = EditingViewController()
     let interactor = EditingInteractor(presenter: viewController)
     interactor.listener = listener
-    return EditingRouter(interactor: interactor, viewController: viewController)
+
+    let placeSelectingBuilder = PlaceSelectingBuilder(dependency: component)
+    return EditingRouter(
+      interactor: interactor,
+      viewController: viewController,
+      placeSelectingBuilder: placeSelectingBuilder
+    )
   }
 }

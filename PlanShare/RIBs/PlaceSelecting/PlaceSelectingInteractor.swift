@@ -1,5 +1,5 @@
 //
-//  DetailPlanInteractor.swift
+//  PlaceSelectingInteractor.swift
 //  PlanShare
 //
 //  Created by JK on 2022/01/19.
@@ -8,48 +8,42 @@
 import RIBs
 import RxSwift
 
-// MARK: - DetailPlanRouting
+// MARK: - PlaceSelectingRouting
 
-protocol DetailPlanRouting: ViewableRouting {
+protocol PlaceSelectingRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
-// MARK: - DetailPlanPresentable
+// MARK: - PlaceSelectingPresentable
 
-protocol DetailPlanPresentable: Presentable {
-  var listener: DetailPlanPresentableListener? { get set }
+protocol PlaceSelectingPresentable: Presentable {
+  var listener: PlaceSelectingPresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
-  func setData(plan: Plan)
 }
 
-// MARK: - DetailPlanListener
+// MARK: - PlaceSelectingListener
 
-protocol DetailPlanListener: AnyObject {
+protocol PlaceSelectingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-// MARK: - DetailPlanInteractor
+// MARK: - PlaceSelectingInteractor
 
-final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, DetailPlanInteractable, DetailPlanPresentableListener {
+final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresentable>, PlaceSelectingInteractable, PlaceSelectingPresentableListener {
 
   // MARK: Lifecycle
 
   // TODO: Add additional dependencies to constructor. Do not perform any logic
   // in constructor.
-  init(
-    presenter: DetailPlanPresentable,
-    currentPlan: Plan
-  )
-  {
-    plan = currentPlan
+  override init(presenter: PlaceSelectingPresentable) {
     super.init(presenter: presenter)
     presenter.listener = self
   }
 
   // MARK: Internal
 
-  weak var router: DetailPlanRouting?
-  weak var listener: DetailPlanListener?
+  weak var router: PlaceSelectingRouting?
+  weak var listener: PlaceSelectingListener?
 
   override func didBecomeActive() {
     super.didBecomeActive()
@@ -60,8 +54,4 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
     super.willResignActive()
     // TODO: Pause any business logic.
   }
-
-  // MARK: Private
-
-  private let plan: Plan
 }

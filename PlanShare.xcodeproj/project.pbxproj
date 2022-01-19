@@ -57,6 +57,11 @@
 		483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE94A278C3EAF0030DE1B /* Plan.swift */; };
 		483EE94D278CBF2B0030DE1B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EE94C278CBF2A0030DE1B /* Place.swift */; };
 		484FF12C279831DB0065317B /* HomeComponent+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF12B279831DB0065317B /* HomeComponent+Editing.swift */; };
+		484FF134279837D50065317B /* PlaceSelectingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF130279837D50065317B /* PlaceSelectingRouter.swift */; };
+		484FF135279837D50065317B /* PlaceSelectingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF131279837D50065317B /* PlaceSelectingBuilder.swift */; };
+		484FF136279837D50065317B /* PlaceSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF132279837D50065317B /* PlaceSelectingViewController.swift */; };
+		484FF137279837D50065317B /* PlaceSelectingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF133279837D50065317B /* PlaceSelectingInteractor.swift */; };
+		484FF139279839730065317B /* EditingComponent+PlaceSelecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484FF138279839730065317B /* EditingComponent+PlaceSelecting.swift */; };
 		48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 48716A3D278856BF00D24722 /* GooglePlaces */; };
 		48716A40278858B900D24722 /* shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 48716A3F278858B900D24722 /* shared.xcconfig */; };
 		48716A42278859A200D24722 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48716A41278859A200D24722 /* Constraints.swift */; };
@@ -130,6 +135,11 @@
 		483EE94A278C3EAF0030DE1B /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		483EE94C278CBF2A0030DE1B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		484FF12B279831DB0065317B /* HomeComponent+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeComponent+Editing.swift"; sourceTree = "<group>"; };
+		484FF130279837D50065317B /* PlaceSelectingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSelectingRouter.swift; sourceTree = "<group>"; };
+		484FF131279837D50065317B /* PlaceSelectingBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSelectingBuilder.swift; sourceTree = "<group>"; };
+		484FF132279837D50065317B /* PlaceSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSelectingViewController.swift; sourceTree = "<group>"; };
+		484FF133279837D50065317B /* PlaceSelectingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSelectingInteractor.swift; sourceTree = "<group>"; };
+		484FF138279839730065317B /* EditingComponent+PlaceSelecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditingComponent+PlaceSelecting.swift"; sourceTree = "<group>"; };
 		48716A3F278858B900D24722 /* shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
 		48716A41278859A200D24722 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		48716A4927886B6200D24722 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -277,9 +287,10 @@
 			isa = PBXGroup;
 			children = (
 				483EE90E278C25860030DE1B /* Root */,
-				480790212797468A00FB6F9B /* DetailPlan */,
 				483EE91F278C288F0030DE1B /* Home */,
+				480790212797468A00FB6F9B /* DetailPlan */,
 				483EE929278C295B0030DE1B /* Editing */,
+				484FF12F279837B00065317B /* PlaceSelecting */,
 			);
 			path = RIBs;
 			sourceTree = "<group>";
@@ -305,6 +316,7 @@
 				483EE92B278C29700030DE1B /* EditingBuilder.swift */,
 				483EE92C278C29700030DE1B /* EditingViewController.swift */,
 				483EE92D278C29700030DE1B /* EditingInteractor.swift */,
+				484FF138279839730065317B /* EditingComponent+PlaceSelecting.swift */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -329,6 +341,17 @@
 				483CAAC9278EF2F200749657 /* FirestoreCodable.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		484FF12F279837B00065317B /* PlaceSelecting */ = {
+			isa = PBXGroup;
+			children = (
+				484FF130279837D50065317B /* PlaceSelectingRouter.swift */,
+				484FF131279837D50065317B /* PlaceSelectingBuilder.swift */,
+				484FF132279837D50065317B /* PlaceSelectingViewController.swift */,
+				484FF133279837D50065317B /* PlaceSelectingInteractor.swift */,
+			);
+			path = PlaceSelecting;
 			sourceTree = "<group>";
 		};
 		48716A4827886B6200D24722 /* Frameworks */ = {
@@ -543,16 +566,21 @@
 				483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */,
 				483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */,
 				48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */,
+				484FF139279839730065317B /* EditingComponent+PlaceSelecting.swift in Sources */,
 				480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
 				483EE94D278CBF2B0030DE1B /* Place.swift in Sources */,
 				483EE913278C25920030DE1B /* RootRouter.swift in Sources */,
 				483EE916278C25920030DE1B /* RootInteractor.swift in Sources */,
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
+				484FF136279837D50065317B /* PlaceSelectingViewController.swift in Sources */,
+				484FF134279837D50065317B /* PlaceSelectingRouter.swift in Sources */,
 				480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */,
+				484FF135279837D50065317B /* PlaceSelectingBuilder.swift in Sources */,
 				483EE915278C25920030DE1B /* RootViewController.swift in Sources */,
 				483EE92F278C29700030DE1B /* EditingBuilder.swift in Sources */,
 				480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */,
+				484FF137279837D50065317B /* PlaceSelectingInteractor.swift in Sources */,
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,

@@ -25,7 +25,8 @@ class FireStoreTestCase: XCTestCase {
     let deletionRequest = try URLRequest(
       url: "http://localhost:8080/emulator/v1/projects/plan-share-d89cf/databases/(default)/documents",
       method: .delete,
-      headers: nil)
+      headers: nil
+    )
     let expectation = expectation(description: "request finished")
     let request = URLSession.shared.dataTask(with: deletionRequest) { _, response, _ in
       guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
