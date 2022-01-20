@@ -37,7 +37,13 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
   // TODO: Add additional dependencies to constructor. Do not perform any logic
   // in constructor.
   init(presenter: EditingPresentable, plan: Plan?) {
-    self.plan = plan
+    if let plan = plan {
+      self.plan = plan
+      isNew = false
+    } else {
+      self.plan = Plan.empty
+      isNew = true
+    }
     super.init(presenter: presenter)
     presenter.listener = self
   }
@@ -50,6 +56,7 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
+    presenter.setView(with: plan)
   }
 
   override func willResignActive() {
@@ -59,6 +66,8 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
 
   // MARK: Private
 
-  private var plan: Plan?
+  private let isNew: Bool
+
+  private var plan: Plan
 
 }

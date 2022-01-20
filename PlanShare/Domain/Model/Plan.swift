@@ -8,6 +8,7 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
+import MapKit
 
 // MARK: - Plan
 
@@ -29,6 +30,10 @@ extension Plan {
     var place: Place
     var memo: String
     var additionalPlaces: [Place] = []
+  }
+
+  static var empty: Plan {
+    Plan(title: "", startAt: Date(), endAt: Date(), place: Place(id: "", title: "", address: "", location: CLLocationCoordinate2D()), memo: "")
   }
 }
 

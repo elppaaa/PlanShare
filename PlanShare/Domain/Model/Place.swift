@@ -12,9 +12,9 @@ import Foundation
 
 struct Place: Codable, Equatable {
   let id: String
-  let title: String
-  let address: String
-  let location: CLLocationCoordinate2D
+  var title: String
+  var address: String
+  var location: CLLocationCoordinate2D
 }
 
 // MARK: FirestoreDecodable

@@ -19,6 +19,7 @@ protocol HomePresentableListener: AnyObject {
   // business logic, such as signIn(). This protocol is implemented by the corresponding
   // interactor class.
   func planSelected(index: Int)
+  func newPlan()
   var output: HomePresentableOutput { get }
 }
 
@@ -34,10 +35,7 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
     super.viewDidLoad()
     debugPrint("Init")
     bindings()
-    view.backgroundColor = .systemBackground
-    view.addSubview(tableView)
-    tableView.frame = view.frame
-    tableView.center = view.center
+    configView()
   }
 
   // MARK: Private
@@ -46,8 +44,17 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
     $0.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.describe)
     $0.rowHeight = 70
   }
+  private let newPlanButton = UIBarButtonItem(image: .init(systemName: "plus"), style: .plain, target: self, action: nil)
 
   private let disposeBag = DisposeBag()
+
+  private func configView() {
+    view.backgroundColor = .systemBackground
+    view.addSubview(tableView)
+    tableView.frame = view.frame
+    tableView.center = view.center
+    navigationItem.rightBarButtonItem = newPlanButton
+  }
 
   private func bindings() {
     guard let output = listener?.output else { return }
@@ -63,6 +70,12 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] indexPath in
         self?.listener?.planSelected(index: indexPath.row)
+      })
+      .disposed(by: disposeBag)
+
+    newPlanButton.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        self?.listener?.newPlan()
       })
       .disposed(by: disposeBag)
   }

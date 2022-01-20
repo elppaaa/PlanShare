@@ -9,7 +9,7 @@ import RIBs
 
 // MARK: - HomeInteractable
 
-protocol HomeInteractable: Interactable, DetailPlanListener {
+protocol HomeInteractable: Interactable, DetailPlanListener, EditingListener {
   var router: HomeRouting? { get set }
   var listener: HomeListener? { get set }
 }
@@ -59,6 +59,12 @@ extension HomeRouter {
 
   func dismissChild(_ router: DetailPlanRouting) {
     detachChild(router)
+  }
+
+  func routeToNewPlan() {
+    let router = editingBuilder.build(withListener: interactor, currentPlan: nil)
+    attachChild(router)
+    viewController.push(viewController: router.viewControllable)
   }
 
   // MARK: Private
