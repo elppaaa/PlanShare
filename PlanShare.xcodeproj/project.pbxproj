@@ -78,6 +78,7 @@
 		48DC7B2927997FE80068FA1B /* PlaceSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */; };
 		48DC7B2B27998AD90068FA1B /* PlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2A27998AD90068FA1B /* PlacesTests.swift */; };
 		48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */; };
+		48DC7B2F2799B83B0068FA1B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2E2799B83B0068FA1B /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchResult.swift; sourceTree = "<group>"; };
 		48DC7B2A27998AD90068FA1B /* PlacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTests.swift; sourceTree = "<group>"; };
 		48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Equatable.swift"; sourceTree = "<group>"; };
+		48DC7B2E2799B83B0068FA1B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				480790232797469900FB6F9B /* DetailPlanBuilder.swift */,
 				480790242797469900FB6F9B /* DetailPlanViewController.swift */,
 				480790252797469900FB6F9B /* DetailPlanInteractor.swift */,
+				48DC7B2E2799B83B0068FA1B /* MapViewController.swift */,
 			);
 			path = DetailPlan;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */,
 				484FF137279837D50065317B /* PlaceSelectingInteractor.swift in Sources */,
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
+				48DC7B2F2799B83B0068FA1B /* MapViewController.swift in Sources */,
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
 				48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
