@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/14.
 //
 
+import MapKit
 import RxBlocking
 import RxSwift
 import XCTest
@@ -21,25 +22,25 @@ class FireStoreTestCase: XCTestCase {
 
   override func tearDownWithError() throws {
     disposeBag = nil
-
-    let deletionRequest = try URLRequest(
-      url: "http://localhost:8080/emulator/v1/projects/plan-share-d89cf/databases/(default)/documents",
-      method: .delete,
-      headers: nil
-    )
-    let expectation = expectation(description: "request finished")
-    let request = URLSession.shared.dataTask(with: deletionRequest) { _, response, _ in
-      guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
-      expectation.fulfill()
-    }
-    request.resume()
-
-    wait(for: [expectation], timeout: 3)
+//
+//    let deletionRequest = try URLRequest(
+//      url: "http://localhost:8080/emulator/v1/projects/plan-share-d89cf/databases/(default)/documents",
+//      method: .delete,
+//      headers: nil
+//    )
+//    let expectation = expectation(description: "request finished")
+//    let request = URLSession.shared.dataTask(with: deletionRequest) { _, response, _ in
+//      guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
+//      expectation.fulfill()
+//    }
+//    request.resume()
+//
+//    wait(for: [expectation], timeout: 3)
     try super.tearDownWithError()
   }
 
   func testDBCreate() throws {
-    let place = Place(id: "placeID", title: "placeTitle", link: "placeLink", address: "placeAddress")
+    let place = Place(id: "placeID", title: "placeTitle", address: "placeAddress", location: CLLocationCoordinate2D(latitude: 37.2654988, longitude: 127.0329044))
     let plan = Plan(title: "planTitle", startAt: Date(), endAt: Date(), place: place, memo: "planMemo")
 
     let result = try FirebaseService.create(path: "Plan", data: plan)
@@ -174,7 +175,7 @@ class FireStoreTestCase: XCTestCase {
       fatalError()
     }
 
-    let place = Place(id: "placeID", title: "placeTitle", link: "placeLink", address: "placeAddress")
+    let place = Place(id: "placeID", title: "placeTitle", address: "placeAddress", location: CLLocationCoordinate2D(latitude: 37.2654988, longitude: 127.0329044))
     let plan = Plan(title: "planTitle", startAt: date, endAt: date, place: place, memo: "planMemo")
 
     return plan

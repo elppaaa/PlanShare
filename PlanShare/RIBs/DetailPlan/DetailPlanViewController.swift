@@ -52,7 +52,6 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     container.flex.define {
       $0.addItem().size(100).backgroundColor(.systemTeal)
     }
-
   }
 }
 

@@ -7,6 +7,7 @@
 
 import Alamofire
 import FirebaseFirestore
+import MapKit
 import RxBlocking
 import RxSwift
 import XCTest
@@ -46,7 +47,7 @@ class PlanShareTests: XCTestCase {
       XCTFail()
       fatalError()
     }
-    let place = Place(id: "testPlace", title: "testTitle", link: "testLink", address: "testAddress")
+    let place = Place(id: "testPlace", title: "testTitle", address: "testAddress", location: CLLocationCoordinate2D())
     let plan = Plan.Upload(title: "testTitle", startAt: date, endAt: date, place: place, memo: "testMemo")
 
     guard let serialized = plan.dict else {
@@ -67,7 +68,6 @@ class PlanShareTests: XCTestCase {
 
     XCTAssert((serializedPlace["id"] as? String) ?? "" == place.id)
     XCTAssert((serializedPlace["title"] as? String) ?? "" == place.title)
-    XCTAssert((serializedPlace["link"] as? String) ?? "" == place.link)
     XCTAssert((serializedPlace["address"] as? String) ?? "" == place.address)
   }
 
@@ -112,7 +112,7 @@ class PlanShareTests: XCTestCase {
 
   func testConcurrencyWrite() throws {
     runAsyncTest {
-      let value = Plan.Upload(title: "Title", startAt: Date.now, endAt: Date.now, place: Place(id: "new_id", title: "string", link: "links", address: "address"), memo: "memo")
+      let value = Plan.Upload(title: "Title", startAt: Date.now, endAt: Date.now, place: Place(id: "new_id", title: "string", address: "address", location: CLLocationCoordinate2D()), memo: "memo")
       let result = await FirebaseService.create(path: "Plan", data: value)
 
       debugPrint(try result.get().documentID)
@@ -132,7 +132,7 @@ class PlanShareTests: XCTestCase {
       XCTFail()
       fatalError()
     }
-    let plan = Plan.Upload(title: "title", startAt: date, endAt: date, place: Place(id: "id", title: "타이틀", link: "link", address: "address"), memo: "memo")
+    let plan = Plan.Upload(title: "title", startAt: date, endAt: date, place: Place(id: "id", title: "타이틀", address: "address", location: CLLocationCoordinate2D()), memo: "memo")
 
     let doc = try FirebaseService.planRef.rx.new(document: plan)
       .toBlocking(timeout: 5)

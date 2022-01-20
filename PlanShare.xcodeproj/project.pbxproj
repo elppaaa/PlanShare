@@ -74,6 +74,10 @@
 		487C7A282788700B00F1528B /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A272788700B00F1528B /* RxTest */; };
 		48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DAF27908BB800E240F5 /* UpdateModel.swift */; };
 		48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */; };
+		48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2627997B580068FA1B /* PlaceService.swift */; };
+		48DC7B2927997FE80068FA1B /* PlaceSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */; };
+		48DC7B2B27998AD90068FA1B /* PlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2A27998AD90068FA1B /* PlacesTests.swift */; };
+		48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +149,10 @@
 		48716A4927886B6200D24722 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		48C93DAF27908BB800E240F5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestCase.swift; sourceTree = "<group>"; };
+		48DC7B2627997B580068FA1B /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
+		48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchResult.swift; sourceTree = "<group>"; };
+		48DC7B2A27998AD90068FA1B /* PlacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTests.swift; sourceTree = "<group>"; };
+		48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Equatable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				480E00E42788351700EEA4E6 /* PlanShareTests.swift */,
+				48DC7B2A27998AD90068FA1B /* PlacesTests.swift */,
 				48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */,
 				483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */,
 			);
@@ -327,6 +336,8 @@
 				483EE949278C3EA60030DE1B /* Model */,
 				483EE947278C3D9C0030DE1B /* FirebaseService.swift */,
 				4807901B27970F0200FB6F9B /* UserDefault.swift */,
+				48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */,
+				48DC7B2627997B580068FA1B /* PlaceService.swift */,
 				483CAAC3278E91C100749657 /* FireStore+Extension.swift */,
 			);
 			path = Domain;
@@ -336,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				483EE94A278C3EAF0030DE1B /* Plan.swift */,
+				48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */,
 				48C93DAF27908BB800E240F5 /* UpdateModel.swift */,
 				483EE94C278CBF2A0030DE1B /* Place.swift */,
 				483CAAC9278EF2F200749657 /* FirestoreCodable.swift */,
@@ -574,15 +586,18 @@
 				483EE916278C25920030DE1B /* RootInteractor.swift in Sources */,
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
 				484FF136279837D50065317B /* PlaceSelectingViewController.swift in Sources */,
+				48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift in Sources */,
 				484FF134279837D50065317B /* PlaceSelectingRouter.swift in Sources */,
 				480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */,
 				484FF135279837D50065317B /* PlaceSelectingBuilder.swift in Sources */,
 				483EE915278C25920030DE1B /* RootViewController.swift in Sources */,
+				48DC7B2927997FE80068FA1B /* PlaceSearchResult.swift in Sources */,
 				483EE92F278C29700030DE1B /* EditingBuilder.swift in Sources */,
 				480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */,
 				484FF137279837D50065317B /* PlaceSelectingInteractor.swift in Sources */,
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
+				48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
 				4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
@@ -599,6 +614,7 @@
 				483CAAC6278ECF3800749657 /* XCTestCase+Extension.swift in Sources */,
 				480E00E52788351700EEA4E6 /* PlanShareTests.swift in Sources */,
 				48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */,
+				48DC7B2B27998AD90068FA1B /* PlacesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,7 +780,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78X32W2D44;
-				GCC_PREPROCESSOR_DEFINITIONS = "FLEXLAYOUT_SWIFT_PACKAGE=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"FLEXLAYOUT_SWIFT_PACKAGE=1",
+					"DEBUG=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -828,6 +847,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78X32W2D44;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"FLEXLAYOUT_SWIFT_PACKAGE=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;

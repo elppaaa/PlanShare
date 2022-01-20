@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/11.
 //
 
+import CoreLocation
 import Foundation
 
 // MARK: - Place
@@ -12,8 +13,8 @@ import Foundation
 struct Place: Codable, Equatable {
   let id: String
   let title: String
-  let link: String
   let address: String
+  let location: CLLocationCoordinate2D
 }
 
 // MARK: FirestoreDecodable
