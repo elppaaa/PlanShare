@@ -7,11 +7,13 @@
 
 import RIBs
 import RxSwift
+import CoreLocation
 
 // MARK: - DetailPlanRouting
 
 protocol DetailPlanRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+  func routeToMarkedMap(location: CLLocationCoordinate2D)
 }
 
 // MARK: - DetailPlanPresentable
@@ -31,6 +33,7 @@ protocol DetailPlanListener: AnyObject {
 // MARK: - DetailPlanInteractor
 
 final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, DetailPlanInteractable, DetailPlanPresentableListener {
+  
 
   // MARK: Lifecycle
 
@@ -64,4 +67,12 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
   // MARK: Private
 
   private let plan: Plan
+}
+
+// MARK: - DetailPlanPresentableListener
+
+extension DetailPlanInteractor {
+  func mapButtonTapped(location: CLLocationCoordinate2D) {
+    router?.routeToMarkedMap(location: location)
+  }
 }

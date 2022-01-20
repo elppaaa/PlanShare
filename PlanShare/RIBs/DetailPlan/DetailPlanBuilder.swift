@@ -40,10 +40,16 @@ final class DetailPlanBuilder: Builder<DetailPlanDependency>, DetailPlanBuildabl
   // MARK: Internal
 
   func build(withListener listener: DetailPlanListener, currentPlan plan: Plan) -> DetailPlanRouting {
-    _ = DetailPlanComponent(dependency: dependency)
+    let component = DetailPlanComponent(dependency: dependency)
     let viewController = DetailPlanViewController()
     let interactor = DetailPlanInteractor(presenter: viewController, currentPlan: plan)
     interactor.listener = listener
-    return DetailPlanRouter(interactor: interactor, viewController: viewController)
+    
+    let markedMapBuilder = MarkedMapBuilder(dependency: component)
+    return DetailPlanRouter(
+      interactor: interactor,
+      viewController: viewController,
+      markedMapBuilder: markedMapBuilder
+    )
   }
 }

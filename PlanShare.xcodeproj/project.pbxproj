@@ -72,13 +72,19 @@
 		487C7A242788700B00F1528B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A232788700B00F1528B /* RxRelay */; };
 		487C7A262788700B00F1528B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A252788700B00F1528B /* RxSwift */; };
 		487C7A282788700B00F1528B /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 487C7A272788700B00F1528B /* RxTest */; };
+		48A2A1472799DA5E00E735D8 /* MarkedMapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A1432799DA5E00E735D8 /* MarkedMapRouter.swift */; };
+		48A2A1482799DA5E00E735D8 /* MarkedMapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A1442799DA5E00E735D8 /* MarkedMapBuilder.swift */; };
+		48A2A1492799DA5E00E735D8 /* MarkedMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A1452799DA5E00E735D8 /* MarkedMapViewController.swift */; };
+		48A2A14A2799DA5E00E735D8 /* MarkedMapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A1462799DA5E00E735D8 /* MarkedMapInteractor.swift */; };
+		48A2A14C2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A14B2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift */; };
 		48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DAF27908BB800E240F5 /* UpdateModel.swift */; };
 		48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */; };
 		48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2627997B580068FA1B /* PlaceService.swift */; };
 		48DC7B2927997FE80068FA1B /* PlaceSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */; };
 		48DC7B2B27998AD90068FA1B /* PlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2A27998AD90068FA1B /* PlacesTests.swift */; };
-		48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */; };
+		48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift */; };
 		48DC7B2F2799B83B0068FA1B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2E2799B83B0068FA1B /* MapViewController.swift */; };
+		48DC7B312799D6690068FA1B /* ViewControllerable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,13 +154,19 @@
 		48716A3F278858B900D24722 /* shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
 		48716A41278859A200D24722 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		48716A4927886B6200D24722 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		48A2A1432799DA5E00E735D8 /* MarkedMapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedMapRouter.swift; sourceTree = "<group>"; };
+		48A2A1442799DA5E00E735D8 /* MarkedMapBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedMapBuilder.swift; sourceTree = "<group>"; };
+		48A2A1452799DA5E00E735D8 /* MarkedMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedMapViewController.swift; sourceTree = "<group>"; };
+		48A2A1462799DA5E00E735D8 /* MarkedMapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedMapInteractor.swift; sourceTree = "<group>"; };
+		48A2A14B2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailPlanComponent+MarkedMap.swift"; sourceTree = "<group>"; };
 		48C93DAF27908BB800E240F5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestCase.swift; sourceTree = "<group>"; };
 		48DC7B2627997B580068FA1B /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
 		48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchResult.swift; sourceTree = "<group>"; };
 		48DC7B2A27998AD90068FA1B /* PlacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTests.swift; sourceTree = "<group>"; };
-		48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Equatable.swift"; sourceTree = "<group>"; };
+		48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		48DC7B2E2799B83B0068FA1B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewControllerable+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +223,7 @@
 				480790242797469900FB6F9B /* DetailPlanViewController.swift */,
 				480790252797469900FB6F9B /* DetailPlanInteractor.swift */,
 				48DC7B2E2799B83B0068FA1B /* MapViewController.swift */,
+				48A2A14B2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift */,
 			);
 			path = DetailPlan;
 			sourceTree = "<group>";
@@ -242,10 +255,9 @@
 				483EE918278C261D0030DE1B /* AppStart */,
 				483EE91B278C26BC0030DE1B /* RIBs */,
 				483EE944278C3C4F0030DE1B /* Domain */,
+				48DC7B332799D83A0068FA1B /* Supporting Files */,
 				480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */,
 				48716A3F278858B900D24722 /* shared.xcconfig */,
-				480790172796ADF100FB6F9B /* NSObject+Extension.swift */,
-				48716A41278859A200D24722 /* Constraints.swift */,
 				480E00D62788351700EEA4E6 /* Assets.xcassets */,
 				480E00D82788351700EEA4E6 /* LaunchScreen.storyboard */,
 				480E00DB2788351700EEA4E6 /* Info.plist */,
@@ -303,6 +315,7 @@
 				480790212797468A00FB6F9B /* DetailPlan */,
 				483EE929278C295B0030DE1B /* Editing */,
 				484FF12F279837B00065317B /* PlaceSelecting */,
+				48DC7B342799D9880068FA1B /* MarkedMap */,
 			);
 			path = RIBs;
 			sourceTree = "<group>";
@@ -339,9 +352,7 @@
 				483EE949278C3EA60030DE1B /* Model */,
 				483EE947278C3D9C0030DE1B /* FirebaseService.swift */,
 				4807901B27970F0200FB6F9B /* UserDefault.swift */,
-				48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift */,
 				48DC7B2627997B580068FA1B /* PlaceService.swift */,
-				483CAAC3278E91C100749657 /* FireStore+Extension.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -375,6 +386,30 @@
 				48716A4927886B6200D24722 /* XCTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		48DC7B332799D83A0068FA1B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				480790172796ADF100FB6F9B /* NSObject+Extension.swift */,
+				48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift */,
+				48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */,
+				483CAAC3278E91C100749657 /* FireStore+Extension.swift */,
+				48716A41278859A200D24722 /* Constraints.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		48DC7B342799D9880068FA1B /* MarkedMap */ = {
+			isa = PBXGroup;
+			children = (
+				48A2A1432799DA5E00E735D8 /* MarkedMapRouter.swift */,
+				48A2A1442799DA5E00E735D8 /* MarkedMapBuilder.swift */,
+				48A2A1452799DA5E00E735D8 /* MarkedMapViewController.swift */,
+				48A2A1462799DA5E00E735D8 /* MarkedMapInteractor.swift */,
+			);
+			name = MarkedMap;
+			path = PlaceSelecting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -569,6 +604,8 @@
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
 				484FF12C279831DB0065317B /* HomeComponent+Editing.swift in Sources */,
+				48A2A1482799DA5E00E735D8 /* MarkedMapBuilder.swift in Sources */,
+				48DC7B312799D6690068FA1B /* ViewControllerable+Extension.swift in Sources */,
 				480790272797469900FB6F9B /* DetailPlanBuilder.swift in Sources */,
 				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
@@ -578,9 +615,11 @@
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
 				483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */,
 				483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */,
+				48A2A1492799DA5E00E735D8 /* MarkedMapViewController.swift in Sources */,
 				483EE933278C2A950030DE1B /* RootComponent+Home.swift in Sources */,
 				483EE948278C3D9C0030DE1B /* FirebaseService.swift in Sources */,
 				48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */,
+				48A2A1472799DA5E00E735D8 /* MarkedMapRouter.swift in Sources */,
 				484FF139279839730065317B /* EditingComponent+PlaceSelecting.swift in Sources */,
 				480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
@@ -589,7 +628,7 @@
 				483EE916278C25920030DE1B /* RootInteractor.swift in Sources */,
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
 				484FF136279837D50065317B /* PlaceSelectingViewController.swift in Sources */,
-				48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Equatable.swift in Sources */,
+				48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				484FF134279837D50065317B /* PlaceSelectingRouter.swift in Sources */,
 				480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */,
 				484FF135279837D50065317B /* PlaceSelectingBuilder.swift in Sources */,
@@ -604,8 +643,10 @@
 				48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
 				4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */,
+				48A2A14C2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
 				483CAACA278EF2F200749657 /* FirestoreCodable.swift in Sources */,
+				48A2A14A2799DA5E00E735D8 /* MarkedMapInteractor.swift in Sources */,
 				4807902B279746B900FB6F9B /* HomeComponent+DetailPlan.swift in Sources */,
 				483EE927278C28A30030DE1B /* HomeInteractor.swift in Sources */,
 			);
