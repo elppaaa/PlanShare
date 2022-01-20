@@ -19,6 +19,7 @@ protocol EditingRouting: ViewableRouting {
 protocol EditingPresentable: Presentable {
   var listener: EditingPresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
+  func setView(with plan: Plan)
 }
 
 // MARK: - EditingListener
@@ -35,7 +36,8 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
 
   // TODO: Add additional dependencies to constructor. Do not perform any logic
   // in constructor.
-  override init(presenter: EditingPresentable) {
+  init(presenter: EditingPresentable, plan: Plan?) {
+    self.plan = plan
     super.init(presenter: presenter)
     presenter.listener = self
   }
@@ -54,4 +56,9 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
     super.willResignActive()
     // TODO: Pause any business logic.
   }
+
+  // MARK: Private
+
+  private var plan: Plan?
+
 }

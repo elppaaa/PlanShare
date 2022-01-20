@@ -17,13 +17,24 @@ protocol EditingDependency: Dependency {
 // MARK: - EditingComponent
 
 final class EditingComponent: Component<EditingDependency> {
+
+  // MARK: Lifecycle
+
+  init(dependency: EditingDependency, plan: Plan?) {
+    self.plan = plan
+    super.init(dependency: dependency)
+  }
+
+  // MARK: Fileprivate
+
   // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
+  fileprivate var plan: Plan?
 }
 
 // MARK: - EditingBuildable
 
 protocol EditingBuildable: Buildable {
-  func build(withListener listener: EditingListener) -> EditingRouting
+  func build(withListener listener: EditingListener, currentPlan: Plan?) -> EditingRouting
 }
 
 // MARK: - EditingBuilder
@@ -38,10 +49,10 @@ final class EditingBuilder: Builder<EditingDependency>, EditingBuildable {
 
   // MARK: Internal
 
-  func build(withListener listener: EditingListener) -> EditingRouting {
-    let component = EditingComponent(dependency: dependency)
+  func build(withListener listener: EditingListener, currentPlan: Plan?) -> EditingRouting {
+    let component = EditingComponent(dependency: dependency, plan: currentPlan)
     let viewController = EditingViewController()
-    let interactor = EditingInteractor(presenter: viewController)
+    let interactor = EditingInteractor(presenter: viewController, plan: component.plan)
     interactor.listener = listener
 
     let placeSelectingBuilder = PlaceSelectingBuilder(dependency: component)

@@ -27,8 +27,8 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 
   weak var listener: DetailPlanPresentableListener?
 
-  override func loadView() {
-    super.loadView()
+  override func viewDidLoad() {
+    super.viewDidLoad()
     view.addSubview(container)
     configView()
   }
