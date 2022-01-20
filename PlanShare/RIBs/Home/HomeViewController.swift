@@ -30,16 +30,14 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
 
   weak var listener: HomePresentableListener?
 
-  override func loadView() {
-    super.loadView()
-    view = tableView
-    view.backgroundColor = .systemTeal
-  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
     debugPrint("Init")
     bindings()
+    view.backgroundColor = .systemBackground
+    view.addSubview(tableView)
+    tableView.frame = view.frame
+    tableView.center = view.center
   }
 
   // MARK: Private

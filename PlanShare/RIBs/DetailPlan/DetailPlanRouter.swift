@@ -5,8 +5,8 @@
 //  Created by JK on 2022/01/19.
 //
 
-import RIBs
 import CoreLocation
+import RIBs
 
 // MARK: - DetailPlanInteractable
 
@@ -25,6 +25,8 @@ protocol DetailPlanViewControllable: ViewControllable {
 
 final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanViewControllable>, DetailPlanRouting {
 
+  // MARK: Lifecycle
+
   // TODO: Constructor inject child builder protocols to allow building children.
   init(
     interactor: DetailPlanInteractable,
@@ -35,21 +37,14 @@ final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanV
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
-  
+
+  // MARK: Private
+
   private let markedMapBuilder: MarkedMapBuildable
-  private var currentChild: ViewableRouting?
-  
-  
+
   private func pushChild(_ router: ViewableRouting) {
     viewController.push(viewController: router.viewControllable)
     attachChild(router)
-  }
-  
-  private func popChild() {
-    if let currentChild = currentChild {
-      detachChild(currentChild)
-      currentChild.viewControllable.popSelf()
-    }
   }
 }
 
@@ -58,8 +53,16 @@ final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanV
 extension DetailPlanRouter {
   func routeToMarkedMap(location: CLLocationCoordinate2D) {
     let router = markedMapBuilder.build(withListener: interactor, location: location)
-    
-    popChild()
+
     pushChild(router)
+  }
+
+}
+
+// MARK: - MarkedMapListener
+
+extension DetailPlanRouter {
+  func dismissChild(_ router: MarkedMapRouting) {
+    detachChild(router)
   }
 }

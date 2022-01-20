@@ -173,12 +173,30 @@
         }
       },
       {
+        "package": "RxGesture",
+        "repositoryURL": "https://github.com/RxSwiftCommunity/RxGesture.git",
+        "state": {
+          "branch": null,
+          "revision": "53ebed7fe3f15021bf518d9d1e8b147e2ddffa0a",
+          "version": "4.0.3"
+        }
+      },
+      {
         "package": "RxKakaoSDK",
         "repositoryURL": "https://github.com/elppaaa/RxKakaoSDK",
         "state": {
           "branch": "test",
           "revision": "82c79bf210b3f59f48a6125153e87d1f3a0a5c37",
           "version": null
+        }
+      },
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "b4307ba0b6425c0ba4178e138799946c3da594f8",
+          "version": "6.5.0"
         }
       },
       {

@@ -6,11 +6,12 @@
 //
 
 import FlexLayout
+import MapKit
 import PinLayout
 import RIBs
+import RxGesture
 import RxSwift
 import UIKit
-import MapKit
 
 // MARK: - DetailPlanPresentableListener
 
@@ -18,7 +19,9 @@ protocol DetailPlanPresentableListener: AnyObject {
   // TODO: Declare properties and methods that the view controller can invoke to perform
   // business logic, such as signIn(). This protocol is implemented by the corresponding
   // interactor class.
-  func mapButtonTapped(location: CLLocationCoordinate2D)
+  func mapButtonTapped()
+  func dismiss()
+//  func editButtonTapped()
 }
 
 // MARK: - DetailPlanViewController
@@ -31,35 +34,107 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.addSubview(container)
     configView()
+    bindings()
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    view.pin.top()
-    container.pin.horizontally().margin(view.pin.safeArea)
+    view.pin.all()
+
+    container.pin.all()
     container.flex.layout()
+    dimmedBackground.pin.all()
   }
 
   // MARK: Private
 
   private let container = UIView()
 
-  private func configView() {
-    view.isOpaque = true
-    view.layer.opacity = 0.3
-    view.layer.backgroundColor = UIColor.systemGray.cgColor
+  private let titleLabel = UILabel()
+  private let memoLabel = UILabel()
+  private let startAtLabel = UILabel()
+  private let endAtLabel = UILabel()
+  private let addressLabel = UILabel()
+  private let dimmedBackground = UIView().then {
+    $0.alpha = 0.2
+    $0.backgroundColor = .black
+  }
+  private let editButton = UIButton().then {
+    $0.setImage(.init(systemName: "pencil"), for: .normal)
+  }
 
-    container.flex.define {
-      $0.addItem().size(100).backgroundColor(.systemTeal)
+  private let mapButton = UIButton().then {
+    $0.setImage(.init(systemName: "map.fill"), for: .normal)
+  }
+
+  private let disposeBag = DisposeBag()
+
+  private func configView() {
+    view.addSubview(container)
+    container.addSubview(dimmedBackground)
+
+    container.flex.alignItems(.center).justifyContent(.center).define {
+      let frameView = UIView().then {
+        $0.layer.cornerRadius = 8
+        $0.backgroundColor = .systemBackground
+      }
+
+      $0.addItem(frameView).minWidth(65%).maxWidth(90%).maxHeight(90%).direction(.column).padding(20).define {
+
+        addView(flex: $0, label: "title", view: titleLabel)
+        addView(flex: $0, label: "address", view: addressLabel)
+        addView(flex: $0, label: "startAt", view: startAtLabel)
+        addView(flex: $0, label: "endAt", view: endAtLabel)
+          .marginBottom(20)
+        addView(flex: $0, label: "memo", view: memoLabel)
+          .marginBottom(30)
+        $0.addItem().direction(.row).justifyContent(.spaceAround).grow(1).define {
+          $0.addItem(editButton).size(30)
+          $0.addItem(mapButton).size(30)
+        }
+      }
     }
+  }
+
+  @discardableResult
+  private func addView(flex: Flex, label: String, view: UIView) -> Flex {
+    flex.addItem().direction(.row).grow(1).define {
+      let labelView = UILabel().then {
+        $0.text = label
+      }
+      $0.addItem(labelView).grow(1)
+      $0.addItem(view)
+    }
+    .marginBottom(20)
+  }
+
+  private func bindings() {
+    mapButton.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        self?.listener?.mapButtonTapped()
+      })
+      .disposed(by: disposeBag)
+
+    dimmedBackground.rx.tapGesture()
+      .when(.recognized)
+      .subscribe(onNext: { [weak self] _ in
+        self?.view.removeFromSuperview()
+        self?.removeFromParent()
+        self?.willMove(toParent: nil)
+        self?.listener?.dismiss()
+      })
+      .disposed(by: disposeBag)
   }
 }
 
 // MARK: - DetailPlanPresentable
 extension DetailPlanViewController {
   func setData(plan: Plan) {
-
+    titleLabel.text = plan.title
+    startAtLabel.text = plan.startAt.formattedDateAndTime
+    endAtLabel.text = plan.endAt.formattedDateAndTime
+    addressLabel.text = plan.place.address
+    memoLabel.text = plan.memo
   }
 }

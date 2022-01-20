@@ -77,13 +77,14 @@
 		48A2A1492799DA5E00E735D8 /* MarkedMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A1452799DA5E00E735D8 /* MarkedMapViewController.swift */; };
 		48A2A14A2799DA5E00E735D8 /* MarkedMapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A1462799DA5E00E735D8 /* MarkedMapInteractor.swift */; };
 		48A2A14C2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A14B2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift */; };
+		48A2A14E2799E19D00E735D8 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2A14D2799E19D00E735D8 /* Date+Extension.swift */; };
+		48A2A1512799EEA200E735D8 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 48A2A1502799EEA200E735D8 /* RxGesture */; };
 		48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DAF27908BB800E240F5 /* UpdateModel.swift */; };
 		48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */; };
 		48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2627997B580068FA1B /* PlaceService.swift */; };
 		48DC7B2927997FE80068FA1B /* PlaceSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */; };
 		48DC7B2B27998AD90068FA1B /* PlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2A27998AD90068FA1B /* PlacesTests.swift */; };
 		48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift */; };
-		48DC7B2F2799B83B0068FA1B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2E2799B83B0068FA1B /* MapViewController.swift */; };
 		48DC7B312799D6690068FA1B /* ViewControllerable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,13 +160,13 @@
 		48A2A1452799DA5E00E735D8 /* MarkedMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedMapViewController.swift; sourceTree = "<group>"; };
 		48A2A1462799DA5E00E735D8 /* MarkedMapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedMapInteractor.swift; sourceTree = "<group>"; };
 		48A2A14B2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailPlanComponent+MarkedMap.swift"; sourceTree = "<group>"; };
+		48A2A14D2799E19D00E735D8 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		48C93DAF27908BB800E240F5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestCase.swift; sourceTree = "<group>"; };
 		48DC7B2627997B580068FA1B /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
 		48DC7B2827997FE80068FA1B /* PlaceSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchResult.swift; sourceTree = "<group>"; };
 		48DC7B2A27998AD90068FA1B /* PlacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTests.swift; sourceTree = "<group>"; };
 		48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
-		48DC7B2E2799B83B0068FA1B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewControllerable+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +177,7 @@
 			files = (
 				487C7A242788700B00F1528B /* RxRelay in Frameworks */,
 				483EE93C278C32F60030DE1B /* FlexLayoutYoga in Frameworks */,
+				48A2A1512799EEA200E735D8 /* RxGesture in Frameworks */,
 				483EE93A278C32F60030DE1B /* FlexLayout in Frameworks */,
 				483EE869278957A60030DE1B /* KakaoSDKCommon in Frameworks */,
 				48716A3E278856BF00D24722 /* GooglePlaces in Frameworks */,
@@ -222,7 +224,6 @@
 				480790232797469900FB6F9B /* DetailPlanBuilder.swift */,
 				480790242797469900FB6F9B /* DetailPlanViewController.swift */,
 				480790252797469900FB6F9B /* DetailPlanInteractor.swift */,
-				48DC7B2E2799B83B0068FA1B /* MapViewController.swift */,
 				48A2A14B2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift */,
 			);
 			path = DetailPlan;
@@ -396,6 +397,7 @@
 				48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */,
 				483CAAC3278E91C100749657 /* FireStore+Extension.swift */,
 				48716A41278859A200D24722 /* Constraints.swift */,
+				48A2A14D2799E19D00E735D8 /* Date+Extension.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -449,6 +451,7 @@
 				483CAAC1278E88C100749657 /* FirebaseDatabase */,
 				483CAAC7278EE56100749657 /* FirebaseFirestoreSwift-Beta */,
 				4807901F27973D6C00FB6F9B /* Then */,
+				48A2A1502799EEA200E735D8 /* RxGesture */,
 			);
 			productName = PlanShare;
 			productReference = 480E00C72788351500EEA4E6 /* PlanShare.app */;
@@ -536,6 +539,7 @@
 				483EE938278C32F60030DE1B /* XCRemoteSwiftPackageReference "FlexLayout" */,
 				483EE93F278C33A20030DE1B /* XCRemoteSwiftPackageReference "PinLayout" */,
 				4807901E27973D6C00FB6F9B /* XCRemoteSwiftPackageReference "Then" */,
+				48A2A14F2799EEA200E735D8 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 480E00C82788351500EEA4E6 /* Products */;
 			projectDirPath = "";
@@ -607,6 +611,7 @@
 				48A2A1482799DA5E00E735D8 /* MarkedMapBuilder.swift in Sources */,
 				48DC7B312799D6690068FA1B /* ViewControllerable+Extension.swift in Sources */,
 				480790272797469900FB6F9B /* DetailPlanBuilder.swift in Sources */,
+				48A2A14E2799E19D00E735D8 /* Date+Extension.swift in Sources */,
 				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
 				480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */,
@@ -638,7 +643,6 @@
 				480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */,
 				484FF137279837D50065317B /* PlaceSelectingInteractor.swift in Sources */,
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
-				48DC7B2F2799B83B0068FA1B /* MapViewController.swift in Sources */,
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
 				48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */,
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
@@ -1077,6 +1081,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		48A2A14F2799EEA200E735D8 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1184,6 +1196,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 487C7A1E2788700B00F1528B /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
+		};
+		48A2A1502799EEA200E735D8 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48A2A14F2799EEA200E735D8 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

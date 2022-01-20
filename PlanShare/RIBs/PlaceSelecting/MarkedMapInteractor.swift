@@ -27,6 +27,7 @@ protocol MarkedMapPresentable: Presentable {
 
 protocol MarkedMapListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+  func dismissChild(_ router: MarkedMapRouting)
 }
 
 // MARK: - MarkedMapInteractor
@@ -47,16 +48,27 @@ final class MarkedMapInteractor: PresentableInteractor<MarkedMapPresentable>, Ma
 
   weak var router: MarkedMapRouting?
   weak var listener: MarkedMapListener?
-  private let location: CLLocationCoordinate2D
 
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
-    presenter.mark(location: self.location)
+    presenter.mark(location: location)
   }
 
   override func willResignActive() {
     super.willResignActive()
     // TODO: Pause any business logic.
   }
+
+  // MARK: - MarkedMapPresentableListener
+
+  func movingFromParent() {
+    if let router = router {
+      listener?.dismissChild(router)
+    }
+  }
+
+  // MARK: Private
+
+  private let location: CLLocationCoordinate2D
 }

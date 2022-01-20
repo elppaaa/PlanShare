@@ -5,8 +5,8 @@
 //  Created by JK on 2022/01/21.
 //
 
-import RIBs
 import CoreLocation
+import RIBs
 
 // MARK: - MarkedMapDependency
 

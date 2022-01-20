@@ -57,6 +57,10 @@ extension HomeRouter {
     viewController.addChild(viewContronller: router.viewControllable)
   }
 
+  func dismissChild(_ router: DetailPlanRouting) {
+    detachChild(router)
+  }
+
   // MARK: Private
 
   private func detachChilds() {

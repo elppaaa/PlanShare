@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 import RIBs
 import RxRelay
 import RxSwift
@@ -15,6 +16,7 @@ import RxSwift
 protocol HomeRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
   func routeToDetailPlan(plan: Plan)
+  func dismissChild(_ router: DetailPlanRouting)
 }
 
 // MARK: - HomePresentable
@@ -63,6 +65,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     super.didBecomeActive()
     // TODO: Implement business logic here.
     // TODO: - 데이터를 받아온 뒤 `Presentable.set(plans:)` 함수 호출 필요.
+    plans.accept([Plan(title: "id", startAt: Date(), endAt: Date(), place: Place(id: "place", title: "place", address: "address", location: CLLocationCoordinate2D(latitude: 37.2654988, longitude: 127.0329044)), memo: "memo")])
   }
 
   override func willResignActive() {
@@ -74,5 +77,13 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
   func planSelected(index: Int) {
     let plan = plans.value[index]
     router?.routeToDetailPlan(plan: plan)
+  }
+}
+
+// MARK: - DetailPlanListener
+
+extension HomeInteractor {
+  func dissmissChild(_ router: DetailPlanRouting) {
+    self.router?.dismissChild(router)
   }
 }

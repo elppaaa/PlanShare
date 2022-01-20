@@ -5,15 +5,16 @@
 //  Created by JK on 2022/01/19.
 //
 
+import CoreLocation
 import RIBs
 import RxSwift
-import CoreLocation
 
 // MARK: - DetailPlanRouting
 
 protocol DetailPlanRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
   func routeToMarkedMap(location: CLLocationCoordinate2D)
+  func dismissChild(_ router: MarkedMapRouting)
 }
 
 // MARK: - DetailPlanPresentable
@@ -28,12 +29,12 @@ protocol DetailPlanPresentable: Presentable {
 
 protocol DetailPlanListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+  func dissmissChild(_ router: DetailPlanRouting)
 }
 
 // MARK: - DetailPlanInteractor
 
 final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, DetailPlanInteractable, DetailPlanPresentableListener {
-  
 
   // MARK: Lifecycle
 
@@ -57,6 +58,7 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
+    presenter.setData(plan: plan)
   }
 
   override func willResignActive() {
@@ -72,7 +74,21 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
 // MARK: - DetailPlanPresentableListener
 
 extension DetailPlanInteractor {
-  func mapButtonTapped(location: CLLocationCoordinate2D) {
-    router?.routeToMarkedMap(location: location)
+  func mapButtonTapped() {
+    router?.routeToMarkedMap(location: plan.place.location)
+  }
+
+  func dismiss() {
+    if let router = router {
+      listener?.dissmissChild(router)
+    }
+  }
+}
+
+// MARK: - ViewableRouting
+
+extension DetailPlanInteractor {
+  func dismissChild(_ router: MarkedMapRouting) {
+    self.router?.dismissChild(router)
   }
 }
