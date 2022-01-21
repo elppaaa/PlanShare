@@ -130,3 +130,12 @@ extension EditingInteractor {
     router?.detachCurrentChild()
   }
 }
+
+// MARK: - PlaceSelectingListener
+
+extension EditingInteractor {
+  func select(place: Place) {
+    plan.place = place
+    presenter.setView(with: plan)
+  }
+}

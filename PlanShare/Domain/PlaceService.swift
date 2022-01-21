@@ -37,7 +37,7 @@ final class PlaceService {
         }
 
         let places = results.compactMap {
-          PlaceSearchResult(id: $0.placeID, name: $0.attributedPrimaryText.string)
+          PlaceSearchResult(id: $0.placeID, name: $0.attributedPrimaryText.string, secondary: $0.attributedSecondaryText?.string)
         }
 
         subscriber(.success(places))

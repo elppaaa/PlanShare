@@ -44,6 +44,12 @@ final class PlaceSelectingBuilder: Builder<PlaceSelectingDependency>, PlaceSelec
     let viewController = PlaceSelectingViewController()
     let interactor = PlaceSelectingInteractor(presenter: viewController)
     interactor.listener = listener
-    return PlaceSelectingRouter(interactor: interactor, viewController: viewController)
+
+    let markedMapBuilder = MarkedMapBuilder(dependency: component)
+    return PlaceSelectingRouter(
+      interactor: interactor,
+      viewController: viewController,
+      markedMapBuilder: markedMapBuilder
+    )
   }
 }

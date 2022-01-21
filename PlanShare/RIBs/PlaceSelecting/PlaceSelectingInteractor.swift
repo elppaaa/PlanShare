@@ -5,13 +5,16 @@
 //  Created by JK on 2022/01/19.
 //
 
+import CoreLocation
 import RIBs
+import RxRelay
 import RxSwift
 
 // MARK: - PlaceSelectingRouting
 
 protocol PlaceSelectingRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+  func routeToMarkedMap(location: CLLocationCoordinate2D)
 }
 
 // MARK: - PlaceSelectingPresentable
@@ -26,6 +29,13 @@ protocol PlaceSelectingPresentable: Presentable {
 protocol PlaceSelectingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
   func dismissedChild()
+  func select(place: Place)
+}
+
+// MARK: - PlaceSelectingPresentableOutput
+
+protocol PlaceSelectingPresentableOutput {
+  var searchResults: BehaviorRelay<[PlaceSearchResult]> { get }
 }
 
 // MARK: - PlaceSelectingInteractor
@@ -45,6 +55,7 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
 
   weak var router: PlaceSelectingRouting?
   weak var listener: PlaceSelectingListener?
+  var searchResults = BehaviorRelay<[PlaceSearchResult]>(value: [])
 
   override func didBecomeActive() {
     super.didBecomeActive()
@@ -55,12 +66,56 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
     super.willResignActive()
     // TODO: Pause any business logic.
   }
+
+  // MARK: Private
+
+  private let disposeBag = DisposeBag()
 }
 
 // MARK: - PlaceSelectingPresentableListener
 
 extension PlaceSelectingInteractor {
+
   func movingFromParent() {
     listener?.dismissedChild()
+  }
+
+  func query(_ text: String) {
+    PlaceService.shared.findPlaces(query: text)
+      .subscribe(onSuccess: { [weak self] in
+        self?.searchResults.accept($0)
+      })
+      .disposeOnDeactivate(interactor: self)
+  }
+
+  func mapButtonTapped(index: Int) {
+    let id = searchResults.value[index].id
+    PlaceService.shared.getLocation(from: id)
+      .subscribe(onSuccess: { [weak self] in
+        self?.router?.routeToMarkedMap(location: $0)
+      })
+      .disposeOnDeactivate(interactor: self)
+  }
+
+  func selectPlace(index: Int) {
+    PlaceService.shared.place(from: searchResults.value[index].id)
+      .subscribe(onSuccess: { [weak self] in
+        self?.listener?.select(place: $0)
+      })
+      .disposeOnDeactivate(interactor: self)
+  }
+}
+
+// MARK: PlaceSelectingPresentableOutput
+
+extension PlaceSelectingInteractor: PlaceSelectingPresentableOutput {
+  var output: PlaceSelectingPresentableOutput { self }
+}
+
+// MARK: - MarkedMapInteractable
+
+extension PlaceSelectingInteractor {
+  func dismissedChild() {
+    router?.detachCurrentChild()
   }
 }

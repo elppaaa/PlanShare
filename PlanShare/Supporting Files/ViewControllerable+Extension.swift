@@ -17,11 +17,7 @@ extension ViewControllable {
     uiviewController.present(viewController.uiviewController, animated: animated, completion: completion)
   }
 
-  func popToSelf(animated: Bool = true) {
-    uiviewController.navigationController?.popToViewController(uiviewController, animated: animated)
-  }
-
-  func popSelf(animated: Bool = true) {
+  func pop(animated: Bool = true) {
     uiviewController.navigationController?.popViewController(animated: animated)
   }
 }

@@ -64,6 +64,7 @@ extension HomeRouter {
   }
 
   func routeToHome() {
+    viewController.pop()
     detachChilds()
   }
 

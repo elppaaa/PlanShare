@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct PlaceSearchResult {
+struct PlaceSearchResult: Equatable {
   let id: String
   let name: String
+  let secondary: String?
 }
