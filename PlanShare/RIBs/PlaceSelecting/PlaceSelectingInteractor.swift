@@ -25,6 +25,7 @@ protocol PlaceSelectingPresentable: Presentable {
 
 protocol PlaceSelectingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+  func dismissedChild()
 }
 
 // MARK: - PlaceSelectingInteractor
@@ -53,5 +54,13 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
   override func willResignActive() {
     super.willResignActive()
     // TODO: Pause any business logic.
+  }
+}
+
+// MARK: - PlaceSelectingPresentableListener
+
+extension PlaceSelectingInteractor {
+  func movingFromParent() {
+    listener?.dismissedChild()
   }
 }

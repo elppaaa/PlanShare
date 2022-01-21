@@ -14,6 +14,7 @@ import SwiftUI
 
 protocol EditingRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+  func routeToPlace()
 }
 
 // MARK: - EditingPresentable
@@ -72,13 +73,32 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
   private let isNew: Bool
 
   private var plan: Plan
-
 }
 
 // MARK: - EditingPresentableListener
 
 extension EditingInteractor {
-  func cancel() {
+  func setTitle(_ text: String) {
+    plan.title = text
+  }
+
+  func setMemo(_ text: String) {
+    plan.memo = text
+  }
+
+  func setStartAt(_ date: Date) {
+    plan.startAt = date
+  }
+
+  func setEndAt(_ date: Date) {
+    plan.endAt = date
+  }
+
+  func getPlace() {
+    router?.routeToPlace()
+  }
+
+  func movingFromParent() {
     listener?.routeToHome()
   }
 
@@ -100,5 +120,13 @@ extension EditingInteractor {
         })
         .disposeOnDeactivate(interactor: self)
     }
+  }
+}
+
+// MARK: - PlaceSelectingListener
+
+extension EditingInteractor {
+  func dismissedChild() {
+    router?.detachCurrentChild()
   }
 }

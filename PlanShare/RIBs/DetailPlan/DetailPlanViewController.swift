@@ -20,7 +20,7 @@ protocol DetailPlanPresentableListener: AnyObject {
   // business logic, such as signIn(). This protocol is implemented by the corresponding
   // interactor class.
   func mapButtonTapped()
-  func dismiss()
+  func movingFromParent()
 //  func editButtonTapped()
 }
 
@@ -122,7 +122,7 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
         self?.view.removeFromSuperview()
         self?.removeFromParent()
         self?.willMove(toParent: nil)
-        self?.listener?.dismiss()
+        self?.listener?.movingFromParent()
       })
       .disposed(by: disposeBag)
   }

@@ -56,13 +56,4 @@ extension DetailPlanRouter {
 
     pushChild(router)
   }
-
-}
-
-// MARK: - MarkedMapListener
-
-extension DetailPlanRouter {
-  func dismissChild(_ router: MarkedMapRouting) {
-    detachChild(router)
-  }
 }

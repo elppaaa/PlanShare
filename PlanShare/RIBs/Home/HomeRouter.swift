@@ -30,7 +30,7 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
   init(
     interactor: HomeInteractable,
     viewController: HomeViewControllable,
-    detailPlanBuilder: DetailPlanBuildable,
+    detailPlanBuilder: DetailPlanBuildable ,
     editingBuilder: EditingBuildable
   ) {
     self.detailPlanBuilder = detailPlanBuilder
@@ -55,10 +55,6 @@ extension HomeRouter {
     let router = detailPlanBuilder.build(withListener: interactor, currentPlan: plan)
     attachChild(router)
     viewController.addChild(viewContronller: router.viewControllable)
-  }
-
-  func dismissChild(_ router: DetailPlanRouting) {
-    detachChild(router)
   }
 
   func routeToNewPlan() {

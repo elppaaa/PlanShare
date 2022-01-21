@@ -14,7 +14,6 @@ import RxSwift
 protocol DetailPlanRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
   func routeToMarkedMap(location: CLLocationCoordinate2D)
-  func dismissChild(_ router: MarkedMapRouting)
 }
 
 // MARK: - DetailPlanPresentable
@@ -29,7 +28,7 @@ protocol DetailPlanPresentable: Presentable {
 
 protocol DetailPlanListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
-  func dissmissChild(_ router: DetailPlanRouting)
+  func dismissedChild()
 }
 
 // MARK: - DetailPlanInteractor
@@ -78,17 +77,15 @@ extension DetailPlanInteractor {
     router?.routeToMarkedMap(location: plan.place.location)
   }
 
-  func dismiss() {
-    if let router = router {
-      listener?.dissmissChild(router)
-    }
+  func movingFromParent() {
+    listener?.dismissedChild()
   }
 }
 
 // MARK: - ViewableRouting
 
 extension DetailPlanInteractor {
-  func dismissChild(_ router: MarkedMapRouting) {
-    self.router?.dismissChild(router)
+  func dismissedChild() {
+    router?.detachCurrentChild()
   }
 }

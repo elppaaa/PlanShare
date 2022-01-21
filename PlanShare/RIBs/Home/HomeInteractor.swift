@@ -16,7 +16,6 @@ import RxSwift
 protocol HomeRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
   func routeToDetailPlan(plan: Plan)
-  func dismissChild(_ router: DetailPlanRouting)
   func routeToNewPlan()
   func routeToHome()
 }
@@ -85,8 +84,8 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 // MARK: - DetailPlanListener
 
 extension HomeInteractor {
-  func dissmissChild(_ router: DetailPlanRouting) {
-    self.router?.dismissChild(router)
+  func dismissedChild() {
+    router?.detachCurrentChild()
   }
 
   func newPlan() {

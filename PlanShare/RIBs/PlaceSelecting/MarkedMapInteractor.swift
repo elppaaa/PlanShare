@@ -27,7 +27,7 @@ protocol MarkedMapPresentable: Presentable {
 
 protocol MarkedMapListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
-  func dismissChild(_ router: MarkedMapRouting)
+  func dismissedChild()
 }
 
 // MARK: - MarkedMapInteractor
@@ -64,7 +64,7 @@ final class MarkedMapInteractor: PresentableInteractor<MarkedMapPresentable>, Ma
 
   func movingFromParent() {
     if let router = router {
-      listener?.dismissChild(router)
+      listener?.dismissedChild()
     }
   }
 

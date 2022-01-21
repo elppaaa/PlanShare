@@ -18,7 +18,12 @@ protocol EditingPresentableListener: AnyObject {
   // business logic, such as signIn(). This protocol is implemented by the corresponding
   // interactor class.
   func save()
-  func cancel()
+  func movingFromParent()
+  func setTitle(_ text: String)
+  func setMemo(_ text: String)
+  func setStartAt(_ date: Date)
+  func setEndAt(_ date: Date)
+  func getPlace()
 }
 
 // MARK: - EditingViewController
@@ -39,7 +44,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     if isMovingFromParent {
-      listener?.cancel()
+      listener?.movingFromParent()
     }
   }
 
@@ -91,9 +96,52 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .drive(doneBarButton.rx.isEnabled)
       .disposed(by: disposeBag)
 
-//      .drive(onNext: { [weak self] in
-//        self?.doneBarButton.isEnabled = $0
-//      })
+    titleTextField.rx.text
+      .orEmpty
+      .distinctUntilChanged()
+      .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+      .withUnretained(self)
+      .subscribe(onNext: { vc, text in
+        vc.listener?.setTitle(text)
+      })
+      .disposed(by: disposeBag)
+
+    memoTextView.rx.text
+      .orEmpty
+      .distinctUntilChanged()
+      .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+      .withUnretained(self)
+      .subscribe(onNext: { vc, text in
+        vc.listener?.setMemo(text)
+      })
+      .disposed(by: disposeBag)
+
+    startAtPicker.rx.date
+      .distinctUntilChanged()
+      .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+      .withUnretained(self)
+      .subscribe(onNext: { vc, date in
+        vc.listener?.setStartAt(date)
+      })
+      .disposed(by: disposeBag)
+
+    endAtPicker.rx.date
+      .distinctUntilChanged()
+      .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+      .withUnretained(self)
+      .subscribe(onNext: { vc, date in
+        vc.listener?.setEndAt(date)
+      })
+      .disposed(by: disposeBag)
+
+    addressView.rx.tapGesture()
+      .when(.recognized)
+      .withUnretained(self)
+      .subscribe(onNext: { vc, _ in
+        vc.listener?.getPlace()
+      })
+      .disposed(by: disposeBag)
+
   }
 
   private func configView() {
