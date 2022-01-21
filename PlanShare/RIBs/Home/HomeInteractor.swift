@@ -18,6 +18,7 @@ protocol HomeRouting: ViewableRouting {
   func routeToDetailPlan(plan: Plan)
   func dismissChild(_ router: DetailPlanRouting)
   func routeToNewPlan()
+  func routeToHome()
 }
 
 // MARK: - HomePresentable
@@ -90,5 +91,13 @@ extension HomeInteractor {
 
   func newPlan() {
     router?.routeToNewPlan()
+  }
+}
+
+// MARK: - EditingListener
+
+extension HomeInteractor {
+  func routeToHome() {
+    router?.routeToHome()
   }
 }

@@ -127,4 +127,21 @@ extension Reactive where Base: DocumentReference {
       return Disposables.create()
     }
   }
+
+  func update<T: Encodable>(to updateValue: T) -> Completable {
+    guard let dictionary = updateValue.dictionary else {
+      return Completable.error(FirebaseService.Err.serialized)
+    }
+
+    return .create { subscriber in
+      base.updateData(dictionary) { err in
+        if let err = err {
+          subscriber(.error(err))
+        } else {
+          subscriber(.completed)
+        }
+      }
+      return Disposables.create()
+    }
+  }
 }

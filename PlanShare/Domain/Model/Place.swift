@@ -18,17 +18,17 @@ struct Place: Codable, Equatable {
 }
 
 // MARK: FirestoreDecodable
-
-extension Place: FirestoreDecodable {
-  static func parse(from dict: [String: Any]) -> Place? {
-    dict.get()
-  }
-}
-
+//
+//extension Place: FirestoreDecodable {
+//  static func parse(from dict: [String: Any]) -> Place? {
+//    dict.get()
+//  }
+//}
+//
 // MARK: FirestoreEncodable
-
-extension Place: FirestoreEncodable {
-  var dict: [String: Any]? {
-    dictionary
-  }
-}
+//
+//extension Place: FirestoreEncodable {
+//  var dict: [String: Any]? {
+//    dictionary
+//  }
+//}

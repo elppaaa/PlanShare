@@ -9,7 +9,7 @@ import RIBs
 
 // MARK: - RootInteractable
 
-protocol RootInteractable: Interactable, HomeListener, EditingListener {
+protocol RootInteractable: Interactable, HomeListener {
   var router: RootRouting? { get set }
   var listener: RootListener? { get set }
 }

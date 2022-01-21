@@ -17,6 +17,8 @@ protocol EditingPresentableListener: AnyObject {
   // TODO: Declare properties and methods that the view controller can invoke to perform
   // business logic, such as signIn(). This protocol is implemented by the corresponding
   // interactor class.
+  func save()
+  func cancel()
 }
 
 // MARK: - EditingViewController
@@ -31,6 +33,14 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     super.viewDidLoad()
 
     configView()
+    bindings()
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    if isMovingFromParent {
+      listener?.cancel()
+    }
   }
 
   override func viewDidLayoutSubviews() {
@@ -65,10 +75,32 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
   }
 
   private let addressView = UILabel()
+  private lazy var doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
+  private let disposeBag = DisposeBag()
+
+  private func bindings() {
+    doneBarButton.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        self?.listener?.save()
+      })
+      .disposed(by: disposeBag)
+
+    titleTextField.rx.text
+      .map { ($0 ?? "").count > 0 }
+      .asDriver(onErrorJustReturn: false)
+      .drive(doneBarButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+
+//      .drive(onNext: { [weak self] in
+//        self?.doneBarButton.isEnabled = $0
+//      })
+  }
 
   private func configView() {
     view.backgroundColor = .systemBackground
     view.addSubview(container)
+    navigationItem.rightBarButtonItem = doneBarButton
+    doneBarButton.isEnabled = false
 
     container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
       addRow($0).define {

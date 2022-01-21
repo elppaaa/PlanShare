@@ -80,6 +80,13 @@ final class FirebaseService: FirebaseServieType {
       }
   }
 
+  static func update<T: Encodable>(path: String, id: String, value: T) -> Completable {
+    let document = db.collection("path")
+
+    return document.document(id)
+      .rx.update(to: value)
+  }
+
   // MARK: Private
 
   private static let db: Firestore = .firestore()

@@ -67,6 +67,10 @@ extension HomeRouter {
     viewController.push(viewController: router.viewControllable)
   }
 
+  func routeToHome() {
+    detachChilds()
+  }
+
   // MARK: Private
 
   private func detachChilds() {

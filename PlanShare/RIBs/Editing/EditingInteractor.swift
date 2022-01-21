@@ -5,8 +5,10 @@
 //  Created by JK on 2022/01/10.
 //
 
+import Foundation
 import RIBs
 import RxSwift
+import SwiftUI
 
 // MARK: - EditingRouting
 
@@ -26,6 +28,7 @@ protocol EditingPresentable: Presentable {
 
 protocol EditingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+  func routeToHome()
 }
 
 // MARK: - EditingInteractor
@@ -70,4 +73,32 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
 
   private var plan: Plan
 
+}
+
+// MARK: - EditingPresentableListener
+
+extension EditingInteractor {
+  func cancel() {
+    listener?.routeToHome()
+  }
+
+  func save() {
+    if isNew {
+      FirebaseService.create(path: "Plan", data: plan)
+        .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
+        .subscribe(onSuccess: { [weak self] document in
+          UserDefaults.idList.insert(document.documentID)
+
+          self?.listener?.routeToHome()
+        })
+        .disposeOnDeactivate(interactor: self)
+    } else {
+      guard let id = plan.id else { return }
+      FirebaseService.update(path: "Plan", id: id, value: plan)
+        .subscribe(onCompleted: { [weak self] in
+          self?.listener?.routeToHome()
+        })
+        .disposeOnDeactivate(interactor: self)
+    }
+  }
 }
