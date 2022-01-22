@@ -9,6 +9,6 @@ import Foundation
 
 extension NSObject {
   static var describe: String {
-    String(describing: self)
+    String(describing: Self.self)
   }
 }

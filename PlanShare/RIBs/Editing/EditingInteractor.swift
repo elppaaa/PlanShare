@@ -15,6 +15,7 @@ import SwiftUI
 protocol EditingRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
   func routeToPlace()
+  func popAndDetach()
 }
 
 // MARK: - EditingPresentable
@@ -60,7 +61,7 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
-    presenter.setView(with: plan)
+    setCurrentView()
   }
 
   override func willResignActive() {
@@ -78,6 +79,9 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
 // MARK: - EditingPresentableListener
 
 extension EditingInteractor {
+
+  // MARK: Internal
+
   func setTitle(_ text: String) {
     plan.title = text
   }
@@ -105,9 +109,11 @@ extension EditingInteractor {
   func save() {
     if isNew {
       FirebaseService.create(path: "Plan", data: plan)
-        .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-        .subscribe(onSuccess: { [weak self] document in
-          UserDefaults.idList.insert(document.documentID)
+        .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+        .observe(on: MainScheduler.instance)
+        .subscribe(onSuccess: { [weak self] _ in
+//          UserDefaults.idList.insert(document.documentID)
+          // TODO: - UserDefaults 대신할 저장 방식 고려
 
           self?.listener?.routeToHome()
         })
@@ -115,11 +121,19 @@ extension EditingInteractor {
     } else {
       guard let id = plan.id else { return }
       FirebaseService.update(path: "Plan", id: id, value: plan)
+        .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+        .observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [weak self] in
           self?.listener?.routeToHome()
         })
         .disposeOnDeactivate(interactor: self)
     }
+  }
+
+  // MARK: Private
+
+  private func setCurrentView() {
+    presenter.setView(with: plan)
   }
 }
 
@@ -134,8 +148,9 @@ extension EditingInteractor {
 // MARK: - PlaceSelectingListener
 
 extension EditingInteractor {
-  func select(place: Place) {
+  func selectAndClose(place: Place) {
     plan.place = place
-    presenter.setView(with: plan)
+    setCurrentView()
+    router?.popAndDetach()
   }
 }

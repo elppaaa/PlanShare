@@ -6,11 +6,20 @@
 //
 
 import Foundation
+import Then
 
 extension Date {
+
+  // MARK: Internal
+
   var formattedDateAndTime: String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MM-dd HH:mm"
-    return formatter.string(from: self)
+    Self.MMddHHmmFormatter.string(from: self)
+  }
+
+  // MARK: Fileprivate
+
+  fileprivate static let MMddHHmmFormatter = DateFormatter().then {
+    $0.dateFormat = "MM-dd HH:mm"
+    $0.timeZone = .current
   }
 }

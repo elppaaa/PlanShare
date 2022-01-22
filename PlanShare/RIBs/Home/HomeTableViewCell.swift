@@ -41,10 +41,7 @@ final class HomeTableViewCell: UITableViewCell {
 
   func set(plan: Plan) {
     title.text = plan.title
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MM/dd HH:mm"
-    formatter.timeZone = .current
-    date.text = formatter.string(from: plan.startAt) + " - " + formatter.string(from: plan.endAt)
+    date.text = plan.startAt.formattedDateAndTime + " - " + plan.endAt.formattedDateAndTime
   }
 
   override func prepareForReuse() {

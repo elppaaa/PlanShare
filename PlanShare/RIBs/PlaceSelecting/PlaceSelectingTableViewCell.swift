@@ -29,19 +29,19 @@ final class PlaceSelectingTableViewCell: UITableViewCell {
 
   override var reuseIdentifier: String? { Self.describe }
 
-  func config(result: PlaceSearchResult, mapButtonClosure: @escaping () -> Void) {
+  func config(result: PlaceSearchResult, mapButtonClosure: @escaping (UIButton) -> Disposable) {
     name.text = result.name
     secondary.text = result.secondary
 
-    disposable = mapButton.rx.tap
-      .subscribe(onNext: {
-        mapButtonClosure()
-      })
+    if let disposeBag = disposeBag {
+      mapButtonClosure(mapButton)
+        .disposed(by: disposeBag)
+    }
   }
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    disposable = nil
+    disposeBag = DisposeBag()
   }
 
   override func layoutSubviews() {
@@ -53,8 +53,6 @@ final class PlaceSelectingTableViewCell: UITableViewCell {
 
   // MARK: Private
 
-  private let container = UIView()
-
   private let name = UILabel().then {
     $0.font = .preferredFont(forTextStyle: .headline)
   }
@@ -65,7 +63,8 @@ final class PlaceSelectingTableViewCell: UITableViewCell {
     $0.setImage(.init(systemName: "map.fill"), for: .normal)
     $0.isUserInteractionEnabled = true
   }
-  private var disposable: Disposable?
+
+  private var disposeBag: DisposeBag? = DisposeBag()
 
   private func configView() {
     selectionStyle = .none

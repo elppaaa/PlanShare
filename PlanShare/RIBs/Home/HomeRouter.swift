@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/10.
 //
 
+import CoreText
 import RIBs
 
 // MARK: - HomeInteractable
@@ -59,8 +60,8 @@ extension HomeRouter {
 
   func routeToNewPlan() {
     let router = editingBuilder.build(withListener: interactor, currentPlan: nil)
-    attachChild(router)
     viewController.push(viewController: router.viewControllable)
+    attachChild(router)
   }
 
   func routeToHome() {

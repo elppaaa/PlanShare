@@ -39,37 +39,37 @@ class PlanShareTests: XCTestCase {
     debugPrint(Constraints.KAKAO_KEY)
   }
 
-  func testPlanEncodable() {
-    let dateString = "2021-11-30 09:30:00"
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-    guard let date = formatter.date(from: dateString) else {
-      XCTFail()
-      fatalError()
-    }
-    let place = Place(id: "testPlace", title: "testTitle", address: "testAddress", location: CLLocationCoordinate2D())
-    let plan = Plan.Upload(title: "testTitle", startAt: date, endAt: date, place: place, memo: "testMemo")
-
-    guard let serialized = plan.dict else {
-      XCTFail("Failed to serialized")
-      return
-    }
-
-    XCTAssert((serialized["title"] as? String) == "testTitle")
-    XCTAssert((serialized["startAt"] as? Timestamp) ?? Timestamp() == Timestamp(date: date))
-    XCTAssert((serialized["endAt"] as? Timestamp) ?? Timestamp() == Timestamp(date: date))
-    XCTAssert((serialized["startAt"] as? Timestamp)?.dateValue() ?? Date.now == date)
-    XCTAssert((serialized["endAt"] as? Timestamp)?.dateValue() ?? Date.now == date)
-    XCTAssert((serialized["memo"] as? String) ?? "" == plan.memo)
-    guard let serializedPlace = serialized["place"] as? [String: Any] else {
-      XCTFail("Place Serialized failed")
-      return
-    }
-
-    XCTAssert((serializedPlace["id"] as? String) ?? "" == place.id)
-    XCTAssert((serializedPlace["title"] as? String) ?? "" == place.title)
-    XCTAssert((serializedPlace["address"] as? String) ?? "" == place.address)
-  }
+//  func testPlanEncodable() {
+//    let dateString = "2021-11-30 09:30:00"
+//    let formatter = DateFormatter()
+//    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//    guard let date = formatter.date(from: dateString) else {
+//      XCTFail()
+//      fatalError()
+//    }
+//    let place = Place(id: "testPlace", title: "testTitle", address: "testAddress", location: CLLocationCoordinate2D())
+//    let plan = Plan.Upload(title: "testTitle", startAt: date, endAt: date, place: place, memo: "testMemo")
+//
+//    guard let serialized = plan.dict else {
+//      XCTFail("Failed to serialized")
+//      return
+//    }
+//
+//    XCTAssert((serialized["title"] as? String) == "testTitle")
+//    XCTAssert((serialized["startAt"] as? Timestamp) ?? Timestamp() == Timestamp(date: date))
+//    XCTAssert((serialized["endAt"] as? Timestamp) ?? Timestamp() == Timestamp(date: date))
+//    XCTAssert((serialized["startAt"] as? Timestamp)?.dateValue() ?? Date.now == date)
+//    XCTAssert((serialized["endAt"] as? Timestamp)?.dateValue() ?? Date.now == date)
+//    XCTAssert((serialized["memo"] as? String) ?? "" == plan.memo)
+//    guard let serializedPlace = serialized["place"] as? [String: Any] else {
+//      XCTFail("Place Serialized failed")
+//      return
+//    }
+//
+//    XCTAssert((serializedPlace["id"] as? String) ?? "" == place.id)
+//    XCTAssert((serializedPlace["title"] as? String) ?? "" == place.title)
+//    XCTAssert((serializedPlace["address"] as? String) ?? "" == place.address)
+//  }
 
 //  func testPlanDecodable() {
 //    let dateString = "2021-11-30 09:30:00"
@@ -110,18 +110,18 @@ class PlanShareTests: XCTestCase {
 //    XCTAssert(planObject.additionalPlaces == Array(repeating: _place, count: 2))
 //  }
 
-  func testConcurrencyWrite() throws {
-    runAsyncTest {
-      let value = Plan.Upload(title: "Title", startAt: Date.now, endAt: Date.now, place: Place(id: "new_id", title: "string", address: "address", location: CLLocationCoordinate2D()), memo: "memo")
-      let result = await FirebaseService.create(path: "Plan", data: value)
-
-      debugPrint(try result.get().documentID)
-
-      if case .failure(let err) = result {
-        XCTFail(err.localizedDescription)
-      }
-    }
-  }
+//  func testConcurrencyWrite() throws {
+//    runAsyncTest {
+//      let value = Plan.Upload(title: "Title", startAt: Date.now, endAt: Date.now, place: Place(id: "new_id", title: "string", address: "address", location: CLLocationCoordinate2D()), memo: "memo")
+//      let result = await FirebaseService.create(path: "Plan", data: value)
+//
+//      debugPrint(try result.get().documentID)
+//
+//      if case .failure(let err) = result {
+//        XCTFail(err.localizedDescription)
+//      }
+//    }
+//  }
 
   /// read / write with Firstore.Decoder() Firestore.Encoder()
   func testWriteAndRead() throws {

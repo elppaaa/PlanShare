@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/10.
 //
 
+import Foundation
 import RIBs
 
 // MARK: - EditingInteractable
@@ -49,5 +50,10 @@ extension EditingRouter {
     let router = placeSelectingBuilder.build(withListener: interactor)
     viewController.push(viewController: router.viewControllable)
     attachChild(router)
+  }
+
+  func popAndDetach() {
+    viewController.pop()
+    detachCurrentChild()
   }
 }

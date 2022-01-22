@@ -44,13 +44,24 @@ final class PlaceSelectingViewController: UIViewController, PlaceSelectingPresen
     }
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    // 바로 수행 시 `becomeFirstResponder` 수행되지 않는 문제가 있음.
+    DispatchQueue.main.async {
+      self.searchController.searchBar.searchTextField.becomeFirstResponder()
+    }
+  }
+
   // MARK: Private
 
-  private let searchController = UISearchController(searchResultsController: nil)
   private let tableView = UITableView()
   private let disposeBag = DisposeBag()
+  private let searchController = UISearchController(searchResultsController: nil)
 
   private func configView() {
+    navigationItem.searchController = searchController
+
     view.backgroundColor = .systemBackground
     view.addSubview(tableView)
     tableView.frame = view.frame
@@ -61,7 +72,7 @@ final class PlaceSelectingViewController: UIViewController, PlaceSelectingPresen
   }
 
   private func bindings() {
-    navigationItem.searchController = searchController
+
     searchController.searchBar.rx.text
       .orEmpty
       .distinctUntilChanged()
@@ -75,16 +86,23 @@ final class PlaceSelectingViewController: UIViewController, PlaceSelectingPresen
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
       .drive(tableView.rx.items(cellIdentifier: PlaceSelectingTableViewCell.describe, cellType: PlaceSelectingTableViewCell.self)) { [weak self] index, element, cell in
-        cell.config(result: element, mapButtonClosure: { self?.listener?.mapButtonTapped(index: index)
+        cell.config(result: element, mapButtonClosure: {
+          $0.rx.tap
+            .subscribe(onNext: {
+              self?.listener?.mapButtonTapped(index: index)
+            })
         })
       }
       .disposed(by: disposeBag)
 
     tableView.rx.itemSelected
+      .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] indexPath in
-        self?.listener?.selectPlace(index: indexPath.row)
+        // dismiss 하지 않고 바로 전환시, memory leak 발생
+        self?.searchController.dismiss(animated: true, completion: {
+          self?.listener?.selectPlace(index: indexPath.row)
+        })
       })
       .disposed(by: disposeBag)
-
   }
 }

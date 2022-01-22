@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import GooglePlaces
 import RIBs
 import RxRelay
 import RxSwift
@@ -29,7 +30,7 @@ protocol PlaceSelectingPresentable: Presentable {
 protocol PlaceSelectingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
   func dismissedChild()
-  func select(place: Place)
+  func selectAndClose(place: Place)
 }
 
 // MARK: - PlaceSelectingPresentableOutput
@@ -55,7 +56,8 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
 
   weak var router: PlaceSelectingRouting?
   weak var listener: PlaceSelectingListener?
-  var searchResults = BehaviorRelay<[PlaceSearchResult]>(value: [])
+
+  private(set) var searchResults = BehaviorRelay<[PlaceSearchResult]>(value: [])
 
   override func didBecomeActive() {
     super.didBecomeActive()
@@ -69,7 +71,8 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
 
   // MARK: Private
 
-  private let disposeBag = DisposeBag()
+  private let googleAPISession = GMSAutocompleteSessionToken()
+
 }
 
 // MARK: - PlaceSelectingPresentableListener
@@ -81,7 +84,7 @@ extension PlaceSelectingInteractor {
   }
 
   func query(_ text: String) {
-    PlaceService.shared.findPlaces(query: text)
+    PlaceService.shared.findPlaces(query: text, sessionToken: googleAPISession)
       .subscribe(onSuccess: { [weak self] in
         self?.searchResults.accept($0)
       })
@@ -90,7 +93,7 @@ extension PlaceSelectingInteractor {
 
   func mapButtonTapped(index: Int) {
     let id = searchResults.value[index].id
-    PlaceService.shared.getLocation(from: id)
+    PlaceService.shared.getLocation(from: id, sessionToken: googleAPISession)
       .subscribe(onSuccess: { [weak self] in
         self?.router?.routeToMarkedMap(location: $0)
       })
@@ -98,9 +101,11 @@ extension PlaceSelectingInteractor {
   }
 
   func selectPlace(index: Int) {
-    PlaceService.shared.place(from: searchResults.value[index].id)
+    let id = searchResults.value[index].id
+    PlaceService.shared.place(from: id, sessionToken: googleAPISession)
+      .subscribe(on: MainScheduler.instance)
       .subscribe(onSuccess: { [weak self] in
-        self?.listener?.select(place: $0)
+        self?.listener?.selectAndClose(place: $0)
       })
       .disposeOnDeactivate(interactor: self)
   }

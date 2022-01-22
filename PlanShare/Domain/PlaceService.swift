@@ -24,7 +24,7 @@ final class PlaceService {
 
   static let shared = PlaceService()
 
-  func findPlaces(query: String, currentPlace: CLLocation? = nil) -> Single<[PlaceSearchResult]> {
+  func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<[PlaceSearchResult]> {
     .create { subscriber in
       let filter = GMSAutocompleteFilter()
       filter.type = .establishment
@@ -47,9 +47,9 @@ final class PlaceService {
     }
   }
 
-  func getLocation(from id: String) -> Single<CLLocationCoordinate2D> {
+  func getLocation(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<CLLocationCoordinate2D> {
     .create { subscriber in
-      self.client.fetchPlace(fromPlaceID: id, placeFields: .coordinate, sessionToken: nil) { place, error in
+      self.client.fetchPlace(fromPlaceID: id, placeFields: .coordinate, sessionToken: sessionToken) { place, error in
         guard let place = place, error == nil else {
           subscriber(.failure(PlaceError.failedToFind))
           return
@@ -61,13 +61,13 @@ final class PlaceService {
     }
   }
 
-  func place(from id: String) -> Single<Place> {
+  func place(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<Place> {
     placeInfo(from: id)
       .map { Place(id: id, title: $0.name, address: $0.address, location: $0.location) }
   }
 
   func setUp() {
-    print(GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY))
+    GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
   }
 
   // MARK: Private

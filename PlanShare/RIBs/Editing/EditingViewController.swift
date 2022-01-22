@@ -85,8 +85,9 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 
   private func bindings() {
     doneBarButton.rx.tap
-      .subscribe(onNext: { [weak self] _ in
-        self?.listener?.save()
+      .withUnretained(self)
+      .subscribe(onNext: { `self`, _ in
+        self.listener?.save()
       })
       .disposed(by: disposeBag)
 
@@ -101,8 +102,8 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .distinctUntilChanged()
       .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
       .withUnretained(self)
-      .subscribe(onNext: { vc, text in
-        vc.listener?.setTitle(text)
+      .subscribe(onNext: { `self`, text in
+        self.listener?.setTitle(text)
       })
       .disposed(by: disposeBag)
 
@@ -111,8 +112,8 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .distinctUntilChanged()
       .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
       .withUnretained(self)
-      .subscribe(onNext: { vc, text in
-        vc.listener?.setMemo(text)
+      .subscribe(onNext: { `self`, text in
+        self.listener?.setMemo(text)
       })
       .disposed(by: disposeBag)
 
@@ -120,8 +121,8 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .distinctUntilChanged()
       .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
       .withUnretained(self)
-      .subscribe(onNext: { vc, date in
-        vc.listener?.setStartAt(date)
+      .subscribe(onNext: { `self`, date in
+        self.listener?.setStartAt(date)
       })
       .disposed(by: disposeBag)
 
@@ -129,16 +130,16 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .distinctUntilChanged()
       .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
       .withUnretained(self)
-      .subscribe(onNext: { vc, date in
-        vc.listener?.setEndAt(date)
+      .subscribe(onNext: { `self`, date in
+        self.listener?.setEndAt(date)
       })
       .disposed(by: disposeBag)
 
     addressView.rx.tapGesture()
       .when(.recognized)
       .withUnretained(self)
-      .subscribe(onNext: { vc, _ in
-        vc.listener?.getPlace()
+      .subscribe(onNext: { `self`, _ in
+        self.listener?.getPlace()
       })
       .disposed(by: disposeBag)
 
