@@ -31,6 +31,7 @@ protocol EditingPresentable: Presentable {
 protocol EditingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
   func routeToHome()
+  func appendAndClose(plan: Plan, isNew: Bool)
 }
 
 // MARK: - EditingInteractor
@@ -107,27 +108,7 @@ extension EditingInteractor {
   }
 
   func save() {
-    if isNew {
-      FirebaseService.create(path: "Plan", data: plan)
-        .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
-        .observe(on: MainScheduler.instance)
-        .subscribe(onSuccess: { [weak self] _ in
-//          UserDefaults.idList.insert(document.documentID)
-          // TODO: - UserDefaults 대신할 저장 방식 고려
-
-          self?.listener?.routeToHome()
-        })
-        .disposeOnDeactivate(interactor: self)
-    } else {
-      guard let id = plan.id else { return }
-      FirebaseService.update(path: "Plan", id: id, value: plan)
-        .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
-        .observe(on: MainScheduler.instance)
-        .subscribe(onCompleted: { [weak self] in
-          self?.listener?.routeToHome()
-        })
-        .disposeOnDeactivate(interactor: self)
-    }
+    listener?.appendAndClose(plan: plan, isNew: isNew)
   }
 
   // MARK: Private

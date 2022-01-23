@@ -50,6 +50,40 @@ extension Reactive where Base: CollectionReference {
     }
   }
 
+  func getDocumentsBy<T: Decodable>(idList: [Any], useCache: Bool = false) -> Single<[T]> {
+    .create { subscriber in
+      base.whereField(FirebaseFirestore.FieldPath.documentID(), in: idList).getDocuments(source: useCache ? .cache : .default) { snapshot, error in
+        if let error = error {
+          subscriber(.failure(error))
+          return
+        }
+
+        guard let snapshot = snapshot else {
+          subscriber(.failure(FirebaseService.Err.request))
+          return
+        }
+
+        var result = [T]()
+
+        do {
+          for value in snapshot.documents {
+            guard let value = try value.data(as: T.self, decoder: Firestore.Decoder()) else {
+              subscriber(.failure(FirebaseService.Err.serialized))
+              return
+            }
+            result.append(value)
+          }
+        } catch {
+          debugPrint("ERROR ::::", error)
+        }
+
+        subscriber(.success(result))
+      }
+
+      return Disposables.create()
+    }
+  }
+
   func get<T: Decodable>(id: String) -> Single<T> {
     let document = base.document(id)
     return .create { subscriber in

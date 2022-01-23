@@ -66,7 +66,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     super.didBecomeActive()
     // TODO: Implement business logic here.
     // TODO: - 데이터를 받아온 뒤 `Presentable.set(plans:)` 함수 호출 필요.
-    plans.accept([Plan(title: "id", startAt: Date(), endAt: Date(), place: Place(id: "place", title: "place", address: "address", location: CLLocationCoordinate2D(latitude: 37.2654988, longitude: 127.0329044)), memo: "memo")])
+    readAllPlans()
   }
 
   override func willResignActive() {
@@ -74,7 +74,40 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     // TODO: Pause any business logic.
   }
 
-  // MARK: - HomePresentableListener
+  // MARK: Private
+
+  private func readAllPlans(useCache: Bool = false) {
+    let planModels = PlanModel.readAll()
+    if let plans = try? planModels.get().map({ $0.planID }) {
+      Log.log(.debug, category: .firebase, "Plans: \(plans)")
+    }
+
+    switch planModels {
+    case .success(let values):
+      guard values.count > 0 else { return }
+      FirebaseService.readByIDs(path: "Plan", list: values.map { $0.planID }, useCache: useCache)
+        .subscribe(onSuccess: { [weak self] in
+          self?.plans.accept($0)
+        })
+        .disposeOnDeactivate(interactor: self)
+    case .failure(let error):
+      debugPrint(error)
+    }
+  }
+
+  private func appendPlan(plan: Plan) {
+    var plans = plans.value
+    plans.append(plan)
+    sortAndAccept(plans: plans)
+  }
+
+  private func sortAndAccept(plans: [Plan]) {
+    self.plans.accept(plans.sorted { $0.startAt < $1.startAt })
+  }
+}
+// MARK: - HomePresentableListener
+
+extension HomeInteractor {
   func planSelected(index: Int) {
     let plan = plans.value[index]
     router?.routeToDetailPlan(plan: plan)
@@ -98,5 +131,31 @@ extension HomeInteractor {
 extension HomeInteractor {
   func routeToHome() {
     router?.routeToHome()
+  }
+
+  func appendAndClose(plan: Plan, isNew: Bool) {
+    if isNew {
+      FirebaseService.create(path: "Plan", data: plan)
+        .observe(on: MainScheduler.instance)
+        .subscribe(onSuccess: { [weak self] document in
+          let model = PlanModel(planID: document.documentID, eventIdentifier: "")
+          model.prepare()
+          if let error = model.write() {
+            Log.log(.error, category: .sqlite, "\(#function):: \(error)")
+          }
+          self?.appendPlan(plan: plan)
+          self?.router?.routeToHome()
+        })
+        .disposeOnDeactivate(interactor: self)
+    } else {
+      guard let id = plan.id else { return }
+      FirebaseService.update(path: "Plan", id: id, value: plan)
+        .observe(on: MainScheduler.instance)
+        .subscribe(onCompleted: { [weak self] in
+          self?.readAllPlans()
+          self?.router?.routeToHome()
+        })
+        .disposeOnDeactivate(interactor: self)
+    }
   }
 }

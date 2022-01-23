@@ -28,18 +28,16 @@ final class SQLiteService {
     if sqlite3_open(Constraints.DB_PATH, &db) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db))
       Log.log(.error, category: .sqlite, errMsg)
+      return
     }
 
     if sqlite3_exec(db, query, nil, nil, nil) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db))
       Log.log(.error, category: .sqlite, errMsg)
-      return
     }
   }
 
   func write(query: String, block: () throws -> Void) -> SQLiteError? {
-    var stmt: OpaquePointer?
-
     if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK{
       let errMsg = String(cString: sqlite3_errmsg(db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
@@ -59,13 +57,13 @@ final class SQLiteService {
     if sqlite3_step(stmt) != SQLITE_DONE {
       let errMsg = String(cString: sqlite3_errmsg(db)!)
       Log.log(.error, category: .sqlite, "Writing error \(errMsg)")
-      return .failedToBind
+      return .failedToWrite
     }
 
     if sqlite3_finalize(stmt) != SQLITE_OK {
       return .unknown
     }
-    
+
     return nil
   }
 
@@ -90,7 +88,7 @@ final class SQLiteService {
       Log.log(.error, category: .sqlite, "Writing error \(errMsg)")
       return .failedToBind
     }
-    
+
     if sqlite3_finalize(stmt) != SQLITE_OK {
       return .unknown
     }
@@ -99,6 +97,7 @@ final class SQLiteService {
   }
 
   func readAll<T>(query: String, blocks: (OpaquePointer?) -> T) -> Result<[T], SQLiteError> {
+    var stmt: OpaquePointer?
     if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
@@ -109,31 +108,31 @@ final class SQLiteService {
     while sqlite3_step(stmt) == SQLITE_ROW {
       array.append(blocks(stmt))
     }
-    
+
     if sqlite3_finalize(stmt) != SQLITE_OK {
       return .failure(.unknown)
     }
 
     return .success(array)
   }
-  
+
   func delete(query: String, id: Int) -> SQLiteError? {
     if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
       return .failedToPrepare
     }
-    
+
     if sqlite3_step(stmt) != SQLITE_DONE {
       let errMsg = String(cString: sqlite3_errmsg(db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
       return .failedToDelete
     }
-    
+
     if sqlite3_finalize(stmt) != SQLITE_OK {
       return .unknown
     }
-    
+
     return nil
   }
 
@@ -160,7 +159,6 @@ final class SQLiteService {
     return true
   }
 }
-
 
 // MARK: - SQLiteError
 
