@@ -17,7 +17,7 @@ struct Plan: Codable, Identifiable, Equatable {
   var title: String
   var startAt: Date
   var endAt: Date
-  var place: Place
+  var place: Place?
   var memo: String
   var additionalPlaces: [Place] = []
 }
@@ -33,7 +33,7 @@ extension Plan {
   }
 
   static var empty: Plan {
-    Plan(title: "", startAt: Date(), endAt: Date(), place: Place(id: "", title: "", address: "", location: CLLocationCoordinate2D()), memo: "")
+    Plan(title: "", startAt: Date(), endAt: Date(), place: nil, memo: "")
   }
 }
 //

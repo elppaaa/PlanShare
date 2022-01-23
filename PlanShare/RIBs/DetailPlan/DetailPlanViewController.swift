@@ -99,12 +99,14 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 
   @discardableResult
   private func addView(flex: Flex, label: String, view: UIView) -> Flex {
-    flex.addItem().direction(.row).grow(1).define {
+    flex.addItem().direction(.row).grow(1).justifyContent(.spaceBetween).define {
       let labelView = UILabel().then {
         $0.text = label
       }
-      $0.addItem(labelView).grow(1)
-      $0.addItem(view)
+      $0.addItem(labelView)
+        .marginRight(20)
+
+      $0.addItem(view).shrink(1)
     }
     .marginBottom(20)
   }
@@ -134,7 +136,8 @@ extension DetailPlanViewController {
     titleLabel.text = plan.title
     startAtLabel.text = plan.startAt.formattedDateAndTime
     endAtLabel.text = plan.endAt.formattedDateAndTime
-    addressLabel.text = plan.place.address
+    addressLabel.text = plan.place?.address
+    mapButton.isEnabled = plan.place != nil
     memoLabel.text = plan.memo
   }
 }

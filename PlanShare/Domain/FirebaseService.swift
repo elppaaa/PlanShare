@@ -33,10 +33,10 @@ final class FirebaseService: FirebaseServieType {
     FirebaseApp.configure()
     let settings = Self.db.settings
     settings.isPersistenceEnabled = true
+    settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
 
     #if DEBUG
-    settings.host = "localhost:8080"
-    settings.isPersistenceEnabled = false
+    settings.host = "localhost:8090"
     settings.isSSLEnabled = false
     #endif
     Self.db.settings = settings
@@ -61,25 +61,25 @@ final class FirebaseService: FirebaseServieType {
   static func readByIDs<T: Decodable>(path: String, list: [Any], useCache: Bool = false) -> Single<[T]> {
     Log.log(.debug, category: .firebase, #function)
     return db.collection(path).rx.getDocumentsBy(idList: list, useCache: useCache)
-      .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
   }
 
   static func create<T: Encodable>(path: String, data: T) -> Single<DocumentReference> {
     Log.log(.debug, category: .firebase, #function)
     return db.collection(path).rx.new(document: data)
-      .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
   }
 
   static func read<T: Decodable>(path: String, id: String) -> Single<T> {
     Log.log(.debug, category: .firebase, #function)
     return db.collection(path).rx.get(id: id)
-      .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
   }
 
   static func delete(path: String, id: String) -> Completable {
     Log.log(.debug, category: .firebase, #function)
     return db.collection(path).rx.delete(id: id)
-      .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
   }
 
   static func update<T: Decodable>(path: String, id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
@@ -92,7 +92,7 @@ final class FirebaseService: FirebaseServieType {
         let updateValue = updateBlock(value)
         return document.document(id).rx.update(to: updateValue)
       }
-      .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
   }
 
   static func update<T: Encodable>(path: String, id: String, value: T) -> Completable {
@@ -101,7 +101,7 @@ final class FirebaseService: FirebaseServieType {
 
     return document.document(id)
       .rx.update(to: value)
-      .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .utility))
+      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
   }
 
   // MARK: Private

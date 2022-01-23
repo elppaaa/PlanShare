@@ -159,7 +159,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 
       addRow($0).define {
         addLabel($0, text: "address").marginRight(40)
-        $0.addItem(addressView).padding(3)
+        $0.addItem(addressView).padding(3).shrink(1).grow(1)
       }
 
       addDatePicker($0, text: "startAt", datePicker: startAtPicker)
@@ -222,7 +222,7 @@ extension EditingViewController {
     if addressView.text == "" || addressView.text == nil {
       addressView.text = "주소를 입력해주세요"
     } else {
-      addressView.text = plan.place.title + ", " + plan.place.address
+      addressView.text = (plan.place?.title ?? "") + ", " + (plan.place?.address ?? "")
     }
   }
 }

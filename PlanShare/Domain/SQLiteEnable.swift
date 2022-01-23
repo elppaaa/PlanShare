@@ -48,7 +48,7 @@ extension SQLiteEnable {
 
   func delete() -> SQLiteError? {
     guard let id = id else { return .idIsEmpty }
-    let deleteQuery = "DELETE FROM \(Self.db) WHERE id \(id)"
+    let deleteQuery = "DELETE FROM \(Self.db) WHERE id = '\(id)'"
 
     return service.delete(query: deleteQuery, id: id)
   }

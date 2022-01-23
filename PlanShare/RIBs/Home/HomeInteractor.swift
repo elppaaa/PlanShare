@@ -84,14 +84,30 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
     switch planModels {
     case .success(let values):
-      guard values.count > 0 else { return }
-      FirebaseService.readByIDs(path: "Plan", list: values.map { $0.planID }, useCache: useCache)
-        .subscribe(onSuccess: { [weak self] in
-          self?.plans.accept($0)
-        })
-        .disposeOnDeactivate(interactor: self)
+      Single<Plan?>.zip( values.map { plan in
+        FirebaseService.read(path: "Plan", id: plan.planID)
+          .do(onError: {
+            if let error = $0 as? FirebaseService.Err, error == .serialized {
+              PlanModel.deleteBy(planID: plan.planID)
+            } else {
+              Log.log(.error, category: .sqlite, "\(#function) \($0)")
+            }
+          })
+          .catchAndReturn(nil)
+      })
+      .map { $0.compactMap { $0 } }
+      .subscribe(onSuccess: { [weak self] in
+        self?.sortAndAccept(plans: $0)
+      })
+      .disposeOnDeactivate(interactor: self)
+//      guard values.count > 0 else { return }
+//      FirebaseService.readByIDs(path: "Plan", list: values.map { $0.planID }, useCache: useCache)
+//        .subscribe(onSuccess: { [weak self] in
+//          self?.plans.accept($0)
+//        })
+//        .disposeOnDeactivate(interactor: self)
     case .failure(let error):
-      debugPrint(error)
+      Log.log(.error, category: .sqlite, "\(#function) \(error)")
     }
   }
 

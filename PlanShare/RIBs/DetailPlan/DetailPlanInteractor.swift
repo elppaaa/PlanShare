@@ -74,7 +74,9 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
 
 extension DetailPlanInteractor {
   func mapButtonTapped() {
-    router?.routeToMarkedMap(location: plan.place.location)
+    if let location = plan.place?.location {
+      router?.routeToMarkedMap(location: location)
+    }
   }
 
   func movingFromParent() {

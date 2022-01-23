@@ -53,9 +53,10 @@ extension PlanModel: SQLiteEnable {
   @discardableResult
   static func deleteBy(planID: String) -> SQLiteError? {
     Log.log(.debug, category: .sqlite, #function)
-    let deletionQuery = "DELETE FROM \(db) WHERE planID \(planID)"
+    let deletionQuery = "DELETE FROM \(db) WHERE planID = '\(planID)'"
 
     var stmt: OpaquePointer?
+
     if sqlite3_prepare_v2(SQLiteService.shared.db, deletionQuery, -1, &stmt, nil) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(SQLiteService.shared.db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
