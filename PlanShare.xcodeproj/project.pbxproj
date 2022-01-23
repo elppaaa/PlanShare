@@ -24,6 +24,8 @@
 		480E00EF2788351700EEA4E6 /* PlanShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */; };
 		480E00F12788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */; };
 		480E0100278837CF00EEA4E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */; };
+		482CF497279DC0AD00316C45 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482CF496279DC0AD00316C45 /* PlanModel.swift */; };
+		482CF499279DC0F100316C45 /* SQLiteEnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482CF498279DC0F100316C45 /* SQLiteEnable.swift */; };
 		483CAAC2278E88C100749657 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 483CAAC1278E88C100749657 /* FirebaseDatabase */; };
 		483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483CAAC3278E91C100749657 /* FireStore+Extension.swift */; };
 		483CAAC6278ECF3800749657 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */; };
@@ -84,6 +86,7 @@
 		48ADBE5D279B0E4300B0FB92 /* PlaceSelectingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ADBE5C279B0E4300B0FB92 /* PlaceSelectingTableViewCell.swift */; };
 		48ADBE5F279B1BC200B0FB92 /* PlaceSelectingComponent+MarkedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ADBE5E279B1BC200B0FB92 /* PlaceSelectingComponent+MarkedMap.swift */; };
 		48BED638279D2D9100268C16 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BED637279D2D9100268C16 /* Log.swift */; };
+		48BED63A279D3C9C00268C16 /* SQLiteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BED639279D3C9C00268C16 /* SQLiteService.swift */; };
 		48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DAF27908BB800E240F5 /* UpdateModel.swift */; };
 		48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */; };
 		48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2627997B580068FA1B /* PlaceService.swift */; };
@@ -131,6 +134,8 @@
 		480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareUITests.swift; sourceTree = "<group>"; };
 		480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		482CF496279DC0AD00316C45 /* PlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
+		482CF498279DC0F100316C45 /* SQLiteEnable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteEnable.swift; sourceTree = "<group>"; };
 		483CAAC3278E91C100749657 /* FireStore+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStore+Extension.swift"; sourceTree = "<group>"; };
 		483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		483CAAC9278EF2F200749657 /* FirestoreCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCodable.swift; sourceTree = "<group>"; };
@@ -171,6 +176,7 @@
 		48ADBE5C279B0E4300B0FB92 /* PlaceSelectingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSelectingTableViewCell.swift; sourceTree = "<group>"; };
 		48ADBE5E279B1BC200B0FB92 /* PlaceSelectingComponent+MarkedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaceSelectingComponent+MarkedMap.swift"; sourceTree = "<group>"; };
 		48BED637279D2D9100268C16 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		48BED639279D3C9C00268C16 /* SQLiteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteService.swift; sourceTree = "<group>"; };
 		48C93DAF27908BB800E240F5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestCase.swift; sourceTree = "<group>"; };
 		48DC7B2627997B580068FA1B /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
@@ -364,6 +370,8 @@
 				483EE947278C3D9C0030DE1B /* FirebaseService.swift */,
 				4807901B27970F0200FB6F9B /* UserDefault.swift */,
 				48DC7B2627997B580068FA1B /* PlaceService.swift */,
+				48BED639279D3C9C00268C16 /* SQLiteService.swift */,
+				482CF498279DC0F100316C45 /* SQLiteEnable.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -376,6 +384,7 @@
 				48C93DAF27908BB800E240F5 /* UpdateModel.swift */,
 				483EE94C278CBF2A0030DE1B /* Place.swift */,
 				483CAAC9278EF2F200749657 /* FirestoreCodable.swift */,
+				482CF496279DC0AD00316C45 /* PlanModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -629,6 +638,7 @@
 				480790272797469900FB6F9B /* DetailPlanBuilder.swift in Sources */,
 				48A2A14E2799E19D00E735D8 /* Date+Extension.swift in Sources */,
 				480790162796ADA900FB6F9B /* HomeTableViewCell.swift in Sources */,
+				482CF497279DC0AD00316C45 /* PlanModel.swift in Sources */,
 				483EE94B278C3EAF0030DE1B /* Plan.swift in Sources */,
 				480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */,
 				48ADBE59279AB28A00B0FB92 /* ViewableRouting+Extension.swift in Sources */,
@@ -645,6 +655,7 @@
 				48A2A1472799DA5E00E735D8 /* MarkedMapRouter.swift in Sources */,
 				484FF139279839730065317B /* EditingComponent+PlaceSelecting.swift in Sources */,
 				480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */,
+				48BED63A279D3C9C00268C16 /* SQLiteService.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
 				483EE94D278CBF2B0030DE1B /* Place.swift in Sources */,
 				483EE913278C25920030DE1B /* RootRouter.swift in Sources */,
@@ -668,6 +679,7 @@
 				4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */,
 				48A2A14C2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
+				482CF499279DC0F100316C45 /* SQLiteEnable.swift in Sources */,
 				48ADBE5B279AF1CA00B0FB92 /* SearchResultUpdating+Rx.swift in Sources */,
 				483CAACA278EF2F200749657 /* FirestoreCodable.swift in Sources */,
 				48A2A14A2799DA5E00E735D8 /* MarkedMapInteractor.swift in Sources */,

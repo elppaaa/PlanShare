@@ -85,7 +85,7 @@ final class PlaceService {
 
   private func placeInfo(from id: String) -> Single<(name: String, address: String, location: CLLocationCoordinate2D)> {
     Log.log(.debug, category: .places, #function)
-    
+
     return .create { subscriber in
       self.client.fetchPlace(fromPlaceID: id, placeFields: [.coordinate, .name, .formattedAddress], sessionToken: nil) { place, error in
         guard let place = place, error == nil else {
