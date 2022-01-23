@@ -43,6 +43,7 @@ final class FirebaseService: FirebaseServieType {
   }
 
   static func create(path: String, data: FirestoreEncodable) async -> Result<DocumentReference, Error> {
+    Log.log(.debug, category: .firebase, #function)
     guard let data = data.dict else { return .failure(Err.serialized) }
 
     return await withCheckedContinuation { continueation in
@@ -58,18 +59,22 @@ final class FirebaseService: FirebaseServieType {
   }
 
   static func create<T: Encodable>(path: String, data: T) -> Single<DocumentReference> {
-    db.collection(path).rx.new(document: data)
+    Log.log(.debug, category: .firebase, #function)
+    return db.collection(path).rx.new(document: data)
   }
 
   static func read<T: Decodable>(path: String, id: String) -> Single<T> {
-    db.collection(path).rx.get(id: id)
+    Log.log(.debug, category: .firebase, #function)
+    return db.collection(path).rx.get(id: id)
   }
 
   static func delete(path: String, id: String) -> Completable {
-    db.collection(path).rx.delete(id: id)
+    Log.log(.debug, category: .firebase, #function)
+    return db.collection(path).rx.delete(id: id)
   }
 
   static func update<T: Decodable>(path: String, id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
+    Log.log(.debug, category: .firebase, #function)
     let document = db.collection(path)
     let observable: Single<T> = document.rx.get(id: id)
 
@@ -81,6 +86,7 @@ final class FirebaseService: FirebaseServieType {
   }
 
   static func update<T: Encodable>(path: String, id: String, value: T) -> Completable {
+    Log.log(.debug, category: .firebase, #function)
     let document = db.collection("path")
 
     return document.document(id)

@@ -25,13 +25,17 @@ final class PlaceService {
   static let shared = PlaceService()
 
   func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<[PlaceSearchResult]> {
-    .create { subscriber in
+    Log.log(.debug, category: .places, #function)
+
+    return .create { subscriber in
       let filter = GMSAutocompleteFilter()
       filter.type = .establishment
       filter.origin = currentPlace
 
       self.client.findAutocompletePredictions(fromQuery: query, filter: filter, sessionToken: nil) { results, error in
         guard let results = results, error == nil else {
+          let errMessage = "request failed \(error!.localizedDescription)"
+          Log.log(.error, category: .places, errMessage)
           subscriber(.failure(PlaceError.failedToFind))
           return
         }
@@ -48,9 +52,13 @@ final class PlaceService {
   }
 
   func getLocation(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<CLLocationCoordinate2D> {
-    .create { subscriber in
+    Log.log(.debug, category: .places, #function)
+
+    return .create { subscriber in
       self.client.fetchPlace(fromPlaceID: id, placeFields: .coordinate, sessionToken: sessionToken) { place, error in
         guard let place = place, error == nil else {
+          let errMessage = "request failed \(error!.localizedDescription)"
+          Log.log(.error, category: .places, errMessage)
           subscriber(.failure(PlaceError.failedToFind))
           return
         }
@@ -62,7 +70,8 @@ final class PlaceService {
   }
 
   func place(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<Place> {
-    placeInfo(from: id)
+    Log.log(.debug, category: .places, #function)
+    return placeInfo(from: id)
       .map { Place(id: id, title: $0.name, address: $0.address, location: $0.location) }
   }
 
@@ -75,9 +84,13 @@ final class PlaceService {
   private lazy var client = GMSPlacesClient.shared()
 
   private func placeInfo(from id: String) -> Single<(name: String, address: String, location: CLLocationCoordinate2D)> {
-    .create { subscriber in
+    Log.log(.debug, category: .places, #function)
+    
+    return .create { subscriber in
       self.client.fetchPlace(fromPlaceID: id, placeFields: [.coordinate, .name, .formattedAddress], sessionToken: nil) { place, error in
         guard let place = place, error == nil else {
+          let errMessage = "request failed \(error!.localizedDescription)"
+          Log.log(.error, category: .places, errMessage)
           subscriber(.failure(PlaceError.failedToFind))
           return
         }

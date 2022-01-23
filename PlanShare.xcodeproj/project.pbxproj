@@ -83,6 +83,7 @@
 		48ADBE5B279AF1CA00B0FB92 /* SearchResultUpdating+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ADBE5A279AF1CA00B0FB92 /* SearchResultUpdating+Rx.swift */; };
 		48ADBE5D279B0E4300B0FB92 /* PlaceSelectingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ADBE5C279B0E4300B0FB92 /* PlaceSelectingTableViewCell.swift */; };
 		48ADBE5F279B1BC200B0FB92 /* PlaceSelectingComponent+MarkedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ADBE5E279B1BC200B0FB92 /* PlaceSelectingComponent+MarkedMap.swift */; };
+		48BED638279D2D9100268C16 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BED637279D2D9100268C16 /* Log.swift */; };
 		48C93DB027908BB800E240F5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DAF27908BB800E240F5 /* UpdateModel.swift */; };
 		48C93DB2279095FB00E240F5 /* FireStoreTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */; };
 		48DC7B2727997B590068FA1B /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC7B2627997B580068FA1B /* PlaceService.swift */; };
@@ -169,6 +170,7 @@
 		48ADBE5A279AF1CA00B0FB92 /* SearchResultUpdating+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultUpdating+Rx.swift"; sourceTree = "<group>"; };
 		48ADBE5C279B0E4300B0FB92 /* PlaceSelectingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSelectingTableViewCell.swift; sourceTree = "<group>"; };
 		48ADBE5E279B1BC200B0FB92 /* PlaceSelectingComponent+MarkedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaceSelectingComponent+MarkedMap.swift"; sourceTree = "<group>"; };
+		48BED637279D2D9100268C16 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		48C93DAF27908BB800E240F5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		48C93DB1279095FB00E240F5 /* FireStoreTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestCase.swift; sourceTree = "<group>"; };
 		48DC7B2627997B580068FA1B /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				48716A41278859A200D24722 /* Constraints.swift */,
 				48A2A14D2799E19D00E735D8 /* Date+Extension.swift */,
 				48ADBE5A279AF1CA00B0FB92 /* SearchResultUpdating+Rx.swift */,
+				48BED637279D2D9100268C16 /* Log.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				483EE925278C28A30030DE1B /* HomeBuilder.swift in Sources */,
+				48BED638279D2D9100268C16 /* Log.swift in Sources */,
 				484FF12C279831DB0065317B /* HomeComponent+Editing.swift in Sources */,
 				48A2A1482799DA5E00E735D8 /* MarkedMapBuilder.swift in Sources */,
 				48DC7B312799D6690068FA1B /* ViewControllerable+Extension.swift in Sources */,
