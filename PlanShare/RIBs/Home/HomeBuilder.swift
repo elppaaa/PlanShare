@@ -23,7 +23,7 @@ final class HomeComponent: Component<HomeDependency> {
 // MARK: - HomeBuildable
 
 protocol HomeBuildable: Buildable {
-  func build(withListener listener: HomeListener) -> HomeRouting
+  func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem)
 }
 
 // MARK: - HomeBuilder
@@ -38,7 +38,7 @@ final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
 
   // MARK: Internal
 
-  func build(withListener listener: HomeListener) -> HomeRouting {
+  func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem) {
     let component = HomeComponent(dependency: dependency)
     let viewController = HomeViewController()
     let interactor = HomeInteractor(presenter: viewController)
@@ -47,11 +47,13 @@ final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
     let detailPlanBuilder = DetailPlanBuilder(dependency: component)
     let editingBuilder = EditingBuilder(dependency: component)
 
-    return HomeRouter(
+    let router = HomeRouter(
       interactor: interactor,
       viewController: viewController,
       detailPlanBuilder: detailPlanBuilder,
       editingBuilder: editingBuilder
     )
+
+    return (router, interactor)
   }
 }

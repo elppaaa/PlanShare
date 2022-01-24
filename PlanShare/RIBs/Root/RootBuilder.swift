@@ -23,7 +23,7 @@ final class RootComponent: Component<RootDependency> {
 // MARK: - RootBuildable
 
 protocol RootBuildable: Buildable {
-  func build() -> LaunchRouting
+  func build() -> (launchRouter: LaunchRouting, urlHandler: URLHandler)
 }
 
 // MARK: - RootBuilder
@@ -38,17 +38,18 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
 
   // MARK: Internal
 
-  func build() -> LaunchRouting {
+  func build() -> (launchRouter: LaunchRouting, urlHandler: URLHandler) {
     let component = RootComponent(dependency: dependency)
     let viewController = RootViewController()
     let interactor = RootInteractor(presenter: viewController)
 
     let homeBuilder = HomeBuilder(dependency: component)
-
-    return RootRouter(
+    let router = RootRouter(
       interactor: interactor,
       viewController: viewController,
       homeBuilder: homeBuilder
     )
+
+    return (router, interactor)
   }
 }

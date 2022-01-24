@@ -49,9 +49,18 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
 
   private let homeBuilder: HomeBuildable
 
-  private func routeToHome() {
-    let homeRouter = homeBuilder.build(withListener: interactor)
+}
+
+// MARK: - RootRouting
+
+extension RootRouter {
+
+  @discardableResult
+  func routeToHome() -> HomeActionableItem {
+    let (homeRouter, actionableItem) = homeBuilder.build(withListener: interactor)
     attachChild(homeRouter)
     viewController.push(viewController: homeRouter.viewControllable, animated: false)
+
+    return actionableItem
   }
 }

@@ -8,6 +8,8 @@
 import RIBs
 import UIKit
 
+// MARK: - SceneDelegate
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   // MARK: Internal
@@ -18,20 +20,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let _windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: _windowScene)
 
-    let router = RootBuilder(dependency: AppComponent()).build()
+    let (router, urlHandler) = RootBuilder(dependency: AppComponent()).build()
     launchRouter = router
     router.launch(from: window)
+    self.urlHandler = urlHandler
 
     self.window = window
     self.window?.makeKeyAndVisible()
   }
 
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-    if
-      let context = URLContexts.first,
-      let planID = context.url.query
-    {
-      debugPrint(planID)
+    if let context = URLContexts.first {
+      urlHandler?.handle(context.url)
     }
   }
 
@@ -67,5 +67,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   // MARK: Private
 
+  private var urlHandler: URLHandler?
+
   private var launchRouter: LaunchRouting?
+}
+
+// MARK: - URLHandler
+
+protocol URLHandler: AnyObject {
+  func handle(_ url: URL)
 }

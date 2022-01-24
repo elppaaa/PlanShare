@@ -19,6 +19,9 @@
 		480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */; };
 		480CBB03279ECBBF00111CE6 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB02279ECBBF00111CE6 /* CalendarService.swift */; };
 		480CBB05279EFCC900111CE6 /* KakaoLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB04279EFCC900111CE6 /* KakaoLinkService.swift */; };
+		480CBB08279F18ED00111CE6 /* GetPlanWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB07279F18ED00111CE6 /* GetPlanWorkflow.swift */; };
+		480CBB0A279F191F00111CE6 /* RootActionableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB09279F191F00111CE6 /* RootActionableItem.swift */; };
+		480CBB0C279F1AF800111CE6 /* HomeActionableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB0B279F1AF800111CE6 /* HomeActionableItem.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -128,6 +131,9 @@
 		480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapLink.swift; sourceTree = "<group>"; };
 		480CBB02279ECBBF00111CE6 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		480CBB04279EFCC900111CE6 /* KakaoLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLinkService.swift; sourceTree = "<group>"; };
+		480CBB07279F18ED00111CE6 /* GetPlanWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlanWorkflow.swift; sourceTree = "<group>"; };
+		480CBB09279F191F00111CE6 /* RootActionableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootActionableItem.swift; sourceTree = "<group>"; };
+		480CBB0B279F1AF800111CE6 /* HomeActionableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActionableItem.swift; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -251,6 +257,16 @@
 			path = DetailPlan;
 			sourceTree = "<group>";
 		};
+		480CBB06279F18BF00111CE6 /* Workflows */ = {
+			isa = PBXGroup;
+			children = (
+				480CBB07279F18ED00111CE6 /* GetPlanWorkflow.swift */,
+				480CBB09279F191F00111CE6 /* RootActionableItem.swift */,
+				480CBB0B279F1AF800111CE6 /* HomeActionableItem.swift */,
+			);
+			path = Workflows;
+			sourceTree = "<group>";
+		};
 		480E00BE2788351400EEA4E6 = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +294,7 @@
 				483EE918278C261D0030DE1B /* AppStart */,
 				483EE91B278C26BC0030DE1B /* RIBs */,
 				483EE944278C3C4F0030DE1B /* Domain */,
+				480CBB06279F18BF00111CE6 /* Workflows */,
 				48DC7B332799D83A0068FA1B /* Supporting Files */,
 				480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */,
 				48716A3F278858B900D24722 /* shared.xcconfig */,
@@ -654,6 +671,7 @@
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
 				480CBB05279EFCC900111CE6 /* KakaoLinkService.swift in Sources */,
 				480790262797469900FB6F9B /* DetailPlanRouter.swift in Sources */,
+				480CBB08279F18ED00111CE6 /* GetPlanWorkflow.swift in Sources */,
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
 				480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */,
 				483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */,
@@ -666,6 +684,7 @@
 				48A2A1472799DA5E00E735D8 /* MarkedMapRouter.swift in Sources */,
 				484FF139279839730065317B /* EditingComponent+PlaceSelecting.swift in Sources */,
 				480790182796ADF100FB6F9B /* NSObject+Extension.swift in Sources */,
+				480CBB0C279F1AF800111CE6 /* HomeActionableItem.swift in Sources */,
 				48BED63A279D3C9C00268C16 /* SQLiteService.swift in Sources */,
 				480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */,
 				483EE94D278CBF2B0030DE1B /* Place.swift in Sources */,
@@ -690,6 +709,7 @@
 				483EE924278C28A30030DE1B /* HomeRouter.swift in Sources */,
 				4807901C27970F0200FB6F9B /* UserDefault.swift in Sources */,
 				48A2A14C2799DCA300E735D8 /* DetailPlanComponent+MarkedMap.swift in Sources */,
+				480CBB0A279F191F00111CE6 /* RootActionableItem.swift in Sources */,
 				483EE930278C29700030DE1B /* EditingViewController.swift in Sources */,
 				482CF499279DC0F100316C45 /* SQLiteEnable.swift in Sources */,
 				48ADBE5B279AF1CA00B0FB92 /* SearchResultUpdating+Rx.swift in Sources */,

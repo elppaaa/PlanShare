@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 import RIBs
+import RxCocoa
 import RxRelay
 import RxSwift
 
@@ -75,6 +76,8 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
   // MARK: Private
 
+  private let homeActionableItemSubject = ReplaySubject<Void>.create(bufferSize: 1)
+
   private func readAllPlans(useCache: Bool = false) {
     let planModels = PlanModel.readAll()
     if let plans = try? planModels.get().map({ $0.planID }) {
@@ -97,6 +100,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
       .map { $0.compactMap { $0 } }
       .subscribe(onSuccess: { [weak self] in
         self?.sortAndAccept(plans: $0)
+        self?.homeActionableItemSubject.onNext(())
       })
       .disposeOnDeactivate(interactor: self)
 //      guard values.count > 0 else { return }
@@ -188,5 +192,29 @@ extension HomeInteractor {
     if let id = plan.id {
       PlanModel.deleteBy(planID: id)
     }
+  }
+}
+
+// MARK: HomeActionableItem
+
+extension HomeInteractor: HomeActionableItem {
+  func getAndOpenPlan(id: String) -> Observable<(HomeActionableItem, ())> {
+    if plans.value.first(where: { $0.id == id }) == nil {
+      let model = PlanModel(planID: id)
+      model.prepare()
+      model.write()
+    }
+
+    readAllPlans()
+
+    return homeActionableItemSubject
+      .map { _ in
+
+        if let plan = self.plans.value.first(where: { $0.id == id }) {
+          self.router?.routeToDetailPlan(plan: plan)
+        }
+
+        return (self, ())
+      }
   }
 }

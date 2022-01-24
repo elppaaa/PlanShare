@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/10.
 //
 
+import Foundation
 import RIBs
 import RxSwift
 
@@ -12,6 +13,7 @@ import RxSwift
 
 protocol RootRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+  func routeToHome() -> HomeActionableItem
 }
 
 // MARK: - RootPresentable
@@ -53,5 +55,26 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
   override func willResignActive() {
     super.willResignActive()
     // TODO: Pause any business logic.
+  }
+}
+
+// MARK: RootActionableItem
+
+extension RootInteractor: RootActionableItem {
+  func routeToHome() -> Observable<(HomeActionableItem, ())> {
+    let item = router!.routeToHome()
+    return .just((item, ()))
+  }
+}
+
+// MARK: URLHandler
+
+extension RootInteractor: URLHandler {
+  func handle(_ url: URL) {
+    let workflow = GetPlanWorkflow(url: url)
+
+    workflow
+      .subscribe(self)
+      .disposeOnDeactivate(interactor: self)
   }
 }
