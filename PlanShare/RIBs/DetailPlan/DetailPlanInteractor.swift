@@ -123,9 +123,9 @@ extension DetailPlanInteractor {
             let self = self,
             let id = self.plan.id else { return }
 
-          // TODO: - 토스트 메시지 표시 예정
           self.eventIdentifier = $0
           PlanModel.updateEventID(planID: id, eventIdentifier: $0)
+          toastMessage("캘린더에 저장되었습니다.")
         })
         .disposeOnDeactivate(interactor: self)
       return
@@ -139,13 +139,12 @@ extension DetailPlanInteractor {
             let self = self,
             let id = self.plan.id else { return }
 
-          // TODO: - 토스트 메시지 표시 예정
           self.eventIdentifier = $0
           PlanModel.updateEventID(planID: id, eventIdentifier: $0)
+          toastMessage("캘린더에 저장되었습니다.")
         },
         onCompleted: {
-          // TODO: - 토스트 메시지 표시 예정
-
+          toastMessage("캘린더에 저장되었습니다.")
         }
       )
       .disposeOnDeactivate(interactor: self)

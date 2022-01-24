@@ -22,6 +22,7 @@
 		480CBB08279F18ED00111CE6 /* GetPlanWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB07279F18ED00111CE6 /* GetPlanWorkflow.swift */; };
 		480CBB0A279F191F00111CE6 /* RootActionableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB09279F191F00111CE6 /* RootActionableItem.swift */; };
 		480CBB0C279F1AF800111CE6 /* HomeActionableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB0B279F1AF800111CE6 /* HomeActionableItem.swift */; };
+		480CBB0E279F400800111CE6 /* toastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB0D279F400800111CE6 /* toastMessage.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -134,6 +135,7 @@
 		480CBB07279F18ED00111CE6 /* GetPlanWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlanWorkflow.swift; sourceTree = "<group>"; };
 		480CBB09279F191F00111CE6 /* RootActionableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootActionableItem.swift; sourceTree = "<group>"; };
 		480CBB0B279F1AF800111CE6 /* HomeActionableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActionableItem.swift; sourceTree = "<group>"; };
+		480CBB0D279F400800111CE6 /* toastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toastMessage.swift; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				480790172796ADF100FB6F9B /* NSObject+Extension.swift */,
+				480CBB0D279F400800111CE6 /* toastMessage.swift */,
 				48DC7B2C2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift */,
 				48DC7B302799D6690068FA1B /* ViewControllerable+Extension.swift */,
 				48ADBE58279AB28A00B0FB92 /* ViewableRouting+Extension.swift */,
@@ -701,6 +704,7 @@
 				48DC7B2927997FE80068FA1B /* PlaceSearchResult.swift in Sources */,
 				483EE92F278C29700030DE1B /* EditingBuilder.swift in Sources */,
 				480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */,
+				480CBB0E279F400800111CE6 /* toastMessage.swift in Sources */,
 				484FF137279837D50065317B /* PlaceSelectingInteractor.swift in Sources */,
 				483EE91A278C26350030DE1B /* AppComopnent.swift in Sources */,
 				483EE926278C28A30030DE1B /* HomeViewController.swift in Sources */,
