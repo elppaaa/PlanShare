@@ -95,7 +95,6 @@ extension DetailPlanInteractor {
   func shareButtonTapped() {
     KakaoLinkService.sendMessage(plan: plan)
       .subscribe(onSuccess: { [weak self] in
-        Log.log(.debug, category: .firebase, "\($0)")
         if LinkApi.isKakaoLinkAvailable() {
           UIApplication.shared.open($0, options: [:], completionHandler: nil)
         } else {
@@ -116,7 +115,6 @@ extension DetailPlanInteractor {
   func addCalendarButtonTapped() {
     guard let eventIdentifier = eventIdentifier else {
       CalendarService.shared.newEvent(plan: plan)
-        .debug("newEvent")
         .subscribe(onSuccess: { [weak self] in
           guard
             let self = self,
@@ -132,7 +130,6 @@ extension DetailPlanInteractor {
 
     // TODO: - 토스트 메시지 표시 예정
     CalendarService.shared.updateEvent(identifier: eventIdentifier, plan: plan)
-      .debug("updateEvent")
       .subscribe(
         onSuccess: { [weak self] in
           guard

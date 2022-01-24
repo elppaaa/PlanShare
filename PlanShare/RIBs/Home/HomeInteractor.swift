@@ -76,13 +76,10 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
   // MARK: Private
 
-  private let homeActionableItemSubject = ReplaySubject<Void>.create(bufferSize: 1)
+  private let plansLoadingSubject = ReplaySubject<Void>.create(bufferSize: 1)
 
   private func readAllPlans(useCache: Bool = false) {
     let planModels = PlanModel.readAll()
-    if let plans = try? planModels.get().map({ $0.planID }) {
-      Log.log(.debug, category: .firebase, "Plans: \(plans)")
-    }
 
     switch planModels {
     case .success(let values):
@@ -100,7 +97,6 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
       .map { $0.compactMap { $0 } }
       .subscribe(onSuccess: { [weak self] in
         self?.sortAndAccept(plans: $0)
-        self?.homeActionableItemSubject.onNext(())
       })
       .disposeOnDeactivate(interactor: self)
 //      guard values.count > 0 else { return }
@@ -116,7 +112,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
   private func appendPlan(plan: Plan) {
     var plans = plans.value
-    plans.append(plan)
+    if !plans.contains(where: { $0.id == plan.id }) {
+      plans.append(plan)
+    }
     sortAndAccept(plans: plans)
   }
 
@@ -199,20 +197,11 @@ extension HomeInteractor {
 
 extension HomeInteractor: HomeActionableItem {
   func getAndOpenPlan(id: String) -> Observable<(HomeActionableItem, ())> {
-    if plans.value.first(where: { $0.id == id }) == nil {
-      let model = PlanModel(planID: id)
-      model.prepare()
-      model.write()
-    }
-
-    readAllPlans()
-
-    return homeActionableItemSubject
-      .map { _ in
-
-        if let plan = self.plans.value.first(where: { $0.id == id }) {
-          self.router?.routeToDetailPlan(plan: plan)
-        }
+    return FirebaseService.read(path: "Plan", id: id)
+      .asObservable()
+      .do(onNext: { [weak self] in self?.appendPlan(plan: $0) })
+      .map {
+        self.router?.routeToDetailPlan(plan: $0)
 
         return (self, ())
       }
