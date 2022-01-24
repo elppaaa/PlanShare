@@ -76,8 +76,11 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
 
 extension DetailPlanInteractor {
   func mapButtonTapped() {
-    if let location = plan.place?.location {
-      router?.routeToMarkedMap(location: location)
+//    if let location = plan.place?.location {
+//      router?.routeToMarkedMap(location: location)
+//    }
+    if let link = plan.place?.link {
+      UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
   }
 
@@ -89,11 +92,11 @@ extension DetailPlanInteractor {
     listener?.routeToEditing(plan: plan)
   }
 
-  func addressLabelTapped() {
-    if let link = plan.place?.link {
-      UIApplication.shared.open(link, options: [:], completionHandler: nil)
-    }
-  }
+//  func addressLabelTapped() {
+//    if let link = plan.place?.link {
+//      UIApplication.shared.open(link, options: [:], completionHandler: nil)
+//    }
+//  }
 }
 
 // MARK: - ViewableRouting

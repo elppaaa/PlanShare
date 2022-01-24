@@ -22,7 +22,7 @@ protocol DetailPlanPresentableListener: AnyObject {
   func mapButtonTapped()
   func movingFromParent()
   func editButtonTapped()
-  func addressLabelTapped()
+//  func addressLabelTapped()
 }
 
 // MARK: - DetailPlanViewController
@@ -134,12 +134,12 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
       })
       .disposed(by: disposeBag)
 
-    addressLabel.rx.tapGesture()
-      .when(.recognized)
-      .subscribe(onNext: { [weak self]_ in
-        self?.listener?.addressLabelTapped()
-      })
-      .disposed(by: disposeBag)
+//    addressLabel.rx.tapGesture()
+//      .when(.recognized)
+//      .subscribe(onNext: { [weak self]_ in
+//        self?.listener?.addressLabelTapped()
+//      })
+//      .disposed(by: disposeBag)
   }
 
   private func prepareToRemove() {
