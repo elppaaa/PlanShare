@@ -55,22 +55,66 @@ extension PlanModel: SQLiteEnable {
     Log.log(.debug, category: .sqlite, #function)
     let deletionQuery = "DELETE FROM \(db) WHERE planID = '\(planID)'"
 
+    let service = SQLiteService.shared
     var stmt: OpaquePointer?
 
-    if sqlite3_prepare_v2(SQLiteService.shared.db, deletionQuery, -1, &stmt, nil) != SQLITE_OK {
-      let errMsg = String(cString: sqlite3_errmsg(SQLiteService.shared.db)!)
-      Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
-      return .failedToPrepare
+    if let error = service.prepare(query: deletionQuery, stmt: &stmt) {
+      return error
     }
 
     if sqlite3_step(stmt) != SQLITE_DONE {
-      let errMsg = String(cString: sqlite3_errmsg(SQLiteService.shared.db)!)
+      let errMsg = String(cString: sqlite3_errmsg(service.db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
       return .failedToDelete
     }
 
     if sqlite3_finalize(stmt) != SQLITE_OK {
       return .unknown
+    }
+
+    return nil
+  }
+
+  static func getEventIDBy(planID id: String) -> Result<String?, SQLiteError> {
+    Log.log(.debug, category: .sqlite, #function)
+
+    let service = SQLiteService.shared
+    var stmt: OpaquePointer?
+
+    let selectQuery = "SELECT eventIdentifier FROM \(db) WHERE planID = '\(id)'"
+    if let error = service.prepare(query: selectQuery, stmt: &stmt) {
+      return .failure(error)
+    }
+
+    var identifier: String? = nil
+
+    if sqlite3_step(stmt) == SQLITE_ROW {
+      let str = String(cString: sqlite3_column_text(stmt, 0))
+      identifier = str == "" ? nil : str
+    }
+
+    if sqlite3_finalize(stmt) != SQLITE_OK {
+      return .failure(.unknown)
+    }
+
+    return .success(identifier)
+  }
+
+  @discardableResult
+  static func updateEventID(planID: String, eventIdentifier: String) -> SQLiteError? {
+    Log.log(.debug, category: .sqlite, #function)
+    let service = SQLiteService.shared
+    var stmt: OpaquePointer?
+
+    let updateQuery = "UPDATE \(db) SET eventIdentifier = '\(eventIdentifier)' WHERE planID == '\(planID)'"
+    if let error = service.prepare(query: updateQuery, stmt: &stmt) {
+      return error
+    }
+
+    if sqlite3_step(stmt) != SQLITE_DONE {
+      let errMsg = String(cString: sqlite3_errmsg(service.db)!)
+      Log.log(.error, category: .sqlite, errMsg)
+      return .failedToWrite
     }
 
     return nil

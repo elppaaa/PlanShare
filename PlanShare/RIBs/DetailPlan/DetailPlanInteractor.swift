@@ -58,8 +58,13 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    // TODO: Implement business logic here.
     presenter.setData(plan: plan)
+    if
+      let id = plan.id,
+      case .success(let id) = PlanModel.getEventIDBy(planID: id)
+    {
+      eventIdentifier = id
+    }
   }
 
   override func willResignActive() {
@@ -70,6 +75,7 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
   // MARK: Private
 
   private let plan: Plan
+  private var eventIdentifier: String?
 }
 
 // MARK: - DetailPlanPresentableListener
@@ -90,6 +96,45 @@ extension DetailPlanInteractor {
 
   func editButtonTapped() {
     listener?.routeToEditing(plan: plan)
+  }
+
+  func addCalendarButtonTapped() {
+    guard let eventIdentifier = eventIdentifier else {
+      CalendarService.shared.newEvent(plan: plan)
+        .debug("newEvent")
+        .subscribe(onSuccess: { [weak self] in
+          guard
+            let self = self,
+            let id = self.plan.id else { return }
+
+          // TODO: - 토스트 메시지 표시 예정
+          self.eventIdentifier = $0
+          PlanModel.updateEventID(planID: id, eventIdentifier: $0)
+        })
+        .disposeOnDeactivate(interactor: self)
+      return
+    }
+
+    // TODO: - 토스트 메시지 표시 예정
+    CalendarService.shared.updateEvent(identifier: eventIdentifier, plan: plan)
+      .debug("updateEvent")
+      .subscribe(
+        onSuccess: { [weak self] in
+          guard
+            let self = self,
+            let id = self.plan.id else { return }
+
+          // TODO: - 토스트 메시지 표시 예정
+          self.eventIdentifier = $0
+          PlanModel.updateEventID(planID: id, eventIdentifier: $0)
+        },
+        onCompleted: {
+          // TODO: - 토스트 메시지 표시 예정
+
+        }
+      )
+      .disposeOnDeactivate(interactor: self)
+
   }
 
 //  func addressLabelTapped() {

@@ -22,6 +22,7 @@ final class Log {
     case sqlite
     case firebase
     case places
+    case calendar
 
     // MARK: Internal
 
@@ -31,6 +32,7 @@ final class Log {
       case .sqlite: return Log.sqlite
       case .firebase: return Log.firebase
       case .places: return Log.places
+      case .calendar: return Log.calendar
       }
     }
 
@@ -39,6 +41,7 @@ final class Log {
       case .sqlite: return OSLog.sqlite
       case .firebase: return OSLog.firebase
       case .places: return OSLog.places
+      case .calendar: return OSLog.calendar
       }
     }
   }
@@ -49,6 +52,8 @@ final class Log {
   static let firebase = Logger(subsystem: subsystem, category: "🔥 FireBase")
   @available(iOS 14.0, *)
   static let places = Logger(subsystem: subsystem, category: "🗺 Places")
+  @available(iOS 14.0, *)
+  static let calendar = Logger(subsystem: subsystem, category: "🗓 Calendar")
 
   static func log(_ level: OSLogType, category: Category, _ message: String) {
     if #available(iOS 14, *) {
@@ -71,6 +76,7 @@ extension OSLog {
   static let sqlite = OSLog(subsystem: subsystem, category: "🥞 SQLite")
   static let firebase = OSLog(subsystem: subsystem, category: "🔥 FireBase")
   static let places = OSLog(subsystem: subsystem, category: "🗺 Places")
+  static let calendar = OSLog(subsystem: subsystem, category: "🗓 Calendar")
 
   // MARK: Private
 

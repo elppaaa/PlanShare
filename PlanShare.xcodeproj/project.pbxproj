@@ -17,6 +17,7 @@
 		480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790252797469900FB6F9B /* DetailPlanInteractor.swift */; };
 		4807902B279746B900FB6F9B /* HomeComponent+DetailPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */; };
 		480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */; };
+		480CBB03279ECBBF00111CE6 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB02279ECBBF00111CE6 /* CalendarService.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -124,6 +125,7 @@
 		480790252797469900FB6F9B /* DetailPlanInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanInteractor.swift; sourceTree = "<group>"; };
 		4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeComponent+DetailPlan.swift"; sourceTree = "<group>"; };
 		480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapLink.swift; sourceTree = "<group>"; };
+		480CBB02279ECBBF00111CE6 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			children = (
 				483EE949278C3EA60030DE1B /* Model */,
 				483EE947278C3D9C0030DE1B /* FirebaseService.swift */,
+				480CBB02279ECBBF00111CE6 /* CalendarService.swift */,
 				4807901B27970F0200FB6F9B /* UserDefault.swift */,
 				48DC7B2627997B580068FA1B /* PlaceService.swift */,
 				48BED639279D3C9C00268C16 /* SQLiteService.swift */,
@@ -667,6 +670,7 @@
 				483EE92E278C29700030DE1B /* EditingRouter.swift in Sources */,
 				484FF136279837D50065317B /* PlaceSelectingViewController.swift in Sources */,
 				48DC7B2D2799A5BC0068FA1B /* CLLocationCoordinate2D+Extension.swift in Sources */,
+				480CBB03279ECBBF00111CE6 /* CalendarService.swift in Sources */,
 				484FF134279837D50065317B /* PlaceSelectingRouter.swift in Sources */,
 				480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */,
 				484FF135279837D50065317B /* PlaceSelectingBuilder.swift in Sources */,
@@ -871,6 +875,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "캘린더 등록을 위해 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -904,6 +909,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "FLEXLAYOUT_SWIFT_PACKAGE=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PlanShare/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "캘린더 등록을 위해 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

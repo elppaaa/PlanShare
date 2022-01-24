@@ -37,11 +37,19 @@ final class SQLiteService {
     }
   }
 
-  func write(query: String, block: () throws -> Void) -> SQLiteError? {
-    if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK{
+  func prepare(query: String, stmt: inout OpaquePointer?) -> SQLiteError? {
+    if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db)!)
-      Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
+      Log.log(.error, category: .sqlite, errMsg)
       return .failedToPrepare
+    }
+
+    return nil
+  }
+
+  func write(query: String, block: () throws -> Void) -> SQLiteError? {
+    if let error = prepare(query: query, stmt: &stmt) {
+      return error
     }
 
     do {
@@ -68,11 +76,8 @@ final class SQLiteService {
   }
 
   func write(query: String, values: [Any]) -> SQLiteError? {
-
-    if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK{
-      let errMsg = String(cString: sqlite3_errmsg(db)!)
-      Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
-      return .failedToPrepare
+    if let error = prepare(query: query, stmt: &stmt) {
+      return error
     }
 
     for (index, value) in values.enumerated() {
@@ -98,10 +103,8 @@ final class SQLiteService {
 
   func readAll<T>(query: String, blocks: (OpaquePointer?) -> T) -> Result<[T], SQLiteError> {
     var stmt: OpaquePointer?
-    if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK {
-      let errMsg = String(cString: sqlite3_errmsg(db)!)
-      Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
-      return .failure(.failedToPrepare)
+    if let error = prepare(query: query, stmt: &stmt) {
+      return .failure(error)
     }
 
     var array = [T]()
@@ -117,10 +120,8 @@ final class SQLiteService {
   }
 
   func delete(query: String, id: Int) -> SQLiteError? {
-    if sqlite3_prepare_v2(db, query, -1, &stmt, nil) != SQLITE_OK {
-      let errMsg = String(cString: sqlite3_errmsg(db)!)
-      Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
-      return .failedToPrepare
+    if let error = prepare(query: query, stmt: &stmt) {
+      return error
     }
 
     if sqlite3_step(stmt) != SQLITE_DONE {

@@ -22,6 +22,7 @@ protocol DetailPlanPresentableListener: AnyObject {
   func mapButtonTapped()
   func movingFromParent()
   func editButtonTapped()
+  func addCalendarButtonTapped()
 //  func addressLabelTapped()
 }
 
@@ -69,6 +70,10 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     $0.setImage(.init(systemName: "map.fill"), for: .normal)
   }
 
+  private let addCalendarButton = UIButton().then {
+    $0.setImage(.init(systemName: "calendar.badge.plus"), for: .normal)
+  }
+
   private let disposeBag = DisposeBag()
 
   private func configView() {
@@ -92,6 +97,7 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
           .marginBottom(30)
         $0.addItem().direction(.row).justifyContent(.spaceAround).grow(1).define {
           $0.addItem(editButton).size(30)
+          $0.addItem(addCalendarButton).size(30)
           $0.addItem(mapButton).size(30)
         }
       }
@@ -131,6 +137,12 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
       .subscribe(onNext: { [weak self] _ in
         self?.prepareToRemove()
         self?.listener?.editButtonTapped()
+      })
+      .disposed(by: disposeBag)
+
+    addCalendarButton.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        self?.listener?.addCalendarButtonTapped()
       })
       .disposed(by: disposeBag)
 
