@@ -13,14 +13,13 @@ final class GetPlanWorkflow: Workflow<RootActionableItem> {
   public init(url: URL) {
     super.init()
 
-    let id = url.query!
-
-    onStep { $0.routeToHome() }
-      .onStep { actionableItem, _ in
-        actionableItem.getAndOpenPlan(id: id)
-      }
-      .commit()
-
+    if let id = url.query {
+      onStep { $0.routeToHome() }
+        .onStep { actionableItem, _ in
+          actionableItem.getAndOpenPlan(id: id)
+        }
+        .commit()
+    }
   }
 
 }

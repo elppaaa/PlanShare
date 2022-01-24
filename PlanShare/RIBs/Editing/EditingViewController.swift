@@ -71,12 +71,20 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     if #available(iOS 13.4, *) {
       $0.preferredDatePickerStyle = .compact
     }
+    $0.minuteInterval = 5
   }
-  private let endAtPicker = UIDatePicker()
+  private let endAtPicker = UIDatePicker().then {
+    if #available(iOS 13.4, *) {
+      $0.preferredDatePickerStyle = .compact
+    }
+    $0.minuteInterval = 5
+  }
   private let memoTextView = UITextView().then {
     $0.layer.cornerRadius = 8
     $0.layer.borderWidth = 0.1
     $0.layer.borderColor = UIColor.systemGray.cgColor
+    let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+    $0.font = .systemFont(ofSize: fontSize * 1.2, weight: .medium)
   }
 
   private let addressView = UILabel()
@@ -85,6 +93,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 
   private func bindings() {
     doneBarButton.rx.tap
+      .throttle(.seconds(3), scheduler: ConcurrentDispatchQueueScheduler(qos: .utility))
       .withUnretained(self)
       .subscribe(onNext: { `self`, _ in
         self.listener?.save()
@@ -110,7 +119,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     memoTextView.rx.text
       .orEmpty
       .distinctUntilChanged()
-      .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+      .observe(on: MainScheduler.instance)
       .withUnretained(self)
       .subscribe(onNext: { `self`, text in
         self.listener?.setMemo(text)
@@ -119,10 +128,13 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 
     startAtPicker.rx.date
       .distinctUntilChanged()
-      .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+      .observe(on: MainScheduler.instance)
       .withUnretained(self)
       .subscribe(onNext: { `self`, date in
         self.listener?.setStartAt(date)
+        if self.endAtPicker.date < date {
+          self.endAtPicker.setDate(date, animated: true)
+        }
       })
       .disposed(by: disposeBag)
 
@@ -166,6 +178,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       addDatePicker($0, text: "endAt", datePicker: endAtPicker)
 
       addLabel($0, text: "memo")
+        .padding(3)
         .marginBottom(10)
 
       $0.addItem(memoTextView).minHeight(50).width(100%).grow(1)

@@ -25,6 +25,7 @@ protocol DetailPlanPresentable: Presentable {
   // TODO: Declare methods the interactor can invoke the presenter to present data.
   func setData(plan: Plan)
   func openLink(url: URL)
+  func prepareToRemove()
 }
 
 // MARK: - DetailPlanListener
@@ -105,10 +106,12 @@ extension DetailPlanInteractor {
   }
 
   func movingFromParent() {
+    presenter.prepareToRemove()
     listener?.dismissedChild()
   }
 
   func editButtonTapped() {
+    presenter.prepareToRemove()
     listener?.routeToEditing(plan: plan)
   }
 

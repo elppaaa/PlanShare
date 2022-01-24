@@ -197,9 +197,16 @@ extension HomeInteractor {
 
 extension HomeInteractor: HomeActionableItem {
   func getAndOpenPlan(id: String) -> Observable<(HomeActionableItem, ())> {
-    return FirebaseService.read(path: "Plan", id: id)
+    FirebaseService.read(path: "Plan", id: id)
       .asObservable()
-      .do(onNext: { [weak self] in self?.appendPlan(plan: $0) })
+      .do(onNext: { [weak self] (plan: Plan) in
+        var plan = plan
+        plan.id = id
+        self?.appendPlan(plan: plan)
+        let planModel = PlanModel(planID: id)
+        planModel.prepare()
+        planModel.write()
+      })
       .map {
         self.router?.routeToDetailPlan(plan: $0)
 

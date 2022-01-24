@@ -136,14 +136,12 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     dimmedBackground.rx.tapGesture()
       .when(.recognized)
       .subscribe(onNext: { [weak self] _ in
-        self?.prepareToRemove()
         self?.listener?.movingFromParent()
       })
       .disposed(by: disposeBag)
 
     editButton.rx.tap
       .subscribe(onNext: { [weak self] _ in
-        self?.prepareToRemove()
         self?.listener?.editButtonTapped()
       })
       .disposed(by: disposeBag)
@@ -168,11 +166,6 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 //      .disposed(by: disposeBag)
   }
 
-  private func prepareToRemove() {
-    view.removeFromSuperview()
-    removeFromParent()
-    willMove(toParent: nil)
-  }
 }
 
 // MARK: - DetailPlanPresentable
@@ -191,5 +184,11 @@ extension DetailPlanViewController {
     vc.modalTransitionStyle = .crossDissolve
     vc.modalPresentationStyle = .overCurrentContext
     present(vc, animated: true, completion: nil)
+  }
+
+  func prepareToRemove() {
+    view.removeFromSuperview()
+    removeFromParent()
+    willMove(toParent: nil)
   }
 }

@@ -50,8 +50,6 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
 
 extension HomeRouter {
 
-  // MARK: Internal
-
   func routeToDetailPlan(plan: Plan) {
     let router = detailPlanBuilder.build(withListener: interactor, currentPlan: plan)
     attachChild(router)
@@ -66,7 +64,7 @@ extension HomeRouter {
 
   func routeToHome() {
     viewController.pop()
-    detachChilds()
+    detachCurrentChild()
   }
 
   func routeToEditing(plan: Plan) {
@@ -75,9 +73,4 @@ extension HomeRouter {
     attachChild(router)
   }
 
-  // MARK: Private
-
-  private func detachChilds() {
-    children.forEach { detachChild($0) }
-  }
 }
