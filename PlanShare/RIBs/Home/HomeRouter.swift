@@ -69,6 +69,12 @@ extension HomeRouter {
     detachChilds()
   }
 
+  func routeToEditing(plan: Plan) {
+    let router = editingBuilder.build(withListener: interactor, currentPlan: plan)
+    viewController.push(viewController: router.viewControllable)
+    attachChild(router)
+  }
+
   // MARK: Private
 
   private func detachChilds() {

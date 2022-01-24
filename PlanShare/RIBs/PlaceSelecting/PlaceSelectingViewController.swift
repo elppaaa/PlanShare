@@ -99,7 +99,7 @@ final class PlaceSelectingViewController: UIViewController, PlaceSelectingPresen
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] indexPath in
         // dismiss 하지 않고 바로 전환시, memory leak 발생
-        self?.searchController.dismiss(animated: true, completion: {
+        self?.searchController.dismiss(animated: false, completion: {
           self?.listener?.selectPlace(index: indexPath.row)
         })
       })

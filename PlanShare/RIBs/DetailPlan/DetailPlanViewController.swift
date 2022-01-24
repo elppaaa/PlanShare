@@ -21,7 +21,7 @@ protocol DetailPlanPresentableListener: AnyObject {
   // interactor class.
   func mapButtonTapped()
   func movingFromParent()
-//  func editButtonTapped()
+  func editButtonTapped()
 }
 
 // MARK: - DetailPlanViewController
@@ -121,12 +121,23 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     dimmedBackground.rx.tapGesture()
       .when(.recognized)
       .subscribe(onNext: { [weak self] _ in
-        self?.view.removeFromSuperview()
-        self?.removeFromParent()
-        self?.willMove(toParent: nil)
+        self?.prepareToRemove()
         self?.listener?.movingFromParent()
       })
       .disposed(by: disposeBag)
+
+    editButton.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        self?.prepareToRemove()
+        self?.listener?.editButtonTapped()
+      })
+      .disposed(by: disposeBag)
+  }
+
+  private func prepareToRemove() {
+    view.removeFromSuperview()
+    removeFromParent()
+    willMove(toParent: nil)
   }
 }
 

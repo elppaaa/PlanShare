@@ -97,7 +97,7 @@ final class FirebaseService: FirebaseServieType {
 
   static func update<T: Encodable>(path: String, id: String, value: T) -> Completable {
     Log.log(.debug, category: .firebase, #function)
-    let document = db.collection("path")
+    let document = db.collection(path)
 
     return document.document(id)
       .rx.update(to: value)

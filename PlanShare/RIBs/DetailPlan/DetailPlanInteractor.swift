@@ -29,6 +29,7 @@ protocol DetailPlanPresentable: Presentable {
 protocol DetailPlanListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
   func dismissedChild()
+  func routeToEditing(plan: Plan)
 }
 
 // MARK: - DetailPlanInteractor
@@ -81,6 +82,10 @@ extension DetailPlanInteractor {
 
   func movingFromParent() {
     listener?.dismissedChild()
+  }
+
+  func editButtonTapped() {
+    listener?.routeToEditing(plan: plan)
   }
 }
 

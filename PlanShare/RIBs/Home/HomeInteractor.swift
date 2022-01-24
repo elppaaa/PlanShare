@@ -18,6 +18,7 @@ protocol HomeRouting: ViewableRouting {
   func routeToDetailPlan(plan: Plan)
   func routeToNewPlan()
   func routeToHome()
+  func routeToEditing(plan: Plan)
 }
 
 // MARK: - HomePresentable
@@ -139,6 +140,11 @@ extension HomeInteractor {
 
   func newPlan() {
     router?.routeToNewPlan()
+  }
+
+  func routeToEditing(plan: Plan) {
+    router?.detachCurrentChild()
+    router?.routeToEditing(plan: plan)
   }
 }
 

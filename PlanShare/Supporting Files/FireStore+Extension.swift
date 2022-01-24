@@ -162,7 +162,7 @@ extension Reactive where Base: DocumentReference {
   }
 
   func update<T: Encodable>(to updateValue: T) -> Completable {
-    guard let dictionary = updateValue.dictionary else {
+    guard let dictionary = try? Firestore.Encoder().encode(updateValue) else {
       return Completable.error(FirebaseService.Err.serialized)
     }
 
