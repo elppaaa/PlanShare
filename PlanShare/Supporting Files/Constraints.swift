@@ -33,4 +33,3 @@ final class Constraints {
     UIApplication.shared.canOpenURL(URL(string: "\(GOOGLEMAP_DEEPLINK)://")!)
   }
 }
-

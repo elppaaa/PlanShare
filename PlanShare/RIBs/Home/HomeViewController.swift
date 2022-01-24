@@ -20,6 +20,7 @@ protocol HomePresentableListener: AnyObject {
   // interactor class.
   func planSelected(index: Int)
   func newPlan()
+  func deleteItem(index: Int)
   var output: HomePresentableOutput { get }
 }
 
@@ -70,6 +71,12 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] indexPath in
         self?.listener?.planSelected(index: indexPath.row)
+      })
+      .disposed(by: disposeBag)
+
+    tableView.rx.itemDeleted
+      .subscribe(onNext: { [weak self] indexPath in
+        self?.listener?.deleteItem(index: indexPath.row)
       })
       .disposed(by: disposeBag)
 

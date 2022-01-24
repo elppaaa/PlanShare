@@ -180,4 +180,13 @@ extension HomeInteractor {
         .disposeOnDeactivate(interactor: self)
     }
   }
+
+  func deleteItem(index: Int) {
+    var value = plans.value
+    let plan = value.remove(at: index)
+    plans.accept(value)
+    if let id = plan.id {
+      PlanModel.deleteBy(planID: id)
+    }
+  }
 }
