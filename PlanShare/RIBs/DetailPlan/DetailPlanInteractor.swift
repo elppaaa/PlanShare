@@ -8,6 +8,7 @@
 import CoreLocation
 import RIBs
 import RxSwift
+import UIKit
 
 // MARK: - DetailPlanRouting
 
@@ -86,6 +87,12 @@ extension DetailPlanInteractor {
 
   func editButtonTapped() {
     listener?.routeToEditing(plan: plan)
+  }
+
+  func addressLabelTapped() {
+    if let link = plan.place?.link {
+      UIApplication.shared.open(link, options: [:], completionHandler: nil)
+    }
   }
 }
 

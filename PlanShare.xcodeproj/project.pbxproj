@@ -16,6 +16,7 @@
 		480790282797469900FB6F9B /* DetailPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790242797469900FB6F9B /* DetailPlanViewController.swift */; };
 		480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480790252797469900FB6F9B /* DetailPlanInteractor.swift */; };
 		4807902B279746B900FB6F9B /* HomeComponent+DetailPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */; };
+		480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		480790242797469900FB6F9B /* DetailPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanViewController.swift; sourceTree = "<group>"; };
 		480790252797469900FB6F9B /* DetailPlanInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanInteractor.swift; sourceTree = "<group>"; };
 		4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeComponent+DetailPlan.swift"; sourceTree = "<group>"; };
+		480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapLink.swift; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				483EE94C278CBF2A0030DE1B /* Place.swift */,
 				483CAAC9278EF2F200749657 /* FirestoreCodable.swift */,
 				482CF496279DC0AD00316C45 /* PlanModel.swift */,
+				480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
 				480790262797469900FB6F9B /* DetailPlanRouter.swift in Sources */,
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
+				480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */,
 				483CAAC4278E91C100749657 /* FireStore+Extension.swift in Sources */,
 				483EE931278C29700030DE1B /* EditingInteractor.swift in Sources */,
 				48A2A1492799DA5E00E735D8 /* MarkedMapViewController.swift in Sources */,

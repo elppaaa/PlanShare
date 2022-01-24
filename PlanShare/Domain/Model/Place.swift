@@ -15,6 +15,13 @@ struct Place: Codable, Equatable {
   var title: String
   var address: String
   var location: CLLocationCoordinate2D
+
+  var link: URL? {
+    GoogleMapLink()
+      .query(key: .q, value: title.replacingOccurrences(of: " ", with: "+"))
+      .query(key: .center, value: "@\(location.longitude),\(location.latitude)")
+      .url
+  }
 }
 
 // MARK: FirestoreDecodable
