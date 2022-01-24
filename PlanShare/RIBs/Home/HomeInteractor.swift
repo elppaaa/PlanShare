@@ -163,6 +163,8 @@ extension HomeInteractor {
           if let error = model.write() {
             Log.log(.error, category: .sqlite, "\(#function):: \(error)")
           }
+          var plan = plan
+          plan.id = document.documentID
           self?.appendPlan(plan: plan)
           self?.router?.routeToHome()
         })

@@ -26,6 +26,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     self.window?.makeKeyAndVisible()
   }
 
+  func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    if
+      let context = URLContexts.first,
+      let planID = context.url.query
+    {
+      debugPrint(planID)
+    }
+  }
+
   func sceneDidDisconnect(_: UIScene) {
     // Called as the scene is being released by the system.
     // This occurs shortly after the scene enters the background, or when its session is discarded.

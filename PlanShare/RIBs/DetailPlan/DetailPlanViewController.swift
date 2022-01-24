@@ -11,6 +11,7 @@ import PinLayout
 import RIBs
 import RxGesture
 import RxSwift
+import SafariServices
 import UIKit
 
 // MARK: - DetailPlanPresentableListener
@@ -23,6 +24,7 @@ protocol DetailPlanPresentableListener: AnyObject {
   func movingFromParent()
   func editButtonTapped()
   func addCalendarButtonTapped()
+  func shareButtonTapped()
 //  func addressLabelTapped()
 }
 
@@ -74,6 +76,11 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     $0.setImage(.init(systemName: "calendar.badge.plus"), for: .normal)
   }
 
+  private let shareButton = UIButton().then {
+    $0.setImage(.init(systemName: "message.fill"), for: .normal)
+    $0.imageView?.tintColor = UIColor(displayP3Red: 243 / 255, green: 226 / 255, blue: 75 / 255, alpha: 1.0) // kakao yellow
+  }
+
   private let disposeBag = DisposeBag()
 
   private func configView() {
@@ -96,6 +103,7 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
         addView(flex: $0, label: "memo", view: memoLabel)
           .marginBottom(30)
         $0.addItem().direction(.row).justifyContent(.spaceAround).grow(1).define {
+          $0.addItem(shareButton).size(30)
           $0.addItem(editButton).size(30)
           $0.addItem(addCalendarButton).size(30)
           $0.addItem(mapButton).size(30)
@@ -146,6 +154,12 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
       })
       .disposed(by: disposeBag)
 
+    shareButton.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        self?.listener?.shareButtonTapped()
+      })
+      .disposed(by: disposeBag)
+
 //    addressLabel.rx.tapGesture()
 //      .when(.recognized)
 //      .subscribe(onNext: { [weak self]_ in
@@ -170,5 +184,12 @@ extension DetailPlanViewController {
     addressLabel.text = plan.place?.address
     mapButton.isEnabled = plan.place != nil
     memoLabel.text = plan.memo
+  }
+
+  func openLink(url: URL) {
+    let vc = SFSafariViewController(url: url)
+    vc.modalTransitionStyle = .crossDissolve
+    vc.modalPresentationStyle = .overCurrentContext
+    present(vc, animated: true, completion: nil)
   }
 }

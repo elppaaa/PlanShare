@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import KakaoSDKLink
 import RIBs
 import RxSwift
 import UIKit
@@ -23,6 +24,7 @@ protocol DetailPlanPresentable: Presentable {
   var listener: DetailPlanPresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
   func setData(plan: Plan)
+  func openLink(url: URL)
 }
 
 // MARK: - DetailPlanListener
@@ -88,6 +90,19 @@ extension DetailPlanInteractor {
     if let link = plan.place?.link {
       UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
+  }
+
+  func shareButtonTapped() {
+    KakaoLinkService.sendMessage(plan: plan)
+      .subscribe(onSuccess: { [weak self] in
+        Log.log(.debug, category: .firebase, "\($0)")
+        if LinkApi.isKakaoLinkAvailable() {
+          UIApplication.shared.open($0, options: [:], completionHandler: nil)
+        } else {
+          self?.presenter.openLink(url: $0)
+        }
+      })
+      .disposeOnDeactivate(interactor: self)
   }
 
   func movingFromParent() {

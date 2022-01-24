@@ -18,6 +18,7 @@
 		4807902B279746B900FB6F9B /* HomeComponent+DetailPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */; };
 		480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */; };
 		480CBB03279ECBBF00111CE6 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB02279ECBBF00111CE6 /* CalendarService.swift */; };
+		480CBB05279EFCC900111CE6 /* KakaoLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CBB04279EFCC900111CE6 /* KakaoLinkService.swift */; };
 		480E00CB2788351500EEA4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CA2788351500EEA4E6 /* AppDelegate.swift */; };
 		480E00CD2788351500EEA4E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00CC2788351500EEA4E6 /* SceneDelegate.swift */; };
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
@@ -126,6 +127,7 @@
 		4807902A279746B900FB6F9B /* HomeComponent+DetailPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeComponent+DetailPlan.swift"; sourceTree = "<group>"; };
 		480CBB00279EB95C00111CE6 /* GoogleMapLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapLink.swift; sourceTree = "<group>"; };
 		480CBB02279ECBBF00111CE6 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		480CBB04279EFCC900111CE6 /* KakaoLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLinkService.swift; sourceTree = "<group>"; };
 		480E00C72788351500EEA4E6 /* PlanShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00CA2788351500EEA4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		480E00CC2788351500EEA4E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				4807901B27970F0200FB6F9B /* UserDefault.swift */,
 				48DC7B2627997B580068FA1B /* PlaceService.swift */,
 				48BED639279D3C9C00268C16 /* SQLiteService.swift */,
+				480CBB04279EFCC900111CE6 /* KakaoLinkService.swift */,
 				482CF498279DC0F100316C45 /* SQLiteEnable.swift */,
 			);
 			path = Domain;
@@ -649,6 +652,7 @@
 				480790292797469900FB6F9B /* DetailPlanInteractor.swift in Sources */,
 				48ADBE59279AB28A00B0FB92 /* ViewableRouting+Extension.swift in Sources */,
 				483EE914278C25920030DE1B /* RootBuilder.swift in Sources */,
+				480CBB05279EFCC900111CE6 /* KakaoLinkService.swift in Sources */,
 				480790262797469900FB6F9B /* DetailPlanRouter.swift in Sources */,
 				48716A42278859A200D24722 /* Constraints.swift in Sources */,
 				480CBB01279EB95C00111CE6 /* GoogleMapLink.swift in Sources */,
