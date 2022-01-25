@@ -84,7 +84,7 @@ extension PlaceSelectingInteractor {
   }
 
   func query(_ text: String) {
-    PlaceService.shared.findPlaces(query: text, sessionToken: googleAPISession)
+    PlaceService.findPlaces(query: text, sessionToken: googleAPISession)
       .subscribe(onSuccess: { [weak self] in
         self?.searchResults.accept($0)
       })
@@ -93,7 +93,7 @@ extension PlaceSelectingInteractor {
 
   func mapButtonTapped(index: Int) {
     let id = searchResults.value[index].id
-    PlaceService.shared.getLocation(from: id, sessionToken: googleAPISession)
+    PlaceService.getLocation(from: id, sessionToken: googleAPISession)
       .subscribe(onSuccess: { [weak self] in
         self?.router?.routeToMarkedMap(location: $0)
       })
@@ -102,7 +102,7 @@ extension PlaceSelectingInteractor {
 
   func selectPlace(index: Int) {
     let id = searchResults.value[index].id
-    PlaceService.shared.place(from: id, sessionToken: googleAPISession)
+    PlaceService.place(from: id, sessionToken: googleAPISession)
       .subscribe(on: MainScheduler.instance)
       .subscribe(onSuccess: { [weak self] in
         self?.listener?.selectAndClose(place: $0)

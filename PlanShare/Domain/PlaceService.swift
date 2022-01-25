@@ -14,7 +14,7 @@ final class PlaceService {
 
   // MARK: Lifecycle
 
-  private init() { setUp() }
+  private init() { }
 
   // MARK: Internal
 
@@ -22,9 +22,7 @@ final class PlaceService {
     case failedToFind
   }
 
-  static let shared = PlaceService()
-
-  func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<[PlaceSearchResult]> {
+  static func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<[PlaceSearchResult]> {
     Log.log(.debug, category: .places, #function)
 
     return .create { subscriber in
@@ -32,7 +30,7 @@ final class PlaceService {
       filter.type = .establishment
       filter.origin = currentPlace
 
-      self.client.findAutocompletePredictions(fromQuery: query, filter: filter, sessionToken: nil) { results, error in
+      client.findAutocompletePredictions(fromQuery: query, filter: filter, sessionToken: nil) { results, error in
         guard let results = results, error == nil else {
           let errMessage = "request failed \(error!.localizedDescription)"
           Log.log(.error, category: .places, errMessage)
@@ -51,7 +49,7 @@ final class PlaceService {
     }
   }
 
-  func getLocation(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<CLLocationCoordinate2D> {
+  static func getLocation(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<CLLocationCoordinate2D> {
     Log.log(.debug, category: .places, #function)
 
     return .create { subscriber in
@@ -69,21 +67,17 @@ final class PlaceService {
     }
   }
 
-  func place(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<Place> {
+  static func place(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<Place> {
     Log.log(.debug, category: .places, #function)
     return placeInfo(from: id)
       .map { Place(id: id, title: $0.name, address: $0.address, location: $0.location) }
   }
 
-  func setUp() {
+  static func setUp() {
     GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
   }
 
-  // MARK: Private
-
-  private lazy var client = GMSPlacesClient.shared()
-
-  private func placeInfo(from id: String) -> Single<(name: String, address: String, location: CLLocationCoordinate2D)> {
+  static func placeInfo(from id: String) -> Single<(name: String, address: String, location: CLLocationCoordinate2D)> {
     Log.log(.debug, category: .places, #function)
 
     return .create { subscriber in
@@ -104,5 +98,9 @@ final class PlaceService {
       return Disposables.create()
     }
   }
+
+  // MARK: Private
+
+  private static let client = GMSPlacesClient.shared()
 
 }
