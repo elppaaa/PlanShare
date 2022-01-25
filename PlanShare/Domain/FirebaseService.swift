@@ -33,7 +33,6 @@ final class FirebaseService: FirebaseServieType {
     FirebaseApp.configure()
     let settings = Self.db.settings
     settings.isPersistenceEnabled = true
-    settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
 
 //    #if DEBUG
 //    settings.host = "localhost:8090"
