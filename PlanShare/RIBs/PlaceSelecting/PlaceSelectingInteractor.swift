@@ -20,6 +20,7 @@ protocol PlaceSelectingRouting: ViewableRouting {
 
 // MARK: - PlaceSelectingPresentable
 
+@MainActor
 protocol PlaceSelectingPresentable: Presentable {
   var listener: PlaceSelectingPresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
@@ -49,7 +50,9 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
   // in constructor.
   override init(presenter: PlaceSelectingPresentable) {
     super.init(presenter: presenter)
-    presenter.listener = self
+    Task(priority: .userInitiated) {
+      await presenter.listener = self
+    }
   }
 
   // MARK: Internal

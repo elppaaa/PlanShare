@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/10.
 //
 
+import Foundation
 import RIBs
 
 // MARK: - HomeDependency
@@ -24,6 +25,7 @@ final class HomeComponent: Component<HomeDependency> {
 
 protocol HomeBuildable: Buildable {
   func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem)
+//  func build(withListener listener: HomeListener, completion:  (router: HomeRouting, actionableItem: HomeActionableItem))
 }
 
 // MARK: - HomeBuilder
@@ -38,6 +40,7 @@ final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
 
   // MARK: Internal
 
+//  func build(withListener listener: HomeListener, @MainActor(router: HomeRouting, actionableItem: HomeActionableItem)) -> (router: HomeRouting, actionableItem: HomeActionableItem) {
   func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem) {
     let component = HomeComponent(dependency: dependency)
     let viewController = HomeViewController()

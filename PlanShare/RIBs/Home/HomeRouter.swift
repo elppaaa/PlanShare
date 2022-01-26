@@ -49,28 +49,35 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
 // MARK: - HomeRouting
 
 extension HomeRouter {
-
-  func routeToDetailPlan(plan: Plan) {
-    let router = detailPlanBuilder.build(withListener: interactor, currentPlan: plan)
-    attachChild(router)
-    viewController.addChild(viewContronller: router.viewControllable)
+  func routeToDetailPlan(plan: Plan, model: PlanModel) {
+    DispatchQueue.main.async {
+      let router = self.detailPlanBuilder.build(withListener: self.interactor, currentPlan: plan, model: model)
+      self.attachChild(router)
+      self.viewController.addChild(viewContronller: router.viewControllable)
+    }
   }
 
   func routeToNewPlan() {
-    let router = editingBuilder.build(withListener: interactor, currentPlan: nil)
-    viewController.push(viewController: router.viewControllable)
-    attachChild(router)
+    DispatchQueue.main.async {
+      let router = self.editingBuilder.build(withListener: self.interactor, currentPlan: nil)
+      self.viewController.push(viewController: router.viewControllable)
+      self.attachChild(router)
+    }
   }
 
   func routeToHome() {
-    viewController.pop()
-    detachCurrentChild()
+    DispatchQueue.main.async {
+      self.viewController.pop()
+      self.detachCurrentChild()
+    }
   }
 
   func routeToEditing(plan: Plan) {
-    let router = editingBuilder.build(withListener: interactor, currentPlan: plan)
-    viewController.push(viewController: router.viewControllable)
-    attachChild(router)
+    DispatchQueue.main.async {
+      let router = self.editingBuilder.build(withListener: self.interactor, currentPlan: plan)
+      self.viewController.push(viewController: router.viewControllable)
+      self.attachChild(router)
+    }
   }
 
 }

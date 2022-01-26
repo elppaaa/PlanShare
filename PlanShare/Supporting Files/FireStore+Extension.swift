@@ -10,56 +10,50 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
-import RxSwift
 
-extension Reactive where Base: Firestore {
-  func addDocument(path: String, data: [String: Any]) -> Maybe<DocumentReference> {
-    var id: DocumentReference!
-    return .create { subscriber in
-      id = base.collection(path).addDocument(data: data) { err in
+extension Firestore {
+  func addDocument(path: String, data: [String: Any]) async -> Result<DocumentReference, Error> {
+    await withUnsafeContinuation { container in
+      var id: DocumentReference!
+      id = self.collection(path).addDocument(data: data) { err in
         if let err = err {
-          subscriber(.error(err))
+          container.resume(returning: .failure(err))
         } else {
-          subscriber(.success(id))
+          container.resume(returning: .success(id))
         }
       }
-
-      return Disposables.create()
     }
   }
 }
 
-extension Reactive where Base: CollectionReference {
-  func new<T: Encodable>(document data: T) -> Single<DocumentReference> {
-    let document = base.document()
-
-    return .create { subscriber in
+extension CollectionReference {
+  func new<T: Encodable>(document data: T) async -> Result<DocumentReference, Error> {
+    await withUnsafeContinuation { container in
+      let document = self.document()
       do {
         try document.setData(from: data) { err in
           if let err = err {
-            subscriber(.failure(err))
+            container.resume(returning: .failure(err))
           } else {
-            subscriber(.success(document))
+            container.resume(returning: .success(document))
           }
         }
       } catch {
-        subscriber(.failure(FirebaseService.Err.request))
+        container.resume(returning: .failure(FirebaseService.Err.request))
       }
-
-      return Disposables.create()
     }
   }
 
-  func getDocumentsBy<T: Decodable>(idList: [Any], useCache: Bool = false) -> Single<[T]> {
-    .create { subscriber in
-      base.whereField(FirebaseFirestore.FieldPath.documentID(), in: idList).getDocuments(source: useCache ? .cache : .default) { snapshot, error in
-        if let error = error {
-          subscriber(.failure(error))
+  func getDocumentsBy<T: Decodable>(idList: [Any], useCache: Bool = false) async -> Result<[T], Error> {
+    await withUnsafeContinuation { container in
+      self.whereField(FirebaseFirestore.FieldPath.documentID(), in: idList).getDocuments(source: useCache ? .cache : .default) { snapshot, err in
+        if let err = err {
+          container.resume(returning: .failure(err))
           return
         }
 
         guard let snapshot = snapshot else {
-          subscriber(.failure(FirebaseService.Err.request))
+          container.resume(returning: .failure(FirebaseService.Err.request))
           return
         }
 
@@ -68,7 +62,7 @@ extension Reactive where Base: CollectionReference {
         do {
           for value in snapshot.documents {
             guard let value = try value.data(as: T.self, decoder: Firestore.Decoder()) else {
-              subscriber(.failure(FirebaseService.Err.serialized))
+              container.resume(returning: .failure(FirebaseService.Err.serialized))
               return
             }
             result.append(value)
@@ -77,104 +71,100 @@ extension Reactive where Base: CollectionReference {
           debugPrint("ERROR ::::", error)
         }
 
-        subscriber(.success(result))
+        container.resume(returning: .success(result))
       }
-
-      return Disposables.create()
     }
   }
 
-  func get<T: Decodable>(id: String) -> Single<T> {
-    let document = base.document(id)
-    return .create { subscriber in
-      document.getDocument { snapshot, error in
-        if let error = error {
-          subscriber(.failure(error))
+  func get<T>(id: String) async -> Result<T, Error> where T: Decodable {
+    await withUnsafeContinuation { container in
+      let document = self.document(id)
+      document.getDocument { snapshot, err in
+        if let err = err {
+          container.resume(returning: .failure(err))
         } else {
           guard let snapshot = snapshot else {
-            subscriber(.failure(FirebaseService.Err.request))
+            container.resume(returning: .failure(FirebaseService.Err.request))
             return
           }
 
           do {
             guard let value = try snapshot.data(as: T.self, decoder: Firestore.Decoder()) else {
-              subscriber(.failure(FirebaseService.Err.serialized))
+              container.resume(returning: .failure(FirebaseService.Err.serialized))
               return
             }
-            subscriber(.success(value))
+            container.resume(returning: .success(value))
+
           } catch {
             print("ERROR ::::", error)
-            subscriber(.failure(error))
+
+            container.resume(returning: .failure(error))
           }
         }
       }
 
-      return Disposables.create()
     }
   }
 
-//  func update<T: Decodable>(id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
-//    get(id: id)
-//      .map { updateBlock($0) }
-//      .flatMapCompletable({ updateValue in
-//        .create { subscriber in
-//          let document = base.document(id)
-//
-//          document.updateData(updateValue) { err in
-//            if let err = err {
-//              subscriber(.error(err))
-//            } else {
-//              subscriber(.completed)
-//            }
-//          }
-//
-//          return Disposables.create()
-//        }
-//      })
-//  }
+  //  func update<T: Decodable>(id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
+  //    get(id: id)
+  //      .map { updateBlock($0) }
+  //      .flatMapCompletable({ updateValue in
+  //        .create { subscriber in
+  //          let document = self.document(id)
+  //
+  //          document.updateData(updateValue) { err in
+  //            if let err = err {
+  //              subscriber(.error(err))
+  //            } else {
+  //              subscriber(.completed)
+  //            }
+  //          }
+  //
+  //          return Disposables.create()
+  //        }
+  //      })
+  //  }
 
-  func delete(id: String) -> Completable {
-    .create { subscriber in
-      base.document(id).delete { err in
+  func delete(id: String) async -> Result<Void, Error> {
+    await withUnsafeContinuation { container in
+      self.document(id).delete { err in
         if let err = err {
-          subscriber(.error(err))
+          container.resume(returning: .failure(err))
         } else {
-          subscriber(.completed)
+          container.resume(returning: .success(()))
         }
       }
-      return Disposables.create()
     }
   }
 }
 
-extension Reactive where Base: DocumentReference {
-  func update(to updateValue: [String: Any]) -> Completable {
-    .create { subscriber in
-      base.updateData(updateValue) { err in
+extension DocumentReference {
+  func update(to updateValue: [String: Any]) async -> Result<Void, Error> {
+    await withUnsafeContinuation { container in
+      self.updateData(updateValue) { err in
         if let err = err {
-          subscriber(.error(err))
+          container.resume(returning: .failure(err))
         } else {
-          subscriber(.completed)
+          container.resume(returning: .success(()))
         }
       }
-      return Disposables.create()
     }
   }
 
-  func update<T: Encodable>(to updateValue: T) -> Completable {
+  func update<T: Encodable>(to updateValue: T) async -> Result<Void, Error> {
     guard let dictionary = try? Firestore.Encoder().encode(updateValue) else {
-      return Completable.error(FirebaseService.Err.serialized)
+      return .failure(FirebaseService.Err.serialized)
     }
 
-    return .create { subscriber in
-      base.updateData(dictionary) { err in
+    return await withUnsafeContinuation { container in
+      self.updateData(dictionary) { err in
         if let err = err {
-          subscriber(.error(err))
+          container.resume(returning: .failure(err))
         } else {
-          subscriber(.completed)
+          container.resume(returning: .success(()))
         }
       }
-      return Disposables.create()
     }
   }
 }

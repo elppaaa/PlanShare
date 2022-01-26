@@ -43,8 +43,10 @@ final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanV
   private let markedMapBuilder: MarkedMapBuildable
 
   private func pushChild(_ router: ViewableRouting) {
-    viewController.push(viewController: router.viewControllable)
-    attachChild(router)
+    DispatchQueue.main.async {
+      self.viewController.push(viewController: router.viewControllable)
+      self.attachChild(router)
+    }
   }
 }
 
@@ -52,8 +54,9 @@ final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanV
 
 extension DetailPlanRouter {
   func routeToMarkedMap(location: CLLocationCoordinate2D) {
-    let router = markedMapBuilder.build(withListener: interactor, location: location)
-
-    pushChild(router)
+    DispatchQueue.main.async {
+      let router = self.markedMapBuilder.build(withListener: self.interactor, location: location)
+      self.pushChild(router)
+    }
   }
 }

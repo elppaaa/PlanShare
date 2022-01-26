@@ -22,26 +22,41 @@ final class KakaoLinkService {
 
   // MARK: Internal
 
-  static func sendMessage(plan: Plan) -> Single<URL> {
+  enum Err: Error {
+    case failedToCreate
+  }
+
+  static func sendMessage(plan: Plan) async -> Result<URL, Error> {
     guard let data = planShareMessage(plan: plan) else {
-      return .error(NSError())
+      return .failure(Err.failedToCreate)
     }
 
     do {
       let template = try SdkJSONDecoder.custom.decode(TextTemplate.self, from: data)
       if LinkApi.isKakaoLinkAvailable() {
-
-        return LinkApi.shared.rx.defaultLink(templatable: template)
-          .map(\.url)
+        return await withUnsafeContinuation { container in
+          LinkApi.shared.defaultLink(templatable: template) { linkResult, err in
+            if let err = err {
+              container.resume(returning: .failure(err))
+            }
+            if let linkResult = linkResult {
+              container.resume(returning: .success(linkResult.url))
+            } else {
+              container.resume(returning: .failure(Err.failedToCreate))
+            }
+          }
+        }
       } else {
-        if let url = LinkApi.shared.makeSharerUrlforDefaultLink(templatable: template) {
-          return .just(url)
-        } else {
-          return .error(NSError())
+        return await withUnsafeContinuation { container in
+          if let url = LinkApi.shared.makeSharerUrlforDefaultLink(templatable: template) {
+            container.resume(returning: .success(url))
+          } else {
+            container.resume(returning: .failure(Err.failedToCreate))
+          }
         }
       }
     } catch {
-      return .error(error)
+      return .failure(error)
     }
   }
 
@@ -53,18 +68,6 @@ final class KakaoLinkService {
       placeText = "\(place.title), \(place.address)"
     }
 
-    /*
-     return """
-     {
-         "object_type": "text",
-         "text": "\(plan.title)\\n\(plan.startAt.formattedDateAndTime) ~ \(plan.endAt.formattedDateAndTime)\\n\(placeText)",
-         "link": {
-           "mobile_web_url": "https://www.naver.com"
-         },
-         "button_title": "앱에서 열기"
-     }
-     """
-      */
     return """
         {
             "object_type": "text",

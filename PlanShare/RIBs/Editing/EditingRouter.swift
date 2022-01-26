@@ -47,13 +47,17 @@ final class EditingRouter: ViewableRouter<EditingInteractable, EditingViewContro
 
 extension EditingRouter {
   func routeToPlace() {
-    let router = placeSelectingBuilder.build(withListener: interactor)
-    viewController.push(viewController: router.viewControllable)
-    attachChild(router)
+    DispatchQueue.main.async {
+      let router = self.placeSelectingBuilder.build(withListener: self.interactor)
+      self.viewController.push(viewController: router.viewControllable)
+      self.attachChild(router)
+    }
   }
 
   func popAndDetach() {
-    viewController.pop()
-    detachCurrentChild()
+    DispatchQueue.main.async {
+      self.viewController.pop()
+      self.detachCurrentChild()
+    }
   }
 }

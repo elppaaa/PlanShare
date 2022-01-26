@@ -20,6 +20,7 @@ protocol EditingRouting: ViewableRouting {
 
 // MARK: - EditingPresentable
 
+@MainActor
 protocol EditingPresentable: Presentable {
   var listener: EditingPresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
@@ -51,7 +52,9 @@ final class EditingInteractor: PresentableInteractor<EditingPresentable>, Editin
       isNew = true
     }
     super.init(presenter: presenter)
-    presenter.listener = self
+    Task(priority: .userInitiated) {
+      await presenter.listener = self
+    }
   }
 
   // MARK: Internal
@@ -114,7 +117,9 @@ extension EditingInteractor {
   // MARK: Private
 
   private func setCurrentView() {
-    presenter.setView(with: plan)
+    Task(priority: .userInitiated) {
+      await presenter.setView(with: plan)
+    }
   }
 }
 

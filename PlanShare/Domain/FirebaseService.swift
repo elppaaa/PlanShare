@@ -34,10 +34,10 @@ final actor FirebaseService: FirebaseServieType {
     let settings = Self.db.settings
     settings.isPersistenceEnabled = true
 
-//    #if DEBUG
-//    settings.host = "localhost:8090"
-//    settings.isSSLEnabled = false
-//    #endif
+    //    #if DEBUG
+    //    settings.host = "localhost:8090"
+    //    settings.isSSLEnabled = false
+    //    #endif
     Self.db.settings = settings
   }
 
@@ -57,50 +57,50 @@ final actor FirebaseService: FirebaseServieType {
     }
   }
 
-  static func readByIDs<T: Decodable>(path: String, list: [Any], useCache: Bool = false) -> Single<[T]> {
+  //  static func readByIDs<T: Decodable>(path: String, list: [Any], useCache: Bool = false) async -> Result<[T], Error> {
+  //    Log.log(.debug, category: .firebase, #function)
+  //    return db.collection(path).rx.getDocumentsBy(idList: list, useCache: useCache)
+  //      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+  //  }
+  static func readByIDs<T: Decodable>(path: String, list: [Any], useCache: Bool = false) async -> Result<[T], Error> {
     Log.log(.debug, category: .firebase, #function)
-    return db.collection(path).rx.getDocumentsBy(idList: list, useCache: useCache)
-      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+    return await db.collection(path).getDocumentsBy(idList: list, useCache: useCache)
   }
 
-  static func create<T: Encodable>(path: String, data: T) -> Single<DocumentReference> {
+  static func create<T: Encodable>(path: String, data: T) async -> Result<DocumentReference, Error> {
     Log.log(.debug, category: .firebase, #function)
-    return db.collection(path).rx.new(document: data)
-      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+    return await db.collection(path).new(document: data)
   }
 
-  static func read<T: Decodable>(path: String, id: String) -> Single<T> {
+  static func read<T: Decodable>(path: String, id: String) async -> Result<T, Error> {
     Log.log(.debug, category: .firebase, #function)
-    return db.collection(path).rx.get(id: id)
-      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+    return await db.collection(path).get(id: id)
   }
 
-  static func delete(path: String, id: String) -> Completable {
+  static func delete(path: String, id: String) async -> Result<Void, Error> {
     Log.log(.debug, category: .firebase, #function)
-    return db.collection(path).rx.delete(id: id)
-      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+    return await db.collection(path).delete(id: id)
   }
 
-  static func update<T: Decodable>(path: String, id: String, updateBlock: @escaping (T) -> [String: Any]) -> Completable {
+  static func update<T: Decodable>(path: String, id: String, updateBlock: @escaping (T) -> [String: Any]) async -> Result<Void, Error> {
     Log.log(.debug, category: .firebase, #function)
     let document = db.collection(path)
-    let observable: Single<T> = document.rx.get(id: id)
+    let _result: Result<T, Error> = await document.get(id: id)
 
-    return observable
-      .flatMapCompletable { (value: T) in
-        let updateValue = updateBlock(value)
-        return document.document(id).rx.update(to: updateValue)
-      }
-      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+    switch _result {
+    case .success(let value):
+      let updateValue = updateBlock(value)
+      return await document.document(id).update(to: updateValue)
+    case .failure(let err):
+      return .failure(err)
+    }
   }
 
-  static func update<T: Encodable>(path: String, id: String, value: T) -> Completable {
+  static func update<T: Encodable>(path: String, id: String, value: T) async -> Result<Void, Error> {
     Log.log(.debug, category: .firebase, #function)
     let document = db.collection(path)
 
-    return document.document(id)
-      .rx.update(to: value)
-      .subscribe(on: SerialDispatchQueueScheduler(qos: .utility))
+    return await document.document(id).update(to: value)
   }
 
   // MARK: Private

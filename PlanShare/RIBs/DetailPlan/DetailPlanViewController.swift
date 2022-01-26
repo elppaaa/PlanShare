@@ -30,6 +30,7 @@ protocol DetailPlanPresentableListener: AnyObject {
 
 // MARK: - DetailPlanViewController
 
+@MainActor
 final class DetailPlanViewController: UIViewController, DetailPlanPresentable, DetailPlanViewControllable {
 
   // MARK: Internal
@@ -38,8 +39,10 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    configView()
-    bindings()
+    DispatchQueue.main.async {
+      self.configView()
+      self.bindings()
+    }
   }
 
   override func viewDidLayoutSubviews() {
@@ -76,9 +79,9 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     $0.setImage(.init(systemName: "calendar.badge.plus"), for: .normal)
   }
 
-  private let shareButton = UIButton().then {
-    $0.setImage(.init(systemName: "message.fill"), for: .normal)
-    $0.imageView?.tintColor = UIColor(displayP3Red: 243 / 255, green: 226 / 255, blue: 75 / 255, alpha: 1.0) // kakao yellow
+  private let shareButton = UIButton().then { button in
+    button.setImage(.init(systemName: "message.fill"), for: .normal)
+    button.imageView?.tintColor = UIColor(displayP3Red: 243 / 255, green: 226 / 255, blue: 75 / 255, alpha: 1.0) // kakao yellow
   }
 
   private let disposeBag = DisposeBag()
@@ -158,12 +161,12 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
       })
       .disposed(by: disposeBag)
 
-//    addressLabel.rx.tapGesture()
-//      .when(.recognized)
-//      .subscribe(onNext: { [weak self]_ in
-//        self?.listener?.addressLabelTapped()
-//      })
-//      .disposed(by: disposeBag)
+    //    addressLabel.rx.tapGesture()
+    //      .when(.recognized)
+    //      .subscribe(onNext: { [weak self]_ in
+    //        self?.listener?.addressLabelTapped()
+    //      })
+    //      .disposed(by: disposeBag)
   }
 
 }
@@ -171,24 +174,30 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 // MARK: - DetailPlanPresentable
 extension DetailPlanViewController {
   func setData(plan: Plan) {
-    titleLabel.text = plan.title
-    startAtLabel.text = plan.startAt.formattedDateAndTime
-    endAtLabel.text = plan.endAt.formattedDateAndTime
-    addressLabel.text = plan.place?.address
-    mapButton.isEnabled = plan.place != nil
-    memoLabel.text = plan.memo
+    DispatchQueue.main.async {
+      self.titleLabel.text = plan.title
+      self.startAtLabel.text = plan.startAt.formattedDateAndTime
+      self.endAtLabel.text = plan.endAt.formattedDateAndTime
+      self.addressLabel.text = plan.place?.address
+      self.mapButton.isEnabled = plan.place != nil
+      self.memoLabel.text = plan.memo
+    }
   }
 
   func openLink(url: URL) {
-    let vc = SFSafariViewController(url: url)
-    vc.modalTransitionStyle = .crossDissolve
-    vc.modalPresentationStyle = .overCurrentContext
-    present(vc, animated: true, completion: nil)
+    DispatchQueue.main.async {
+      let vc = SFSafariViewController(url: url)
+      vc.modalTransitionStyle = .crossDissolve
+      vc.modalPresentationStyle = .overCurrentContext
+      self.present(vc, animated: true, completion: nil)
+    }
   }
 
   func prepareToRemove() {
-    view.removeFromSuperview()
-    removeFromParent()
-    willMove(toParent: nil)
+    DispatchQueue.main.async {
+      self.view.removeFromSuperview()
+      self.removeFromParent()
+      self.willMove(toParent: nil)
+    }
   }
 }

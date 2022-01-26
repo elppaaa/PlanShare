@@ -26,6 +26,7 @@ protocol HomePresentableListener: AnyObject {
 
 // MARK: - HomeViewController
 
+@MainActor
 final class HomeViewController: UIViewController, HomePresentable, HomeViewControllable {
 
   // MARK: Internal
@@ -93,10 +94,12 @@ extension HomeViewController { }
 
 // MARK: - HomeViewControllable
 extension HomeViewController {
-  func addChild(viewContronller: ViewControllable) {
-    let vc = viewContronller.uiviewController
-    addChild(vc)
-    view.addSubview(vc.view)
-    vc.didMove(toParent: self)
+  nonisolated func addChild(viewContronller: ViewControllable) {
+    DispatchQueue.main.async {
+      let vc = viewContronller.uiviewController
+      self.addChild(vc)
+      self.view.addSubview(vc.view)
+      vc.didMove(toParent: self)
+    }
   }
 }

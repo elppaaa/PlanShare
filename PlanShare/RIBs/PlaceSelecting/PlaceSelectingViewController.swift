@@ -25,6 +25,7 @@ protocol PlaceSelectingPresentableListener: AnyObject {
 
 // MARK: - PlaceSelectingViewController
 
+@MainActor
 final class PlaceSelectingViewController: UIViewController, PlaceSelectingPresentable, PlaceSelectingViewControllable {
 
   // MARK: Internal

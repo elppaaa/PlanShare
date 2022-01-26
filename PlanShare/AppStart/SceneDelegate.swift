@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
     guard let _windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: _windowScene)
-
     let (router, urlHandler) = RootBuilder(dependency: AppComponent()).build()
     launchRouter = router
     router.launch(from: window)

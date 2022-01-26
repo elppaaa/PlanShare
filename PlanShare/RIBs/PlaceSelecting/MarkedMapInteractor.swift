@@ -17,6 +17,7 @@ protocol MarkedMapRouting: ViewableRouting {
 
 // MARK: - MarkedMapPresentable
 
+@MainActor
 protocol MarkedMapPresentable: Presentable {
   var listener: MarkedMapPresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
@@ -41,7 +42,9 @@ final class MarkedMapInteractor: PresentableInteractor<MarkedMapPresentable>, Ma
   init(presenter: MarkedMapPresentable, location: CLLocationCoordinate2D) {
     self.location = location
     super.init(presenter: presenter)
-    presenter.listener = self
+    Task(priority: .userInitiated) {
+      await presenter.listener = self
+    }
   }
 
   // MARK: Internal
@@ -52,7 +55,9 @@ final class MarkedMapInteractor: PresentableInteractor<MarkedMapPresentable>, Ma
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
-    presenter.mark(location: location)
+    Task(priority: .userInitiated) {
+      await presenter.mark(location: location)
+    }
   }
 
   override func willResignActive() {
@@ -63,9 +68,7 @@ final class MarkedMapInteractor: PresentableInteractor<MarkedMapPresentable>, Ma
   // MARK: - MarkedMapPresentableListener
 
   func movingFromParent() {
-    if let router = router {
-      listener?.dismissedChild()
-    }
+    listener?.dismissedChild()
   }
 
   // MARK: Private

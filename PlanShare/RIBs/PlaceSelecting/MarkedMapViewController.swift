@@ -21,6 +21,7 @@ protocol MarkedMapPresentableListener: AnyObject {
 
 // MARK: - MarkedMapViewController
 
+@MainActor
 final class MarkedMapViewController: UIViewController, MarkedMapPresentable, MarkedMapViewControllable {
 
   // MARK: Internal

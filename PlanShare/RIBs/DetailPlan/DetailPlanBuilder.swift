@@ -5,6 +5,7 @@
 //  Created by JK on 2022/01/19.
 //
 
+import Foundation
 import RIBs
 
 // MARK: - DetailPlanDependency
@@ -24,7 +25,7 @@ final class DetailPlanComponent: Component<DetailPlanDependency> {
 // MARK: - DetailPlanBuildable
 
 protocol DetailPlanBuildable: Buildable {
-  func build(withListener listener: DetailPlanListener, currentPlan: Plan) -> DetailPlanRouting
+  func build(withListener listener: DetailPlanListener, currentPlan: Plan, model: PlanModel) -> DetailPlanRouting
 }
 
 // MARK: - DetailPlanBuilder
@@ -39,10 +40,10 @@ final class DetailPlanBuilder: Builder<DetailPlanDependency>, DetailPlanBuildabl
 
   // MARK: Internal
 
-  func build(withListener listener: DetailPlanListener, currentPlan plan: Plan) -> DetailPlanRouting {
+  func build(withListener listener: DetailPlanListener, currentPlan plan: Plan, model: PlanModel) -> DetailPlanRouting {
     let component = DetailPlanComponent(dependency: dependency)
     let viewController = DetailPlanViewController()
-    let interactor = DetailPlanInteractor(presenter: viewController, currentPlan: plan)
+    let interactor = DetailPlanInteractor(presenter: viewController, currentPlan: plan, planModel: model)
     interactor.listener = listener
 
     let markedMapBuilder = MarkedMapBuilder(dependency: component)

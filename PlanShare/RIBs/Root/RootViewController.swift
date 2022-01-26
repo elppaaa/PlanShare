@@ -26,7 +26,9 @@ final class RootViewController: UINavigationController, RootPresentable, RootVie
 // MARK: - RootViewControllable
 
 extension RootViewController {
-  func push(viewController: ViewControllable, animated: Bool = true) {
-    pushViewController(viewController.uiviewController, animated: animated)
+  nonisolated func push(viewController: ViewControllable, animated: Bool = true) {
+    DispatchQueue.main.async {
+      self.pushViewController(viewController.uiviewController, animated: animated)
+    }
   }
 }

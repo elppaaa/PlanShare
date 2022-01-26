@@ -41,7 +41,7 @@ final class MarkedMapBuilder: Builder<MarkedMapDependency>, MarkedMapBuildable {
   // MARK: Internal
 
   func build(withListener listener: MarkedMapListener, location: CLLocationCoordinate2D) -> MarkedMapRouting {
-    let component = MarkedMapComponent(dependency: dependency)
+    let _ = MarkedMapComponent(dependency: dependency)
     let viewController = MarkedMapViewController()
     let interactor = MarkedMapInteractor(presenter: viewController, location: location)
     interactor.listener = listener

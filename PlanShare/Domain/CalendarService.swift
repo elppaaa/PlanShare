@@ -12,13 +12,12 @@ import RxSwift
 
 // MARK: - CalendarService
 
-final class CalendarService {
+@globalActor
+final actor CalendarService {
 
   // MARK: Lifecycle
 
-  private init() {
-
-  }
+  private init() { }
 
   // MARK: Internal
 
@@ -26,51 +25,50 @@ final class CalendarService {
 
   let store = EKEventStore()
 
-  func newEvent(plan: Plan, calendar: EKCalendar? = nil) -> Single<String> {
-    access()
-      .flatMap { boolean in
-        if !boolean { return .error(CalenderServiceError.accessDenied) }
+  func newEvent(plan: Plan, calendar: EKCalendar? = nil) async -> Result<String, Error> {
+    guard let bool = try? await access().get(), bool == true else {
+      return .failure(CalenderServiceError.accessDenied)
+    }
 
-        switch self._newEvent(plan: plan, calendar: calendar) {
-        case .success(let value):
-          return .just(value)
-        case .failure(let error):
-          Log.log(.error, category: .calendar, error.localizedDescription)
-          return .error(error)
-        }
-      }
+    let event = EKEvent(eventStore: store)
+    event.title = plan.title
+    event.startDate = plan.startAt
+    event.endDate = plan.endAt
+    event.calendar = calendar ?? store.defaultCalendarForNewEvents
+    event.notes = plan.memo
+    if let place = plan.place {
+      event.structuredLocation = .init(title: place.address)
+    }
+
+    do {
+      try store.save(event, span: .thisEvent, commit: true)
+      return .success(event.eventIdentifier)
+    } catch {
+      Log.log(.error, category: .calendar, error.localizedDescription)
+      return .failure(error)
+    }
   }
 
-  func updateEvent(identifier: String, calendar: EKCalendar? = nil, plan: Plan) -> Maybe<String> {
-    access()
-      .flatMapMaybe{
-        if !$0 { return .error(CalenderServiceError.accessDenied) }
-        switch self._updateEvent(identifier: identifier, calendar: calendar, plan: plan) {
-        // 등록 후에 사용자가 이벤트를 삭제한 경우 해당 이벤트가 없을 수 있음.
-        case .failure(let error) where (error as? CalenderServiceError) == .eventNotFound:
-          return self.newEvent(plan: plan)
-            .asMaybe()
-        case .failure(let error):
-          return .error(error)
-        case .success:
-          return .empty()
-        }
-      }
+  func updateEvent(identifier: String, calendar: EKCalendar? = nil, plan: Plan) async -> Result<String?, Error> {
+    guard let bool = try? await access().get(), bool == true else {
+      return .failure(CalenderServiceError.accessDenied)
+    }
 
-//      .flatMapCompletable {
-//
-//        switch self._updateEvent(identifier: identifier, calendar: calendar, plan: plan) {
-//        case .success:
-//          return .empty()
-//        case .failure(let error):
-//          return .error(error)
-//        }
-//      }
+    switch await _updateEvent(identifier: identifier, calendar: calendar, plan: plan) {
+    // 등록 후에 사용자가 이벤트를 삭제한 경우 해당 이벤트가 없을 수 있음.
+    case .failure(let error) where (error as? CalenderServiceError) == .eventNotFound:
+      return await newEvent(plan: plan)
+        .map { $0 }
+    case .failure(let err):
+      return .failure(err)
+    case .success:
+      return .success(nil)
+    }
   }
 
   // MARK: Private
 
-  private func _updateEvent(identifier: String, calendar: EKCalendar? = nil, plan: Plan) -> Result<Void, Error> {
+  private func _updateEvent(identifier: String, calendar: EKCalendar? = nil, plan: Plan) async -> Result<Void, Error> {
     guard let event = store.event(withIdentifier: identifier) else {
       return .failure(CalenderServiceError.eventNotFound)
     }
@@ -90,40 +88,20 @@ final class CalendarService {
     }
   }
 
-  private func _newEvent(plan: Plan, calendar: EKCalendar? = nil) -> Result<String, Error> {
-    let event = EKEvent(eventStore: store)
-    event.title = plan.title
-    event.startDate = plan.startAt
-    event.endDate = plan.endAt
-    event.calendar = calendar ?? store.defaultCalendarForNewEvents
-    event.notes = plan.memo
-    if let place = plan.place {
-      event.structuredLocation = .init(title: place.address)
-    }
-
-    do {
-      try store.save(event, span: .thisEvent, commit: true)
-      return .success(event.eventIdentifier)
-    } catch {
-      return .failure(error)
-    }
-  }
-  private func access() -> Single<Bool> {
-    .create { subscriber in
+  private func access() async -> Result<Bool, Error> {
+    await withUnsafeContinuation { container in
       self.store.requestAccess(to: .event) { bool, error in
         if let error = error {
           Log.log(.info, category: .calendar, "\(error)")
-          subscriber(.failure(error))
+          container.resume(returning: .failure(error))
         }
 
         if bool == false {
           Log.log(.info, category: .calendar, "Calendar Access Denied")
         }
 
-        subscriber(.success(bool))
+        container.resume(returning: .success(bool))
       }
-
-      return Disposables.create()
     }
   }
 }

@@ -10,21 +10,20 @@ import SQLite3
 
 // MARK: - SQLiteService
 
-final class SQLiteService {
+final actor SQLiteService {
 
   // MARK: Lifecycle
 
-  private init() { }
+  init() { }
 
   // MARK: Internal
 
   static var shared = SQLiteService()
 
   var db: OpaquePointer?
-  var stmt: OpaquePointer?
   let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
 
-  func openDB(createQuery query: String) {
+  func openDB(createQuery query: String) async {
     if sqlite3_open(Constraints.DB_PATH, &db) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db))
       Log.log(.error, category: .sqlite, errMsg)
@@ -47,13 +46,15 @@ final class SQLiteService {
     return nil
   }
 
-  func write(query: String, block: () throws -> Void) -> SQLiteError? {
+  func write(query: String, block: (OpaquePointer?) throws -> Void) async -> SQLiteError? {
+    var stmt: OpaquePointer?
+
     if let error = prepare(query: query, stmt: &stmt) {
       return error
     }
 
     do {
-      try block()
+      try block(stmt)
     } catch {
       if let error = error as? SQLiteError {
         return error
@@ -76,6 +77,8 @@ final class SQLiteService {
   }
 
   func write(query: String, values: [Any]) -> SQLiteError? {
+    var stmt: OpaquePointer?
+
     if let error = prepare(query: query, stmt: &stmt) {
       return error
     }
@@ -119,7 +122,29 @@ final class SQLiteService {
     return .success(array)
   }
 
-  func delete(query: String, id: Int) -> SQLiteError? {
+  func update(query: String) -> SQLiteError? {
+    var stmt: OpaquePointer?
+
+    if let error = prepare(query: query, stmt: &stmt) {
+      return error
+    }
+
+    if sqlite3_step(stmt) != SQLITE_DONE {
+      let errMsg = String(cString: sqlite3_errmsg(db)!)
+      Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
+      return .failedToUpdate
+    }
+
+    if sqlite3_finalize(stmt) != SQLITE_OK {
+      return .unknown
+    }
+
+    return nil
+  }
+
+  func delete(query: String, id: Int) async -> SQLiteError? {
+    var stmt: OpaquePointer?
+
     if let error = prepare(query: query, stmt: &stmt) {
       return error
     }
@@ -169,5 +194,6 @@ enum SQLiteError: Error {
   case failedToBind
   case idIsEmpty
   case failedToDelete
+  case failedToUpdate
   case unknown
 }
