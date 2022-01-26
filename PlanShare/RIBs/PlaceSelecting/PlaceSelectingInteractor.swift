@@ -84,30 +84,32 @@ extension PlaceSelectingInteractor {
   }
 
   func query(_ text: String) {
-    PlaceService.findPlaces(query: text, sessionToken: googleAPISession)
-      .subscribe(onSuccess: { [weak self] in
-        self?.searchResults.accept($0)
-      })
-      .disposeOnDeactivate(interactor: self)
+    Task(priority: .utility) {
+      let place = await PlaceService.findPlaces(query: text, sessionToken: googleAPISession)
+      if case .success(let place) = place {
+        searchResults.accept(place)
+      }
+    }
   }
 
   func mapButtonTapped(index: Int) {
     let id = searchResults.value[index].id
-    PlaceService.getLocation(from: id, sessionToken: googleAPISession)
-      .subscribe(onSuccess: { [weak self] in
-        self?.router?.routeToMarkedMap(location: $0)
-      })
-      .disposeOnDeactivate(interactor: self)
+    Task(priority: .utility) {
+      let value = await PlaceService.getLocation(from: id, sessionToken: googleAPISession)
+      if case .success(let value) = value {
+        router?.routeToMarkedMap(location: value)
+      }
+    }
   }
 
   func selectPlace(index: Int) {
     let id = searchResults.value[index].id
-    PlaceService.place(from: id, sessionToken: googleAPISession)
-      .subscribe(on: MainScheduler.instance)
-      .subscribe(onSuccess: { [weak self] in
-        self?.listener?.selectAndClose(place: $0)
-      })
-      .disposeOnDeactivate(interactor: self)
+    Task(priority: .utility) {
+      let place = await PlaceService.place(from: id, sessionToken: googleAPISession)
+      if case .success(let place) = place {
+        listener?.selectAndClose(place: place)
+      }
+    }
   }
 }
 

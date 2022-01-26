@@ -10,6 +10,7 @@ import Foundation
 import GooglePlaces
 import RxSwift
 
+@MainActor
 final class PlaceService {
 
   // MARK: Lifecycle
@@ -22,10 +23,9 @@ final class PlaceService {
     case failedToFind
   }
 
-  static func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<[PlaceSearchResult]> {
+  static func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<[PlaceSearchResult], PlaceError> {
     Log.log(.debug, category: .places, #function)
-
-    return .create { subscriber in
+    return await withUnsafeContinuation { container in
       let filter = GMSAutocompleteFilter()
       filter.type = .establishment
       filter.origin = currentPlace
@@ -34,7 +34,7 @@ final class PlaceService {
         guard let results = results, error == nil else {
           let errMessage = "request failed \(error!.localizedDescription)"
           Log.log(.error, category: .places, errMessage)
-          subscriber(.failure(PlaceError.failedToFind))
+          container.resume(returning: .failure(.failedToFind))
           return
         }
 
@@ -42,65 +42,62 @@ final class PlaceService {
           PlaceSearchResult(id: $0.placeID, name: $0.attributedPrimaryText.string, secondary: $0.attributedSecondaryText?.string)
         }
 
-        subscriber(.success(places))
+        container.resume(returning: .success(places))
       }
-
-      return Disposables.create()
     }
   }
 
-  static func getLocation(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<CLLocationCoordinate2D> {
+  static func getLocation(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<CLLocationCoordinate2D, PlaceError> {
     Log.log(.debug, category: .places, #function)
-
-    return .create { subscriber in
+    return await withUnsafeContinuation { container in
       self.client.fetchPlace(fromPlaceID: id, placeFields: .coordinate, sessionToken: sessionToken) { place, error in
         guard let place = place, error == nil else {
           let errMessage = "request failed \(error!.localizedDescription)"
           Log.log(.error, category: .places, errMessage)
-          subscriber(.failure(PlaceError.failedToFind))
+          container.resume(returning: .failure(.failedToFind))
           return
         }
 
-        subscriber(.success(place.coordinate))
+        container.resume(returning: .success(place.coordinate))
       }
-      return Disposables.create()
     }
   }
 
-  static func place(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) -> Single<Place> {
+  static func place(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<Place, PlaceError> {
     Log.log(.debug, category: .places, #function)
-    return placeInfo(from: id)
-      .map { Place(id: id, title: $0.name, address: $0.address, location: $0.location) }
+    let place = await placeInfo(from: id)
+    switch place {
+    case .success(let place):
+      return .success(Place(id: id, title: place.name, address: place.address, location: place.location))
+    case .failure(let error):
+      return .failure(error)
+    }
   }
 
   static func setUp() {
     GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
   }
 
-  static func placeInfo(from id: String) -> Single<(name: String, address: String, location: CLLocationCoordinate2D)> {
+  static func placeInfo(from id: String) async -> Result<(name: String, address: String, location: CLLocationCoordinate2D), PlaceError> {
     Log.log(.debug, category: .places, #function)
 
-    return .create { subscriber in
+    return await withUnsafeContinuation { container in
       self.client.fetchPlace(fromPlaceID: id, placeFields: [.coordinate, .name, .formattedAddress], sessionToken: nil) { place, error in
         guard let place = place, error == nil else {
           let errMessage = "request failed \(error!.localizedDescription)"
           Log.log(.error, category: .places, errMessage)
-          subscriber(.failure(PlaceError.failedToFind))
+          container.resume(returning: .failure(.failedToFind))
           return
         }
+        let result = (name: place.name ?? "", address: place.formattedAddress ?? "", location: place.coordinate)
 
-        subscriber(.success((
-          name: place.name ?? "",
-          address: place.formattedAddress ?? "",
-          location: place.coordinate
-        )))
+        container.resume(returning: .success(result))
       }
-      return Disposables.create()
     }
   }
 
   // MARK: Private
 
-  private static let client = GMSPlacesClient.shared()
+  @MainActor private static let client = GMSPlacesClient.shared()
 
 }

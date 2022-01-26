@@ -18,7 +18,7 @@ protocol FirebaseServieType {}
 
 // MARK: - FirebaseService
 
-final class FirebaseService: FirebaseServieType {
+final actor FirebaseService: FirebaseServieType {
 
   // MARK: Internal
 
