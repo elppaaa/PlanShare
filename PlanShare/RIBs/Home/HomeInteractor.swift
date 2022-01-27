@@ -29,6 +29,8 @@ protocol HomeRouting: ViewableRouting {
 protocol HomePresentable: Presentable {
   var listener: HomePresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
+//  func loadingStart()
+//  func loadingEnd()
 }
 
 // MARK: - HomeListener
@@ -80,10 +82,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
   // MARK: Private
 
-  private let homeActionableSubject = ReplaySubject<Void>.create(bufferSize: 1)
-
   private func readAllPlans(useCache: Bool = false) {
     Task(priority: .utility) {
+//      await presenter.loadingStart()
       let planModels = await PlanModel.readAll()
       switch planModels {
       case .success(let values):
@@ -107,6 +108,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
       case .failure(let err):
         Log.log(.error, category: .sqlite, "\(#function) \(err)")
       }
+//      await presenter.loadingEnd()
     }
   }
 
@@ -205,23 +207,24 @@ extension HomeInteractor {
 
 extension HomeInteractor: HomeActionableItem {
   func getAndOpenPlan(id: String) -> Observable<(HomeActionableItem, ())> {
-    Task(priority: .utility) {
-      guard var plan: Plan = try? await FirebaseService.read(path: "Plan", id: id).get() else { return }
-      plan.id = id
-      self.appendPlan(plan: plan)
-      let planModel = PlanModel(planID: id)
-      planModel.prepare()
-      await planModel.write()
+    .create { [weak self] subscriber in
+      guard let self = self else { return Disposables.create() }
+      Task(priority: .utility) {
+        guard var plan: Plan = try? await FirebaseService.read(path: "Plan", id: id).get() else { return }
+        plan.id = id
+        self.appendPlan(plan: plan)
+        let planModel = PlanModel(planID: id)
+        planModel.prepare()
+        await planModel.write()
 
-      if let model = try? await PlanModel.getBy(planID: id).get() {
-        self.router?.routeToDetailPlan(plan: plan, model: model)
+        if let model = try? await PlanModel.getBy(planID: id).get() {
+          self.router?.routeToDetailPlan(plan: plan, model: model)
+        }
+
+        subscriber.onNext((self, ()))
       }
 
-      self.homeActionableSubject.onNext(())
+      return Disposables.create()
     }
-
-    return homeActionableSubject
-      .map { _ in (self, ()) }
-      .asObservable()
   }
 }

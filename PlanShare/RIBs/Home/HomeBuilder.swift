@@ -40,7 +40,6 @@ final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
 
   // MARK: Internal
 
-//  func build(withListener listener: HomeListener, @MainActor(router: HomeRouting, actionableItem: HomeActionableItem)) -> (router: HomeRouting, actionableItem: HomeActionableItem) {
   func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem) {
     let component = HomeComponent(dependency: dependency)
     let viewController = HomeViewController()

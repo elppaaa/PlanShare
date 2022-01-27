@@ -39,10 +39,8 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    DispatchQueue.main.async {
-      self.configView()
-      self.bindings()
-    }
+    configView()
+    bindings()
   }
 
   override func viewDidLayoutSubviews() {
@@ -89,7 +87,6 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
   private func configView() {
     view.addSubview(container)
     container.addSubview(dimmedBackground)
-
     container.flex.alignItems(.center).justifyContent(.center).define {
       let frameView = UIView().then {
         $0.layer.cornerRadius = 8
@@ -174,30 +171,24 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 // MARK: - DetailPlanPresentable
 extension DetailPlanViewController {
   func setData(plan: Plan) {
-    DispatchQueue.main.async {
-      self.titleLabel.text = plan.title
-      self.startAtLabel.text = plan.startAt.formattedDateAndTime
-      self.endAtLabel.text = plan.endAt.formattedDateAndTime
-      self.addressLabel.text = plan.place?.address
-      self.mapButton.isEnabled = plan.place != nil
-      self.memoLabel.text = plan.memo
-    }
+    titleLabel.text = plan.title
+    startAtLabel.text = plan.startAt.formattedDateAndTime
+    endAtLabel.text = plan.endAt.formattedDateAndTime
+    addressLabel.text = plan.place?.address
+    mapButton.isEnabled = plan.place != nil
+    memoLabel.text = plan.memo
   }
 
   func openLink(url: URL) {
-    DispatchQueue.main.async {
-      let vc = SFSafariViewController(url: url)
-      vc.modalTransitionStyle = .crossDissolve
-      vc.modalPresentationStyle = .overCurrentContext
-      self.present(vc, animated: true, completion: nil)
-    }
+    let vc = SFSafariViewController(url: url)
+    vc.modalTransitionStyle = .crossDissolve
+    vc.modalPresentationStyle = .overCurrentContext
+    present(vc, animated: true, completion: nil)
   }
 
   func prepareToRemove() {
-    DispatchQueue.main.async {
-      self.view.removeFromSuperview()
-      self.removeFromParent()
-      self.willMove(toParent: nil)
-    }
+    view.removeFromSuperview()
+    removeFromParent()
+    willMove(toParent: nil)
   }
 }

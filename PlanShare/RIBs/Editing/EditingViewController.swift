@@ -163,28 +163,30 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     view.addSubview(container)
     navigationItem.rightBarButtonItem = doneBarButton
     doneBarButton.isEnabled = false
-    container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
-      addRow($0).define {
-        addLabel($0, text: "title").marginRight(40)
-        $0.addItem(titleTextField).padding(3).grow(1).shrink(1)
-      }
-      
-      addRow($0).define {
-        addLabel($0, text: "address").marginRight(40)
+    Task(priority: .userInitiated) {
+      container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
+        addRow($0).define {
+          addLabel($0, text: "title").marginRight(40)
+          $0.addItem(titleTextField).padding(3).grow(1).shrink(1)
+        }
 
-        $0.addItem(addressView).padding(3).shrink(1).grow(1)
+        addRow($0).define {
+          addLabel($0, text: "address").marginRight(40)
+
+          $0.addItem(addressView)
+        }
+
+        addDatePicker($0, text: "startAt", datePicker: startAtPicker)
+        addDatePicker($0, text: "endAt", datePicker: endAtPicker)
+
+        addLabel($0, text: "memo")
+          .padding(3)
+          .marginBottom(10)
+
+        $0.addItem(memoTextView).minHeight(50).width(100%).grow(1)
+          .shrink(1)
+          .marginBottom(50)
       }
-      
-      addDatePicker($0, text: "startAt", datePicker: startAtPicker)
-      addDatePicker($0, text: "endAt", datePicker: endAtPicker)
-      
-      addLabel($0, text: "memo")
-        .padding(3)
-        .marginBottom(10)
-      
-      $0.addItem(memoTextView).minHeight(50).width(100%).grow(1)
-        .shrink(1)
-        .marginBottom(50)
     }
   }
 
@@ -228,16 +230,14 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 
 extension EditingViewController {
   func setView(with plan: Plan) {
-    DispatchQueue.main.async {
-      self.titleTextField.text = plan.title
-      self.memoTextView.text = plan.memo
-      self.startAtPicker.date = plan.startAt
-      self.endAtPicker.date = plan.endAt
-      if self.addressView.text == "" || self.addressView.text == nil {
-        self.addressView.text = "주소를 입력해주세요"
-      } else {
-        self.addressView.text = (plan.place?.title ?? "") + ", " + (plan.place?.address ?? "")
-      }
+    titleTextField.text = plan.title
+    memoTextView.text = plan.memo
+    startAtPicker.date = plan.startAt
+    endAtPicker.date = plan.endAt
+    if addressView.text == "" || addressView.text == nil {
+      addressView.text = "주소를 입력해주세요"
+    } else {
+      addressView.text = (plan.place?.title ?? "") + ", " + (plan.place?.address ?? "")
     }
   }
 }
