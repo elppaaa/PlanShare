@@ -5,8 +5,8 @@
 //  Created by JK on 2022/01/20.
 //
 
+import CoreLocation
 import Foundation
-import MapKit
 
 // MARK: - CLLocationCoordinate2D + Equatable
 

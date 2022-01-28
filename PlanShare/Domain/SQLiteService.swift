@@ -10,7 +10,7 @@ import SQLite3
 
 // MARK: - SQLiteService
 
-final actor SQLiteService {
+final class SQLiteService {
 
   // MARK: Lifecycle
 
@@ -23,7 +23,7 @@ final actor SQLiteService {
   var db: OpaquePointer?
   let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
 
-  func openDB(createQuery query: String) async {
+  func openDB(createQuery query: String) {
     if sqlite3_open(Constraints.DB_PATH, &db) != SQLITE_OK {
       let errMsg = String(cString: sqlite3_errmsg(db))
       Log.log(.error, category: .sqlite, errMsg)
@@ -46,7 +46,7 @@ final actor SQLiteService {
     return nil
   }
 
-  func write(query: String, block: (OpaquePointer?) throws -> Void) async -> SQLiteError? {
+  func write(query: String, block: (OpaquePointer?) throws -> Void) -> SQLiteError? {
     var stmt: OpaquePointer?
 
     if let error = prepare(query: query, stmt: &stmt) {
@@ -142,7 +142,7 @@ final actor SQLiteService {
     return nil
   }
 
-  func delete(query: String, id: Int) async -> SQLiteError? {
+  func delete(query: String, id: Int) -> SQLiteError? {
     var stmt: OpaquePointer?
 
     if let error = prepare(query: query, stmt: &stmt) {

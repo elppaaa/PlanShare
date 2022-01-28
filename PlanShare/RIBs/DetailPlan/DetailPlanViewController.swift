@@ -6,7 +6,6 @@
 //
 
 import FlexLayout
-import MapKit
 import PinLayout
 import RIBs
 import RxGesture

@@ -41,7 +41,7 @@ final class DetailPlanBuilder: Builder<DetailPlanDependency>, DetailPlanBuildabl
   // MARK: Internal
 
   func build(withListener listener: DetailPlanListener, currentPlan plan: Plan, model: PlanModel) -> DetailPlanRouting {
-    let component = DetailPlanComponent(dependency: dependency)
+    let _ = DetailPlanComponent(dependency: dependency)
     let viewController = DetailPlanViewController()
     let interactor = DetailPlanInteractor(presenter: viewController, currentPlan: plan, planModel: model)
     interactor.listener = listener

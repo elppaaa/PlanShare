@@ -51,19 +51,19 @@ extension PlanModel: SQLiteEnable {
   }}
 
   @discardableResult
-  static func deleteBy(planID: String) async -> SQLiteError? {
+  static func deleteBy(planID: String) -> SQLiteError? {
     Log.log(.debug, category: .sqlite, #function)
     let deletionQuery = "DELETE FROM \(db) WHERE planID = '\(planID)'"
 
     let service = SQLiteService.shared
     var stmt: OpaquePointer?
 
-    if let error = await service.prepare(query: deletionQuery, stmt: &stmt) {
+    if let error = service.prepare(query: deletionQuery, stmt: &stmt) {
       return error
     }
 
     if sqlite3_step(stmt) != SQLITE_DONE {
-      let errMsg = String(cString: sqlite3_errmsg(await service.db)!)
+      let errMsg = String(cString: sqlite3_errmsg(service.db)!)
       Log.log(.error, category: .sqlite, "Preparing insert \(errMsg)")
       return .failedToDelete
     }
@@ -75,14 +75,14 @@ extension PlanModel: SQLiteEnable {
     return nil
   }
 
-  static func getEventIDBy(planID id: String) async -> Result<String?, SQLiteError> {
+  static func getEventIDBy(planID id: String) -> Result<String?, SQLiteError> {
     Log.log(.debug, category: .sqlite, #function)
 
     let service = SQLiteService.shared
     var stmt: OpaquePointer?
 
     let selectQuery = "SELECT eventIdentifier FROM \(db) WHERE planID = '\(id)'"
-    if let error = await service.prepare(query: selectQuery, stmt: &stmt) {
+    if let error = service.prepare(query: selectQuery, stmt: &stmt) {
       return .failure(error)
     }
 
@@ -100,14 +100,14 @@ extension PlanModel: SQLiteEnable {
     return .success(identifier)
   }
 
-  static func getBy(planID id: String) async -> Result<PlanModel, SQLiteError> {
+  static func getBy(planID id: String) -> Result<PlanModel, SQLiteError> {
     Log.log(.debug, category: .sqlite, #function)
 
     let service = SQLiteService.shared
     var stmt: OpaquePointer?
 
     let selectQuery = "SELECT * FROM \(db) WHERE planID = '\(id)'"
-    if let error = await service.prepare(query: selectQuery, stmt: &stmt) {
+    if let error = service.prepare(query: selectQuery, stmt: &stmt) {
       return .failure(error)
     }
 
@@ -156,8 +156,8 @@ extension PlanModel: SQLiteEnable {
 //  }
 
   @discardableResult
-  func update() async -> SQLiteError? {
+  func update() -> SQLiteError? {
     let updateQuery = "UPDATE \(PlanModel.db) SET eventIdentifier = '\(eventIdentifier!)' WHERE id == '\(id!)'; "
-    return await PlanModel.service.update(query: updateQuery)
+    return PlanModel.service.update(query: updateQuery)
   }
 }

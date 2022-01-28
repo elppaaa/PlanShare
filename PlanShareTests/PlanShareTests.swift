@@ -6,8 +6,8 @@
 //
 
 import Alamofire
+import CoreLocation
 import FirebaseFirestore
-import MapKit
 import RxBlocking
 import RxSwift
 import XCTest

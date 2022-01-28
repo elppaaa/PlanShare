@@ -5,15 +5,14 @@
 //  Created by JK on 2022/01/24.
 //
 
+import CoreLocation
 import EventKit
 import Foundation
-import MapKit
 import RxSwift
 
 // MARK: - CalendarService
 
-@globalActor
-final actor CalendarService {
+final class CalendarService {
 
   // MARK: Lifecycle
 

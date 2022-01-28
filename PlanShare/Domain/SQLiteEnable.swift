@@ -32,28 +32,26 @@ extension SQLiteEnable {
 //    SQLiteService.shared.readAll(query: Self.selectAllQuery, blocks: readingBlock)
 //  }
 
-  static func readAll() async -> Result<[Self], SQLiteError> {
-    await Self.service.openDB(createQuery: createQuery)
-    return await SQLiteService.shared.readAll(query: selectAllQuery, blocks: readingBlock)
+  static func readAll() -> Result<[Self], SQLiteError> {
+    Self.service.openDB(createQuery: createQuery)
+    return SQLiteService.shared.readAll(query: selectAllQuery, blocks: readingBlock)
   }
 
   func prepare() {
-    Task(priority: .utility) {
-      await Self.service.openDB(createQuery: Self.createQuery)
-    }
+    Self.service.openDB(createQuery: Self.createQuery)
   }
 
   @discardableResult
-  func write() async -> SQLiteError? {
-    await Self.service.write(query: Self.insertQuery, block: writingBlock)
+  func write() -> SQLiteError? {
+    Self.service.write(query: Self.insertQuery, block: writingBlock)
   }
 
   @discardableResult
-  func delete() async -> SQLiteError? {
+  func delete() -> SQLiteError? {
     guard let id = id else { return .idIsEmpty }
     let deleteQuery = "DELETE FROM \(Self.db) WHERE id = '\(id)'"
 
-    return await Self.service.delete(query: deleteQuery, id: id)
+    return Self.service.delete(query: deleteQuery, id: id)
   }
 
   func bind_text(stmt: OpaquePointer?, index: Int, value: String) throws {

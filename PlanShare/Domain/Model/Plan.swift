@@ -5,10 +5,10 @@
 //  Created by JK on 2022/01/10.
 //
 
+import CoreLocation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
-import MapKit
 
 // MARK: - Plan
 

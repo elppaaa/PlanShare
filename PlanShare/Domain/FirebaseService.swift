@@ -10,15 +10,10 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
-import RxSwift
-
-// MARK: - FirebaseServieType
-
-protocol FirebaseServieType {}
 
 // MARK: - FirebaseService
 
-final actor FirebaseService: FirebaseServieType {
+final class FirebaseService {
 
   // MARK: Internal
 

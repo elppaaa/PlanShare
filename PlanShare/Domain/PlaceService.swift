@@ -98,6 +98,6 @@ final class PlaceService {
 
   // MARK: Private
 
-  @MainActor private static let client = GMSPlacesClient.shared()
+  private static let client = GMSPlacesClient.shared()
 
 }

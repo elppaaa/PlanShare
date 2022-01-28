@@ -5,13 +5,12 @@
 //  Created by JK on 2022/01/10.
 //
 
+import CoreLocation
 import Foundation
-import MapKit
 import RIBs
 import RxCocoa
 import RxRelay
 import RxSwift
-import SwiftUI
 
 // MARK: - HomeRouting
 
@@ -83,9 +82,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
   // MARK: Private
 
   private func readAllPlans(useCache: Bool = false) {
-    Task(priority: .utility) {
+    Task.detached(priority: .utility) {
 //      await presenter.loadingStart()
-      let planModels = await PlanModel.readAll()
+      let planModels = PlanModel.readAll()
       switch planModels {
       case .success(let values):
         var plans = [Plan]()
@@ -97,8 +96,8 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
             plans.append(value)
           case .failure(let err):
             if let err = err as? FirebaseService.Err, err == .serialized {
-              let model = try? await PlanModel.getBy(planID: model.planID).get()
-              await model?.delete()
+              let model = try? PlanModel.getBy(planID: model.planID).get()
+              model?.delete()
             }
           }
         }
@@ -128,12 +127,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
 extension HomeInteractor {
   func planSelected(index: Int) {
-    Task(priority: .utility) {
-      let plan = plans.value[index]
-      if let id = plan.id, let model = try? await PlanModel.getBy(planID: id).get() {
-        router?.routeToDetailPlan(plan: plan, model: model)
-      }
-
+    let plan = plans.value[index]
+    if let id = plan.id, let model = try? PlanModel.getBy(planID: id).get() {
+      router?.routeToDetailPlan(plan: plan, model: model)
     }
   }
 }
@@ -169,7 +165,7 @@ extension HomeInteractor {
 
           let model = PlanModel(planID: document.documentID, eventIdentifier: "")
           model.prepare()
-          if let error = await model.write() {
+          if let error = model.write() {
             Log.log(.error, category: .sqlite, "\(#function):: \(error)")
           }
           var plan = plan
@@ -190,12 +186,12 @@ extension HomeInteractor {
   }
 
   func deleteItem(index: Int) {
-    Task(priority: .utility) {
-      var value = plans.value
+    Task.detached(priority: .utility) {
+      var value = self.plans.value
       let plan = value.remove(at: index)
-      plans.accept(value)
+      self.plans.accept(value)
       if let id = plan.id {
-        if (try? await PlanModel.getBy(planID: id).get().delete()) != nil {
+        if (try? PlanModel.getBy(planID: id).get().delete()) != nil {
           Log.log(.debug, category: .sqlite, "Deletion Error")
         }
       }
@@ -215,9 +211,9 @@ extension HomeInteractor: HomeActionableItem {
         self.appendPlan(plan: plan)
         let planModel = PlanModel(planID: id)
         planModel.prepare()
-        await planModel.write()
+        planModel.write()
 
-        if let model = try? await PlanModel.getBy(planID: id).get() {
+        if let model = try? PlanModel.getBy(planID: id).get() {
           self.router?.routeToDetailPlan(plan: plan, model: model)
         }
 

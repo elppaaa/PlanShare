@@ -122,7 +122,7 @@ extension DetailPlanInteractor {
       Task(priority: .utility) {
         if let newEvent = try? await CalendarService.shared.newEvent(plan: plan).get() {
           model.eventIdentifier = newEvent
-          await model.update()
+          model.update()
           toastMessage("캘린더에 저장되었습니다.")
         }
       }
@@ -130,12 +130,12 @@ extension DetailPlanInteractor {
     }
 
     // TODO: - 토스트 메시지 표시 예정
-    Task(priority: .utility) {
+    Task {
       switch await CalendarService.shared.updateEvent(identifier: eventIdentifier, plan: plan) {
       case .success(let value):
         if let value = value {
           self.model.eventIdentifier = value
-          await self.model.update()
+          self.model.update()
         }
         toastMessage("캘린더에 저장되었습니다.")
       default:

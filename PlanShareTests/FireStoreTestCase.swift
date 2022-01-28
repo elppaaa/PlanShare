@@ -5,7 +5,7 @@
 //  Created by JK on 2022/01/14.
 //
 
-import MapKit
+import CoreLocation
 import RxBlocking
 import RxSwift
 import XCTest
