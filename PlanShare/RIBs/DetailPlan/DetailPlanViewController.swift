@@ -56,7 +56,9 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
   private let container = UIView()
 
   private let titleLabel = UILabel()
-  private let memoLabel = UILabel()
+  private let memoLabel = UILabel().then {
+    $0.numberOfLines = 0
+  }
   private let startAtLabel = UILabel()
   private let endAtLabel = UILabel()
   private let addressLabel = UILabel()
@@ -99,8 +101,14 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
         addView(flex: $0, label: "startAt", view: startAtLabel)
         addView(flex: $0, label: "endAt", view: endAtLabel)
           .marginBottom(20)
-        addView(flex: $0, label: "memo", view: memoLabel)
+
+        $0.addItem(UILabel().then { $0.text = "memo" })
+          .marginBottom(10)
+
+        $0.addItem(memoLabel)
           .marginBottom(30)
+//        addView(flex: $0, label: "memo", view: memoLabel)
+
         $0.addItem().direction(.row).justifyContent(.spaceAround).grow(1).define {
           $0.addItem(shareButton).size(30)
           $0.addItem(editButton).size(30)

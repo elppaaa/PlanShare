@@ -105,7 +105,6 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .skip(1)
       .asDriver(onErrorJustReturn: nil)
       .map { ($0 ?? "").count > 0 }
-      .debug("Text State")
       .drive(doneBarButton.rx.isEnabled)
       .disposed(by: disposeBag)
 

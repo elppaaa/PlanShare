@@ -23,12 +23,11 @@ final class PlaceService {
     case failedToFind
   }
 
-  static func findPlaces(query: String, currentPlace: CLLocation? = nil, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<[PlaceSearchResult], PlaceError> {
+  static func findPlaces(query: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<[PlaceSearchResult], PlaceError> {
     Log.log(.debug, category: .places, #function)
     return await withUnsafeContinuation { container in
       let filter = GMSAutocompleteFilter()
       filter.type = .establishment
-      filter.origin = currentPlace
 
       client.findAutocompletePredictions(fromQuery: query, filter: filter, sessionToken: nil) { results, error in
         guard let results = results, error == nil else {
