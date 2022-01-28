@@ -15,7 +15,6 @@ import UIKit
 
 protocol DetailPlanRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-  func routeToMarkedMap(location: CLLocationCoordinate2D)
 }
 
 // MARK: - DetailPlanPresentable

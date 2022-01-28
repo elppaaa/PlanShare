@@ -46,11 +46,9 @@ final class DetailPlanBuilder: Builder<DetailPlanDependency>, DetailPlanBuildabl
     let interactor = DetailPlanInteractor(presenter: viewController, currentPlan: plan, planModel: model)
     interactor.listener = listener
 
-    let markedMapBuilder = MarkedMapBuilder(dependency: component)
     return DetailPlanRouter(
       interactor: interactor,
-      viewController: viewController,
-      markedMapBuilder: markedMapBuilder
+      viewController: viewController
     )
   }
 }

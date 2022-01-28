@@ -28,19 +28,15 @@ final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanV
   // MARK: Lifecycle
 
   // TODO: Constructor inject child builder protocols to allow building children.
-  init(
+  override init(
     interactor: DetailPlanInteractable,
-    viewController: DetailPlanViewControllable,
-    markedMapBuilder: MarkedMapBuildable
+    viewController: DetailPlanViewControllable
   ) {
-    self.markedMapBuilder = markedMapBuilder
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
 
   // MARK: Private
-
-  private let markedMapBuilder: MarkedMapBuildable
 
   private func pushChild(_ router: ViewableRouting) {
     DispatchQueue.main.async {
@@ -53,10 +49,4 @@ final class DetailPlanRouter: ViewableRouter<DetailPlanInteractable, DetailPlanV
 // MARK: - DetailPlanRouting
 
 extension DetailPlanRouter {
-  func routeToMarkedMap(location: CLLocationCoordinate2D) {
-    DispatchQueue.main.async {
-      let router = self.markedMapBuilder.build(withListener: self.interactor, location: location)
-      self.pushChild(router)
-    }
-  }
 }
