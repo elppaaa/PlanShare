@@ -50,6 +50,8 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
 
   private let disposeBag = DisposeBag()
 
+  private let loadingView = UIActivityIndicatorView()
+
   private func configView() {
     view.backgroundColor = .systemBackground
     view.addSubview(tableView)
@@ -90,7 +92,19 @@ final class HomeViewController: UIViewController, HomePresentable, HomeViewContr
 }
 
 // MARK: - HomePresentable
-extension HomeViewController { }
+extension HomeViewController {
+  func startLoading() {
+    loadingView.frame.size = .init(width: 20, height: 20)
+    loadingView.center = view.center
+    view.addSubview(loadingView)
+    loadingView.startAnimating()
+  }
+
+  func endLoading() {
+    loadingView.removeFromSuperview()
+    loadingView.stopAnimating()
+  }
+}
 
 // MARK: - HomeViewControllable
 extension HomeViewController {

@@ -28,8 +28,8 @@ protocol HomeRouting: ViewableRouting {
 protocol HomePresentable: Presentable {
   var listener: HomePresentableListener? { get set }
   // TODO: Declare methods the interactor can invoke the presenter to present data.
-//  func loadingStart()
-//  func loadingEnd()
+  func startLoading()
+  func endLoading()
 }
 
 // MARK: - HomeListener
@@ -83,7 +83,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
   private func readAllPlans(useCache: Bool = false) {
     Task.detached(priority: .utility) {
-//      await presenter.loadingStart()
+      await self.presenter.startLoading()
       let planModels = PlanModel.readAll()
       switch planModels {
       case .success(let values):
@@ -107,7 +107,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
       case .failure(let err):
         Log.log(.error, category: .sqlite, "\(#function) \(err)")
       }
-//      await presenter.loadingEnd()
+      await self.presenter.endLoading()
     }
   }
 

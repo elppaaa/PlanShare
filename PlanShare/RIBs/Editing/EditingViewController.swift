@@ -167,6 +167,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     view.backgroundColor = .systemBackground
     view.addSubview(container)
     navigationItem.rightBarButtonItem = doneBarButton
+    doneBarButton.isEnabled = false
     Task(priority: .userInitiated) {
       container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
         addRow($0).define {
