@@ -124,7 +124,7 @@ class PlanShareTests: XCTestCase {
 //  }
 
   /// read / write with Firstore.Decoder() Firestore.Encoder()
-  func testWriteAndRead() throws {
+  func testWriteAndRead() async throws {
     let dateString = "2021-11-30 09:30:00"
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -134,26 +134,16 @@ class PlanShareTests: XCTestCase {
     }
     let plan = Plan.Upload(title: "title", startAt: date, endAt: date, place: Place(id: "id", title: "타이틀", address: "address", location: CLLocationCoordinate2D()), memo: "memo")
 
-    let doc = try FirebaseService.planRef.rx.new(document: plan)
-      .toBlocking(timeout: 5)
-      .first()?
-      .documentID
+    let documentID = try await FirebaseService.planRef.new(document: plan).get().documentID
 
-    guard let doc = doc else {
-      XCTFail("doc")
-      return
-    }
+    let result: Plan = try await FirebaseService.planRef.get(id: documentID).get()
 
-    let result: Plan? = try FirebaseService.planRef.rx.get(id: doc)
-      .toBlocking(timeout: 5)
-      .first()
-
-    XCTAssert(plan.title == result?.title)
-    XCTAssert(plan.startAt == result?.startAt)
-    XCTAssert(plan.place == result?.place)
-    XCTAssert(plan.memo == result?.memo)
-    XCTAssert(date == result?.startAt)
-    XCTAssert(date == result?.endAt)
-    XCTAssert(plan.additionalPlaces == result?.additionalPlaces)
+    XCTAssert(plan.title == result.title)
+    XCTAssert(plan.startAt == result.startAt)
+    XCTAssert(plan.place == result.place)
+    XCTAssert(plan.memo == result.memo)
+    XCTAssert(date == result.startAt)
+    XCTAssert(date == result.endAt)
+    XCTAssert(plan.additionalPlaces == result.additionalPlaces)
   }
 }

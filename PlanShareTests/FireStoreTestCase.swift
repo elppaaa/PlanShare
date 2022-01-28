@@ -39,54 +39,32 @@ class FireStoreTestCase: XCTestCase {
     try super.tearDownWithError()
   }
 
-  func testDBCreate() throws {
+  func testDBCreate() async throws {
     let place = Place(id: "placeID", title: "placeTitle", address: "placeAddress", location: CLLocationCoordinate2D(latitude: 37.2654988, longitude: 127.0329044))
     let plan = Plan(title: "planTitle", startAt: Date(), endAt: Date(), place: place, memo: "planMemo")
 
-    let result = try FirebaseService.create(path: "Plan", data: plan)
-      .toBlocking(timeout: 4)
-      .first()
-
-    XCTAssert(result != nil)
-
+    let _ = try await FirebaseService.create(path: "Plan", data: plan).get()
   }
 
-  func testDBRead() throws {
+  func testDBRead() async throws {
     var plan = createPlan()
 
-    let createResult = try FirebaseService.create(path: "Plan", data: plan)
-      .toBlocking(timeout: 3)
-      .first()
+    let createResult = try await FirebaseService.create(path: "Plan", data: plan).get()
 
-    XCTAssert(createResult != nil)
-
-    guard let id = createResult?.documentID else {
-      XCTFail("Failed to get document ID")
-      return
-    }
+    let id = createResult.documentID
 
     plan.id = id
 
-    let readResult: Plan? = try FirebaseService.read(path: "Plan", id: id)
-      .toBlocking(timeout: 3)
-      .first()
+    let readResult: Plan? = try await FirebaseService.read(path: "Plan", id: id).get()
 
     checkEqual(plan, readResult)
   }
 
-  func testDBUpdate() throws {
+  func testDBUpdate() async throws {
     var plan = createPlan()
-    let updateExpectation = expectation(description: "Failed to update")
-    let createResult = try FirebaseService.create(path: "Plan", data: plan)
-      .toBlocking(timeout: 3)
-      .first()
+    let createResult = try await FirebaseService.create(path: "Plan", data: plan).get()
 
-    XCTAssert(createResult != nil)
-
-    guard let id = createResult?.documentID else {
-      XCTFail("Failed to get document ID")
-      return
-    }
+    let id = createResult.documentID
 
     plan.id = id
     let newValue = "newTitle"
@@ -100,55 +78,31 @@ class FireStoreTestCase: XCTestCase {
       return dict
     }
 
-    FirebaseService.update(path: "Plan", id: id, updateBlock: updateBlock)
-      .subscribe(onCompleted: {
-        updateExpectation.fulfill()
-      })
-      .disposed(by: disposeBag)
-    wait(for: [updateExpectation], timeout: 3)
+    let _ = try await FirebaseService.update(path: "Plan", id: id, updateBlock: updateBlock).get()
 
-    let readResult: Plan? = try FirebaseService.read(path: "Plan", id: id)
-      .toBlocking(timeout: 3)
-      .first()
+    let readResult: Plan? = try await FirebaseService.read(path: "Plan", id: id).get()
+//      .toBlocking(timeout: 3)
+//      .first()...
 
     checkEqual(plan, readResult)
 
   }
 
-  func testDBDelete() throws {
-    let errorExpectation = expectation(description: "해당 document 는 존재하지 않아야 합니다.")
-    let deleteExpectation = expectation(description: "해당 document 는 삭제가 되지 않았습니다.")
+  func testDBDelete() async throws {
+    let errorExpectation = expectation(description: "에러가 발생해야 합니다.")
     let plan = createPlan()
 
-    let createResult = try FirebaseService.create(path: "Plan", data: plan)
-      .toBlocking(timeout: 3)
-      .first()
+    let createResult = try await FirebaseService.create(path: "Plan", data: plan).get()
 
-    XCTAssert(createResult != nil)
+    let id = createResult.documentID
+    let _ = try await FirebaseService.delete(path: "Plan", id: id).get()
 
-    guard let id = createResult?.documentID else {
-      XCTFail("Failed to get document ID")
-      return
+    do {
+      let _: Plan = try await FirebaseService.read(path: "Plan", id: id).get()
+    } catch {
+      errorExpectation.fulfill()
+      debugPrint(error)
     }
-
-    FirebaseService.delete(path: "Plan", id: id)
-      .subscribe(onCompleted: {
-        deleteExpectation.fulfill()
-      })
-      .disposed(by: disposeBag)
-
-    wait(for: [deleteExpectation], timeout: 3)
-
-    let readObservable: Single<Plan> = FirebaseService.read(path: "Plan", id: id)
-
-    readObservable
-      .asObservable()
-      .subscribe(
-        onError: { e in
-          debugPrint(e)
-          errorExpectation.fulfill()
-        })
-      .disposed(by: disposeBag)
 
     wait(for: [errorExpectation], timeout: 5)
   }

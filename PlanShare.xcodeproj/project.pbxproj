@@ -28,8 +28,6 @@
 		480E00D72788351700EEA4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D62788351700EEA4E6 /* Assets.xcassets */; };
 		480E00DA2788351700EEA4E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 480E00D82788351700EEA4E6 /* LaunchScreen.storyboard */; };
 		480E00E52788351700EEA4E6 /* PlanShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00E42788351700EEA4E6 /* PlanShareTests.swift */; };
-		480E00EF2788351700EEA4E6 /* PlanShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */; };
-		480E00F12788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */; };
 		480E0100278837CF00EEA4E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */; };
 		482CF497279DC0AD00316C45 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482CF496279DC0AD00316C45 /* PlanModel.swift */; };
 		482CF499279DC0F100316C45 /* SQLiteEnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482CF498279DC0F100316C45 /* SQLiteEnable.swift */; };
@@ -111,13 +109,6 @@
 			remoteGlobalIDString = 480E00C62788351400EEA4E6;
 			remoteInfo = PlanShare;
 		};
-		480E00EB2788351700EEA4E6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 480E00BF2788351400EEA4E6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 480E00C62788351400EEA4E6;
-			remoteInfo = PlanShare;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -144,9 +135,6 @@
 		480E00DB2788351700EEA4E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		480E00E02788351700EEA4E6 /* PlanShareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanShareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		480E00E42788351700EEA4E6 /* PlanShareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareTests.swift; sourceTree = "<group>"; };
-		480E00EA2788351700EEA4E6 /* PlanShareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanShareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareUITests.swift; sourceTree = "<group>"; };
-		480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanShareUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		480E00FF278837CF00EEA4E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		482CF496279DC0AD00316C45 /* PlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
 		482CF498279DC0F100316C45 /* SQLiteEnable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteEnable.swift; sourceTree = "<group>"; };
@@ -237,13 +225,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		480E00E72788351700EEA4E6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -274,7 +255,6 @@
 			children = (
 				480E00C92788351500EEA4E6 /* PlanShare */,
 				480E00E32788351700EEA4E6 /* PlanShareTests */,
-				480E00ED2788351700EEA4E6 /* PlanShareUITests */,
 				480E00C82788351500EEA4E6 /* Products */,
 				48716A4827886B6200D24722 /* Frameworks */,
 			);
@@ -285,7 +265,6 @@
 			children = (
 				480E00C72788351500EEA4E6 /* PlanShare.app */,
 				480E00E02788351700EEA4E6 /* PlanShareTests.xctest */,
-				480E00EA2788351700EEA4E6 /* PlanShareUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,15 +295,6 @@
 				483CAAC5278ECF3800749657 /* XCTestCase+Extension.swift */,
 			);
 			path = PlanShareTests;
-			sourceTree = "<group>";
-		};
-		480E00ED2788351700EEA4E6 /* PlanShareUITests */ = {
-			isa = PBXGroup;
-			children = (
-				480E00EE2788351700EEA4E6 /* PlanShareUITests.swift */,
-				480E00F02788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift */,
-			);
-			path = PlanShareUITests;
 			sourceTree = "<group>";
 		};
 		483EE90E278C25860030DE1B /* Root */ = {
@@ -532,24 +502,6 @@
 			productReference = 480E00E02788351700EEA4E6 /* PlanShareTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		480E00E92788351700EEA4E6 /* PlanShareUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 480E00FA2788351700EEA4E6 /* Build configuration list for PBXNativeTarget "PlanShareUITests" */;
-			buildPhases = (
-				480E00E62788351700EEA4E6 /* Sources */,
-				480E00E72788351700EEA4E6 /* Frameworks */,
-				480E00E82788351700EEA4E6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				480E00EC2788351700EEA4E6 /* PBXTargetDependency */,
-			);
-			name = PlanShareUITests;
-			productName = PlanShareUITests;
-			productReference = 480E00EA2788351700EEA4E6 /* PlanShareUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -564,10 +516,6 @@
 						CreatedOnToolsVersion = 13.2.1;
 					};
 					480E00DF2788351700EEA4E6 = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 480E00C62788351400EEA4E6;
-					};
-					480E00E92788351700EEA4E6 = {
 						CreatedOnToolsVersion = 13.2.1;
 						TestTargetID = 480E00C62788351400EEA4E6;
 					};
@@ -600,7 +548,6 @@
 			targets = (
 				480E00C62788351400EEA4E6 /* PlanShare */,
 				480E00DF2788351700EEA4E6 /* PlanShareTests */,
-				480E00E92788351700EEA4E6 /* PlanShareUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -618,13 +565,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		480E00DE2788351700EEA4E6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		480E00E82788351700EEA4E6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -735,15 +675,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		480E00E62788351700EEA4E6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				480E00EF2788351700EEA4E6 /* PlanShareUITests.swift in Sources */,
-				480E00F12788351700EEA4E6 /* PlanShareUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -751,11 +682,6 @@
 			isa = PBXTargetDependency;
 			target = 480E00C62788351400EEA4E6 /* PlanShare */;
 			targetProxy = 480E00E12788351700EEA4E6 /* PBXContainerItemProxy */;
-		};
-		480E00EC2788351700EEA4E6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 480E00C62788351400EEA4E6 /* PlanShare */;
-			targetProxy = 480E00EB2788351700EEA4E6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1003,40 +929,6 @@
 			};
 			name = Release;
 		};
-		480E00FB2788351700EEA4E6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = songjk.dev.PlanShareUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PlanShare;
-			};
-			name = Debug;
-		};
-		480E00FC2788351700EEA4E6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = songjk.dev.PlanShareUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PlanShare;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1063,15 +955,6 @@
 			buildConfigurations = (
 				480E00F82788351700EEA4E6 /* Debug */,
 				480E00F92788351700EEA4E6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		480E00FA2788351700EEA4E6 /* Build configuration list for PBXNativeTarget "PlanShareUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				480E00FB2788351700EEA4E6 /* Debug */,
-				480E00FC2788351700EEA4E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
