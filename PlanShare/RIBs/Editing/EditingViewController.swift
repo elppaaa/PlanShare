@@ -102,13 +102,16 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .disposed(by: disposeBag)
 
     titleTextField.rx.text
+      .skip(1)
+      .asDriver(onErrorJustReturn: nil)
       .map { ($0 ?? "").count > 0 }
-      .asDriver(onErrorJustReturn: false)
+      .debug("Text State")
       .drive(doneBarButton.rx.isEnabled)
       .disposed(by: disposeBag)
 
     titleTextField.rx.text
       .orEmpty
+      .skip(1)
       .distinctUntilChanged()
       .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
       .withUnretained(self)
@@ -119,6 +122,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 
     memoTextView.rx.text
       .orEmpty
+      .skip(1)
       .distinctUntilChanged()
       .observe(on: MainScheduler.instance)
       .withUnretained(self)
@@ -128,6 +132,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .disposed(by: disposeBag)
 
     startAtPicker.rx.date
+      .skip(1)
       .distinctUntilChanged()
       .observe(on: MainScheduler.instance)
       .withUnretained(self)
@@ -140,6 +145,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .disposed(by: disposeBag)
 
     endAtPicker.rx.date
+      .skip(1)
       .distinctUntilChanged()
       .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
       .withUnretained(self)
@@ -162,7 +168,6 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     view.backgroundColor = .systemBackground
     view.addSubview(container)
     navigationItem.rightBarButtonItem = doneBarButton
-    doneBarButton.isEnabled = false
     Task(priority: .userInitiated) {
       container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
         addRow($0).define {
@@ -231,10 +236,11 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 extension EditingViewController {
   func setView(with plan: Plan) {
     titleTextField.text = plan.title
+    doneBarButton.isEnabled = true
     memoTextView.text = plan.memo
-    startAtPicker.date = plan.startAt
-    endAtPicker.date = plan.endAt
-    if addressView.text == "" || addressView.text == nil {
+    startAtPicker.setDate(plan.startAt, animated: false)
+    endAtPicker.setDate(plan.endAt, animated: false)
+    if plan.place?.title == "" || plan.place?.title == nil {
       addressView.text = "주소를 입력해주세요"
     } else {
       addressView.text = (plan.place?.title ?? "") + ", " + (plan.place?.address ?? "")
