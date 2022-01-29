@@ -68,9 +68,8 @@ final class GooglePlaceImageView: UIImageView {
   }
 
   private func endLoading() {
-    DispatchQueue.main.async {
-      self.indicator?.stopAnimating()
-      self.indicator = nil
-    }
+    indicator?.stopAnimating()
+    indicator?.removeFromSuperview()
+    indicator = nil
   }
 }

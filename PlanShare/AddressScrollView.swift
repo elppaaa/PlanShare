@@ -21,10 +21,9 @@ final class AddressScrollView: UIScrollView {
   init(isEditing: Bool = false) {
     self.isEditing = isEditing
     super.init(frame: .zero)
-
+    isUserInteractionEnabled = true
     configView()
     addSubview(container)
-    setView(idList: [])
   }
 
   // MARK: Internal

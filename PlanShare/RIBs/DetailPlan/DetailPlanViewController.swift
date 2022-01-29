@@ -24,7 +24,6 @@ protocol DetailPlanPresentableListener: AnyObject {
   func editButtonTapped()
   func addCalendarButtonTapped()
   func shareButtonTapped()
-//  func addressLabelTapped()
 }
 
 // MARK: - DetailPlanViewController
@@ -83,6 +82,7 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     button.imageView?.tintColor = UIColor(displayP3Red: 243 / 255, green: 226 / 255, blue: 75 / 255, alpha: 1.0) // kakao yellow
   }
 
+  private let addressScrollView = AddressScrollView(isEditing: false)
   private let disposeBag = DisposeBag()
 
   private func configView() {
@@ -96,18 +96,23 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
 
       $0.addItem(frameView).minWidth(65%).maxWidth(90%).maxHeight(90%).direction(.column).padding(20).define {
 
-        addView(flex: $0, label: "title", view: titleLabel)
-        addView(flex: $0, label: "address", view: addressLabel)
-        addView(flex: $0, label: "startAt", view: startAtLabel)
-        addView(flex: $0, label: "endAt", view: endAtLabel)
+        $0.addView(label: "제목", view: titleLabel)
+        $0.addView(label: "주소", view: addressLabel)
+        $0.addView(label: "시작 시간", view: startAtLabel)
+        $0.addView(label: "종료 시간", view: endAtLabel)
           .marginBottom(20)
 
-        $0.addItem(UILabel().then { $0.text = "memo" })
+        $0.addItem(labelLabel(text: "메모"))
           .marginBottom(10)
 
         $0.addItem(memoLabel)
           .marginBottom(30)
-//        addView(flex: $0, label: "memo", view: memoLabel)
+
+        $0.addItem(labelLabel(text: "추가 장소"))
+          .marginBottom(10)
+
+        $0.addItem(addressScrollView).height(120).width(100%).shrink(0)
+          .marginBottom(30)
 
         $0.addItem().direction(.row).justifyContent(.spaceAround).grow(1).define {
           $0.addItem(shareButton).size(30)
@@ -117,20 +122,6 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
         }
       }
     }
-  }
-
-  @discardableResult
-  private func addView(flex: Flex, label: String, view: UIView) -> Flex {
-    flex.addItem().direction(.row).grow(1).justifyContent(.spaceBetween).define {
-      let labelView = UILabel().then {
-        $0.text = label
-      }
-      $0.addItem(labelView)
-        .marginRight(20)
-
-      $0.addItem(view).shrink(1)
-    }
-    .marginBottom(20)
   }
 
   private func bindings() {
@@ -165,12 +156,14 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
       })
       .disposed(by: disposeBag)
 
-    //    addressLabel.rx.tapGesture()
-    //      .when(.recognized)
-    //      .subscribe(onNext: { [weak self]_ in
-    //        self?.listener?.addressLabelTapped()
-    //      })
-    //      .disposed(by: disposeBag)
+  }
+
+  private func labelLabel(text: String) -> UILabel {
+    UILabel().then {
+      $0.text = text
+      let fontHeigt = UIFont.preferredFont(forTextStyle: .subheadline).pointSize
+      $0.font = .systemFont(ofSize: fontHeigt, weight: .bold)
+    }
   }
 
 }
@@ -184,6 +177,7 @@ extension DetailPlanViewController {
     if let place = plan.place {
       addressLabel.text = place.title + ", " + place.address
     }
+    addressScrollView.setView(idList: plan.additionalPlaces.map { $0.id })
     mapButton.isEnabled = plan.place != nil
     memoLabel.text = plan.memo
   }
@@ -199,5 +193,24 @@ extension DetailPlanViewController {
     view.removeFromSuperview()
     removeFromParent()
     willMove(toParent: nil)
+  }
+}
+
+extension Flex {
+  @discardableResult
+  fileprivate func addView(label: String, view: UIView) -> Flex {
+    addItem().direction(.row).grow(1).justifyContent(.spaceBetween).define {
+      let labelView = UILabel().then {
+        $0.text = label
+        let fontHeigt = UIFont.preferredFont(forTextStyle: .subheadline).pointSize
+        $0.font = .systemFont(ofSize: fontHeigt, weight: .bold)
+      }
+
+      $0.addItem(labelView)
+        .marginRight(20)
+
+      $0.addItem(view).shrink(1)
+    }
+    .marginBottom(20)
   }
 }

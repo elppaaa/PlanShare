@@ -132,13 +132,12 @@ final class PlaceService {
     }
   }
 
-  static func placePhotoInfo(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<(String, GMSPlacePhotoMetadata), PlaceError> {
+  static func placePhotoInfo(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<(String, GMSPlacePhotoMetadata?), PlaceError> {
     Log.log(.debug, category: .places, #function)
     return await withUnsafeContinuation { continuation in
       self.client.fetchPlace(fromPlaceID: id, placeFields: [.name, .photos], sessionToken: sessionToken) { place, error in
         guard
           let place = place,
-          let metadata = place.photos?.first,
           let name = place.name,
           error == nil else
         {
@@ -147,6 +146,7 @@ final class PlaceService {
           continuation.resume(returning: .failure(.failedToFind))
           return
         }
+        let metadata = place.photos?.first
 
         continuation.resume(returning: .success((name, metadata)))
       }

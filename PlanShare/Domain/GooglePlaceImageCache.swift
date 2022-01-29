@@ -17,7 +17,12 @@ actor GooglePlaceImageCache {
 
   func nameAndImage(id: String) async -> (title: String, image: UIImage?)? {
     if let (title, metadata) = try? await PlaceService.placePhotoInfo(from: id, sessionToken: session).get() {
-      let image = try? await PlaceService.photo(from: metadata).get()
+      let image: UIImage?
+      if let metadata = metadata {
+        image = try? await PlaceService.photo(from: metadata).get()
+      } else {
+        image = nil
+      }
       cache[id] = (title, image)
       return (title, image)
     } else {
