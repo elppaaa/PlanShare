@@ -14,7 +14,7 @@ import SwiftUI
 
 protocol EditingRouting: ViewableRouting {
   // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-  func routeToPlace()
+  func routeToPlace(isAdditionalPlace: Bool)
   func popAndDetach()
 }
 
@@ -103,7 +103,7 @@ extension EditingInteractor {
   }
 
   func getPlace() {
-    router?.routeToPlace()
+    router?.routeToPlace(isAdditionalPlace: false)
   }
 
   func movingFromParent() {
@@ -112,6 +112,10 @@ extension EditingInteractor {
 
   func save() {
     listener?.appendAndClose(plan: plan, isNew: isNew)
+  }
+
+  func additionalAddButtonTapped() {
+    router?.routeToPlace(isAdditionalPlace: true)
   }
 
   // MARK: Private
@@ -134,8 +138,12 @@ extension EditingInteractor {
 // MARK: - PlaceSelectingListener
 
 extension EditingInteractor {
-  func selectAndClose(place: Place) {
-    plan.place = place
+  func selectAndClose(place: Place, isAdditionalPlace: Bool) {
+    if isAdditionalPlace {
+      plan.additionalPlaces.append(place)
+    } else {
+      plan.place = place
+    }
     setCurrentView()
     router?.popAndDetach()
   }

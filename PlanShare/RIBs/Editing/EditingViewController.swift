@@ -24,6 +24,7 @@ protocol EditingPresentableListener: AnyObject {
   func setStartAt(_ date: Date)
   func setEndAt(_ date: Date)
   func getPlace()
+  func additionalAddButtonTapped()
 }
 
 // MARK: - EditingViewController
@@ -87,6 +88,8 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
     $0.font = .systemFont(ofSize: fontSize * 1.2, weight: .medium)
   }
+
+  private let additionalAddressView = AddressScrollView(isEditing: true)
 
   private let addressView = UILabel()
   private lazy var doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
@@ -160,6 +163,13 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       })
       .disposed(by: disposeBag)
 
+    additionalAddressView.addButton.rx.tap
+      .withUnretained(self)
+      .subscribe(onNext: { `self`, _ in
+        self.listener?.additionalAddButtonTapped()
+      })
+      .disposed(by: disposeBag)
+
   }
 
   private func configView() {
@@ -186,9 +196,11 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
           .padding(3)
           .marginBottom(10)
 
-        $0.addItem(memoTextView).minHeight(50).width(100%).grow(1)
+        $0.addItem(memoTextView).minHeight(200).width(100%).grow(1)
           .shrink(1)
-          .marginBottom(50)
+          .marginBottom(10)
+
+        $0.addItem(additionalAddressView).height(120).width(100%).shrink(0)
       }
     }
   }
@@ -238,6 +250,9 @@ extension EditingViewController {
     memoTextView.text = plan.memo
     startAtPicker.setDate(plan.startAt, animated: false)
     endAtPicker.setDate(plan.endAt, animated: false)
+    let idList = plan.additionalPlaces.map { $0.id }
+    additionalAddressView.setView(idList: idList)
+
     if plan.place?.title == "" || plan.place?.title == nil {
       addressView.text = "주소를 입력해주세요"
     } else {

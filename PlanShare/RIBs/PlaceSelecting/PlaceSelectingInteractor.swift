@@ -31,7 +31,7 @@ protocol PlaceSelectingPresentable: Presentable {
 protocol PlaceSelectingListener: AnyObject {
   // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
   func dismissedChild()
-  func selectAndClose(place: Place)
+  func selectAndClose(place: Place, isAdditionalPlace: Bool)
 }
 
 // MARK: - PlaceSelectingPresentableOutput
@@ -48,7 +48,8 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
 
   // TODO: Add additional dependencies to constructor. Do not perform any logic
   // in constructor.
-  override init(presenter: PlaceSelectingPresentable) {
+  init(presenter: PlaceSelectingPresentable, isAdditionalPlace: Bool) {
+    self.isAdditionalPlace = isAdditionalPlace
     super.init(presenter: presenter)
     Task(priority: .userInitiated) {
       await presenter.listener = self
@@ -75,7 +76,7 @@ final class PlaceSelectingInteractor: PresentableInteractor<PlaceSelectingPresen
   // MARK: Private
 
   private let googleAPISession = GMSAutocompleteSessionToken()
-
+  private let isAdditionalPlace: Bool
 }
 
 // MARK: - PlaceSelectingPresentableListener
@@ -110,7 +111,7 @@ extension PlaceSelectingInteractor {
     Task(priority: .utility) {
       let place = await PlaceService.place(from: id, sessionToken: googleAPISession)
       if case .success(let place) = place {
-        listener?.selectAndClose(place: place)
+        listener?.selectAndClose(place: place, isAdditionalPlace: self.isAdditionalPlace)
       }
     }
   }

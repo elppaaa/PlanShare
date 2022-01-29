@@ -5,10 +5,13 @@
 //  Created by JK on 2022/01/20.
 //
 
+import CloudKit
+import CoreGraphics
 import CoreLocation
 import Foundation
 import GooglePlaces
 import RxSwift
+import UIKit.UIImage
 
 @MainActor
 final class PlaceService {
@@ -21,6 +24,7 @@ final class PlaceService {
 
   enum PlaceError: Error {
     case failedToFind
+    case failedToRequest
   }
 
   static func findPlaces(query: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<[PlaceSearchResult], PlaceError> {
@@ -77,6 +81,16 @@ final class PlaceService {
     GMSPlacesClient.provideAPIKey(Constraints.GCP_KEY)
   }
 
+//  static func photo(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil, size: CGSize? = nil, scale: CGFloat? = nil) async -> Result<UIImage, PlaceError> {
+//    switch await placePhotoInfo(from: id, sessionToken: sessionToken) {
+//    case .success(let metadata):
+//      return await _photo(from: metadata, size: size, scale: scale)
+//
+//    case .failure(let err):
+//      return .failure(err)
+//    }
+//  }
+
   static func placeInfo(from id: String) async -> Result<(name: String, address: String, location: CLLocationCoordinate2D), PlaceError> {
     Log.log(.debug, category: .places, #function)
 
@@ -91,6 +105,50 @@ final class PlaceService {
         let result = (name: place.name ?? "", address: place.formattedAddress ?? "", location: place.coordinate)
 
         container.resume(returning: .success(result))
+      }
+    }
+  }
+
+  static func photo(from metadata: GMSPlacePhotoMetadata, size: CGSize? = nil, scale: CGFloat? = nil) async -> Result<UIImage, PlaceError> {
+    await withUnsafeContinuation{ continuation in
+
+      let callback: GMSPlacePhotoImageResultCallback = { image, error in
+        if let error = error {
+          Log.log(.error, category: .places, error.localizedDescription)
+          continuation.resume(returning: .failure(.failedToRequest))
+        } else if let image = image {
+          continuation.resume(returning: .success(image))
+        } else {
+          continuation.resume(returning: .failure(.failedToFind))
+        }
+      }
+
+      if let size = size {
+        let scale = scale ?? 1.0
+        self.client.loadPlacePhoto(metadata, constrainedTo: size, scale: scale, callback: callback)
+      } else {
+        self.client.loadPlacePhoto(metadata, callback: callback)
+      }
+    }
+  }
+
+  static func placePhotoInfo(from id: String, sessionToken: GMSAutocompleteSessionToken? = nil) async -> Result<(String, GMSPlacePhotoMetadata), PlaceError> {
+    Log.log(.debug, category: .places, #function)
+    return await withUnsafeContinuation { continuation in
+      self.client.fetchPlace(fromPlaceID: id, placeFields: [.name, .photos], sessionToken: sessionToken) { place, error in
+        guard
+          let place = place,
+          let metadata = place.photos?.first,
+          let name = place.name,
+          error == nil else
+        {
+          let errMessage = "request failed \(error!.localizedDescription)"
+          Log.log(.error, category: .places, errMessage)
+          continuation.resume(returning: .failure(.failedToFind))
+          return
+        }
+
+        continuation.resume(returning: .success((name, metadata)))
       }
     }
   }

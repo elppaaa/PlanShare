@@ -46,9 +46,9 @@ final class EditingRouter: ViewableRouter<EditingInteractable, EditingViewContro
 // MARK: - EditingRouting
 
 extension EditingRouter {
-  func routeToPlace() {
+  func routeToPlace(isAdditionalPlace: Bool) {
     DispatchQueue.main.async {
-      let router = self.placeSelectingBuilder.build(withListener: self.interactor)
+      let router = self.placeSelectingBuilder.build(withListener: self.interactor, isAdditionalPlace: isAdditionalPlace)
       self.viewController.push(viewController: router.viewControllable)
       self.attachChild(router)
     }

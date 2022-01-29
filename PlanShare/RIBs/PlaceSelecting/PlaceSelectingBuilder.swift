@@ -24,7 +24,7 @@ final class PlaceSelectingComponent: Component<PlaceSelectingDependency> {
 // MARK: - PlaceSelectingBuildable
 
 protocol PlaceSelectingBuildable: Buildable {
-  func build(withListener listener: PlaceSelectingListener) -> PlaceSelectingRouting
+  func build(withListener listener: PlaceSelectingListener, isAdditionalPlace: Bool) -> PlaceSelectingRouting
 }
 
 // MARK: - PlaceSelectingBuilder
@@ -39,10 +39,10 @@ final class PlaceSelectingBuilder: Builder<PlaceSelectingDependency>, PlaceSelec
 
   // MARK: Internal
 
-  func build(withListener listener: PlaceSelectingListener) -> PlaceSelectingRouting {
+  func build(withListener listener: PlaceSelectingListener, isAdditionalPlace: Bool) -> PlaceSelectingRouting {
     let component = PlaceSelectingComponent(dependency: dependency)
     let viewController = PlaceSelectingViewController()
-    let interactor = PlaceSelectingInteractor(presenter: viewController)
+    let interactor = PlaceSelectingInteractor(presenter: viewController, isAdditionalPlace: isAdditionalPlace)
     interactor.listener = listener
 
     let markedMapBuilder = MarkedMapBuilder(dependency: component)
