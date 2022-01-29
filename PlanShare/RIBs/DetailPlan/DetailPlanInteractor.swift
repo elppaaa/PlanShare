@@ -86,15 +86,18 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
 
 extension DetailPlanInteractor {
   func mapButtonTapped() {
-    if let link = plan.place?.link {
-      UIApplication.shared.open(link, options: [:], completionHandler: nil)
+    Task {
+      if let link = plan.place?.link {
+        await UIApplication.shared.open(link, options: [:], completionHandler: nil)
+      }
     }
   }
 
   func shareButtonTapped() {
     Task(priority: .utility) {
       if let link = try? await KakaoLinkService.sendMessage(plan: plan).get() {
-        if LinkApi.isKakaoLinkAvailable() {
+        // kakako installed check
+        if await UIApplication.shared.canOpenURL(URL(string: "kakaolink://send")!) {
           await UIApplication.shared.open(link, options: [:], completionHandler: nil)
         } else {
           await presenter.openLink(url: link)

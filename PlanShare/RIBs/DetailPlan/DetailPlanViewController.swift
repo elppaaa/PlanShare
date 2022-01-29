@@ -181,7 +181,9 @@ extension DetailPlanViewController {
     titleLabel.text = plan.title
     startAtLabel.text = plan.startAt.formattedDateAndTime
     endAtLabel.text = plan.endAt.formattedDateAndTime
-    addressLabel.text = plan.place?.address
+    if let place = plan.place {
+      addressLabel.text = place.title + ", " + place.address
+    }
     mapButton.isEnabled = plan.place != nil
     memoLabel.text = plan.memo
   }

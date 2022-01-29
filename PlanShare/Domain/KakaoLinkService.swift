@@ -33,7 +33,8 @@ final class KakaoLinkService {
 
     do {
       let template = try SdkJSONDecoder.custom.decode(TextTemplate.self, from: data)
-      if LinkApi.isKakaoLinkAvailable() {
+      // kakaotalk installed check
+      if await UIApplication.shared.canOpenURL(URL(string: "kakaolink://send")!) {
         return await withUnsafeContinuation { container in
           LinkApi.shared.defaultLink(templatable: template) { linkResult, err in
             if let err = err {

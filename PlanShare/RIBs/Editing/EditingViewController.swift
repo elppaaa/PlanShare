@@ -102,7 +102,6 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
       .disposed(by: disposeBag)
 
     titleTextField.rx.text
-      .skip(1)
       .asDriver(onErrorJustReturn: nil)
       .map { ($0 ?? "").count > 0 }
       .drive(doneBarButton.rx.isEnabled)
@@ -167,7 +166,6 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     view.backgroundColor = .systemBackground
     view.addSubview(container)
     navigationItem.rightBarButtonItem = doneBarButton
-    doneBarButton.isEnabled = false
     Task(priority: .userInitiated) {
       container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
         addRow($0).define {
@@ -236,7 +234,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
 extension EditingViewController {
   func setView(with plan: Plan) {
     titleTextField.text = plan.title
-    doneBarButton.isEnabled = true
+    doneBarButton.isEnabled = plan.title != ""
     memoTextView.text = plan.memo
     startAtPicker.setDate(plan.startAt, animated: false)
     endAtPicker.setDate(plan.endAt, animated: false)
