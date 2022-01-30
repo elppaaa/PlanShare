@@ -178,21 +178,21 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     navigationItem.rightBarButtonItem = doneBarButton
     Task(priority: .userInitiated) {
       container.flex.direction(.column).marginTop(20).paddingHorizontal(20).justifyContent(.start).alignItems(.start).define {
-        addRow($0).define {
-          addLabel($0, text: "title").marginRight(40)
+        $0.addNewRow().define {
+          $0.addLabel(text: "제목").marginRight(40)
           $0.addItem(titleTextField).padding(3).grow(1).shrink(1)
         }
 
-        addRow($0).define {
-          addLabel($0, text: "address").marginRight(40)
+        $0.addNewRow().define {
+          $0.addLabel(text: "주소").marginRight(40)
 
           $0.addItem(addressView)
         }
 
-        addDatePicker($0, text: "startAt", datePicker: startAtPicker)
-        addDatePicker($0, text: "endAt", datePicker: endAtPicker)
+        $0.addDatePicker(text: "시작 시간", datePicker: startAtPicker)
+        $0.addDatePicker(text: "종료 시간", datePicker: endAtPicker)
 
-        addLabel($0, text: "memo")
+        $0.addLabel(text: "메모")
           .padding(3)
           .marginBottom(10)
 
@@ -200,45 +200,14 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
           .shrink(1)
           .marginBottom(10)
 
+        $0.addLabel(text: "추가 장소")
+          .marginBottom(10)
+
         $0.addItem(additionalAddressView).height(120).width(100%).shrink(0)
       }
     }
   }
 
-  private func addRow(_ flex: Flex) -> Flex {
-    flex.addItem().direction(.row).alignItems(.center).justifyContent(.spaceBetween).width(100%).marginBottom(40)
-  }
-
-  private func addColumn(_ flex: Flex) -> Flex {
-    flex.addItem().direction(.column).alignItems(.stretch).justifyContent(.start).width(100%).marginBottom(40)
-  }
-
-  @discardableResult
-  private func addDatePicker(_ flex: Flex, text: String, datePicker: UIDatePicker) -> Flex {
-    if #available(iOS 14.0, *) {
-      return addRow(flex).define {
-        addLabel($0, text: text)
-        $0.addItem(datePicker).grow(1).shrink(1)
-      }
-    } else {
-      return addColumn(flex).define {
-        addLabel($0, text: text)
-        $0.addItem(datePicker).grow(1).shrink(1)
-      }
-    }
-  }
-
-  @discardableResult
-  private func addLabel(_ flex: Flex, text: String) -> Flex {
-    let label = UILabel().then {
-      let captionSize = UIFont.preferredFont(forTextStyle: .subheadline)
-      $0.font = .boldSystemFont(ofSize: captionSize.pointSize)
-    }
-
-    label.text = text
-
-    return flex.addItem(label)
-  }
 }
 
 // MARK: - EditingPresentable
@@ -257,6 +226,44 @@ extension EditingViewController {
       addressView.text = "주소를 입력해주세요"
     } else {
       addressView.text = (plan.place?.title ?? "") + ", " + (plan.place?.address ?? "")
+    }
+  }
+}
+
+extension Flex {
+  @discardableResult
+  fileprivate func addLabel(text: String) -> Flex {
+    let label = UILabel().then {
+      $0.text = text
+      let fontHeigt = UIFont.preferredFont(forTextStyle: .headline).pointSize
+      $0.font = .systemFont(ofSize: fontHeigt, weight: .bold)
+    }
+
+    label.text = text
+
+    return addItem(label)
+  }
+
+  fileprivate func addNewRow() -> Flex {
+    addItem().direction(.row).wrap(.noWrap).alignItems(.center).justifyContent(.spaceBetween).width(100%).marginBottom(40)
+  }
+
+  fileprivate func addNewColumn() -> Flex {
+    addItem().direction(.column).alignItems(.stretch).justifyContent(.start).width(100%).marginBottom(40)
+  }
+
+  @discardableResult
+  fileprivate func addDatePicker(text: String, datePicker: UIDatePicker) -> Flex {
+    if #available(iOS 14.0, *) {
+      return self.addNewRow().define {
+        $0.addLabel(text: text)
+        $0.addItem(datePicker).grow(1).shrink(1)
+      }
+    } else {
+      return addNewColumn().define {
+        $0.addLabel(text: text)
+        $0.addItem(datePicker).grow(1).shrink(1)
+      }
     }
   }
 }

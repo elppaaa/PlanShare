@@ -29,8 +29,8 @@ final class GooglePlaceImageView: UIImageView {
         self.image = image
         self.label.text = name
 
-        let width = label.intrinsicContentSize.width + 30
-        label.frame = .init(x: self.frame.width / 2 - width / 2, y: self.frame.height - 100, width: width, height: 35)
+        let width = label.intrinsicContentSize.width + 15
+        label.frame = .init(x: self.frame.width / 2 - width / 2, y: self.frame.height - 100, width: width, height: label.font.pointSize + 15)
       }
       self.endLoading()
       self.setNeedsLayout()
@@ -48,10 +48,10 @@ final class GooglePlaceImageView: UIImageView {
 
   private var indicator: UIActivityIndicatorView? = UIActivityIndicatorView()
   private let label = UILabel().then {
-    $0.backgroundColor = .black.withAlphaComponent(0.5)
+    $0.backgroundColor = .black.withAlphaComponent(0.7)
     $0.textColor = .white
     $0.textAlignment = .center
-    $0.alpha = 1.0
+    $0.font = .preferredFont(forTextStyle: .footnote)
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 9
   }
