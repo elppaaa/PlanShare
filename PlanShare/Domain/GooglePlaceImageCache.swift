@@ -16,6 +16,10 @@ actor GooglePlaceImageCache {
   // MARK: Internal
 
   func nameAndImage(id: String) async -> (title: String, image: UIImage?)? {
+    if let cacheData = cache[id] {
+      return cacheData
+    }
+    
     if let (title, metadata) = try? await PlaceService.placePhotoInfo(from: id, sessionToken: session).get() {
       let image: UIImage?
       if let metadata = metadata {
@@ -29,9 +33,9 @@ actor GooglePlaceImageCache {
       return nil
     }
   }
-
+  
   // MARK: Private
-
+  
   private var cache = [String: (title: String, image: UIImage?)]()
   private let session = GMSAutocompleteSessionToken()
 }

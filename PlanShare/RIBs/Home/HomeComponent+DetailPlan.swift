@@ -19,6 +19,7 @@ protocol HomeDependencyDetailPlan: Dependency {
 // MARK: - HomeComponent + DetailPlanDependency
 
 extension HomeComponent: DetailPlanDependency {
-
-  // TODO: Implement properties to provide for DetailPlan scope.
+//  var cache: GooglePlaceImageCache {
+//    googlePlaceImageCache
+//  }
 }

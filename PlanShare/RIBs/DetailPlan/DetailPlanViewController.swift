@@ -28,6 +28,15 @@ protocol DetailPlanPresentableListener: AnyObject {
 @MainActor
 final class DetailPlanViewController: UIViewController, DetailPlanPresentable, DetailPlanViewControllable {
 
+  // MARK: Lifecycle
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) { fatalError() }
+  init(imageCache: GooglePlaceImageCache) {
+    addressScrollView = AddressScrollView(isEditing: false, cache: imageCache)
+    super.init(nibName: nil, bundle: nil)
+  }
+
   // MARK: Internal
 
   weak var listener: DetailPlanPresentableListener?
@@ -82,7 +91,7 @@ final class DetailPlanViewController: UIViewController, DetailPlanPresentable, D
     button.imageView?.tintColor = UIColor(displayP3Red: 243 / 255, green: 226 / 255, blue: 75 / 255, alpha: 1.0) // kakao yellow
   }
 
-  private let addressScrollView = AddressScrollView(isEditing: false)
+  private let addressScrollView: AddressScrollView
   private let disposeBag = DisposeBag()
 
   private func bindings() {

@@ -32,6 +32,15 @@ protocol EditingPresentableListener: AnyObject {
 @MainActor
 final class EditingViewController: UIViewController, EditingPresentable, EditingViewControllable {
 
+  // MARK: Lifecycle
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) { fatalError() }
+  init(imageCache: GooglePlaceImageCache) {
+    additionalAddressView = AddressScrollView(isEditing: true, cache: imageCache)
+    super.init(nibName: nil, bundle: nil)
+  }
+
   // MARK: Internal
 
   weak var listener: EditingPresentableListener?
@@ -89,7 +98,7 @@ final class EditingViewController: UIViewController, EditingPresentable, Editing
     $0.font = .systemFont(ofSize: fontSize * 1.2, weight: .medium)
   }
 
-  private let additionalAddressView = AddressScrollView(isEditing: true)
+  private let additionalAddressView: AddressScrollView
 
   private let addressView = UILabel()
   private lazy var doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)

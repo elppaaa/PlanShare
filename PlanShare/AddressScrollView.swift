@@ -18,8 +18,9 @@ final class AddressScrollView: UIScrollView {
 
   @available(*, unavailable)
   required init?(coder: NSCoder) { fatalError() }
-  init(isEditing: Bool = false) {
+  init(isEditing: Bool = false, cache: GooglePlaceImageCache) {
     self.isEditing = isEditing
+    self.cache = cache
     super.init(frame: .zero)
     isUserInteractionEnabled = true
     configView()
@@ -79,7 +80,7 @@ final class AddressScrollView: UIScrollView {
 
   private let isEditing: Bool
 
-  private let cache = GooglePlaceImageCache()
+  private let cache: GooglePlaceImageCache
 
   private func configView() {
     showsVerticalScrollIndicator = false

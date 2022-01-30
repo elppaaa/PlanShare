@@ -79,7 +79,6 @@ final class DetailPlanInteractor: PresentableInteractor<DetailPlanPresentable>, 
 
   private let plan: Plan
   private var model: PlanModel
-  //  private var eventIdentifier: String?
 }
 
 // MARK: - DetailPlanPresentableListener

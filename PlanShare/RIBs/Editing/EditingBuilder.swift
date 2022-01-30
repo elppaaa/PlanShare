@@ -12,6 +12,7 @@ import RIBs
 protocol EditingDependency: Dependency {
   // TODO: Declare the set of dependencies required by this RIB, but cannot be
   // created by this RIB.
+  var cache: GooglePlaceImageCache { get }
 }
 
 // MARK: - EditingComponent
@@ -29,12 +30,16 @@ final class EditingComponent: Component<EditingDependency> {
 
   // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
   fileprivate var plan: Plan?
+
+  fileprivate var cache: GooglePlaceImageCache {
+    dependency.cache
+  }
 }
 
 // MARK: - EditingBuildable
 
 protocol EditingBuildable: Buildable {
-  func build(withListener listener: EditingListener, currentPlan: Plan?) -> EditingRouting
+  func build(withListener listener: EditingListener, currentPlan: Plan?) async -> EditingRouting
 }
 
 // MARK: - EditingBuilder
@@ -49,9 +54,10 @@ final class EditingBuilder: Builder<EditingDependency>, EditingBuildable {
 
   // MARK: Internal
 
-  func build(withListener listener: EditingListener, currentPlan: Plan?) -> EditingRouting {
+  @MainActor
+  func build(withListener listener: EditingListener, currentPlan: Plan?) async -> EditingRouting {
     let component = EditingComponent(dependency: dependency, plan: currentPlan)
-    let viewController = EditingViewController()
+    let viewController = EditingViewController(imageCache: component.cache)
     let interactor = EditingInteractor(presenter: viewController, plan: component.plan)
     interactor.listener = listener
 

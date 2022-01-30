@@ -18,30 +18,32 @@ protocol HomeDependency: Dependency {
 // MARK: - HomeComponent
 
 final class HomeComponent: Component<HomeDependency> {
+
+  // MARK: Lifecycle
+
   // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
+  init(dependency: HomeDependency, googlePlaceImageCache: GooglePlaceImageCache) {
+    self.googlePlaceImageCache = googlePlaceImageCache
+    super.init(dependency: dependency)
+  }
+
+  // MARK: Internal
+
+  let googlePlaceImageCache: GooglePlaceImageCache
 }
 
 // MARK: - HomeBuildable
 
 protocol HomeBuildable: Buildable {
   func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem)
-//  func build(withListener listener: HomeListener, completion:  (router: HomeRouting, actionableItem: HomeActionableItem))
 }
 
 // MARK: - HomeBuilder
 
 final class HomeBuilder: Builder<HomeDependency>, HomeBuildable {
 
-  // MARK: Lifecycle
-
-  override init(dependency: HomeDependency) {
-    super.init(dependency: dependency)
-  }
-
-  // MARK: Internal
-
   func build(withListener listener: HomeListener) -> (router: HomeRouting, actionableItem: HomeActionableItem) {
-    let component = HomeComponent(dependency: dependency)
+    let component = HomeComponent(dependency: dependency, googlePlaceImageCache: GooglePlaceImageCache())
     let viewController = HomeViewController()
     let interactor = HomeInteractor(presenter: viewController)
     interactor.listener = listener

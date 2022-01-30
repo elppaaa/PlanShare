@@ -19,6 +19,8 @@ protocol HomeDependencyEditing: Dependency {
 // MARK: - HomeComponent + EditingDependency
 
 extension HomeComponent: EditingDependency {
-
   // TODO: Implement properties to provide for Editing scope.
+  var cache: GooglePlaceImageCache {
+    googlePlaceImageCache
+  }
 }

@@ -50,16 +50,16 @@ final class HomeRouter: ViewableRouter<HomeInteractable, HomeViewControllable>, 
 
 extension HomeRouter {
   func routeToDetailPlan(plan: Plan, model: PlanModel) {
-    DispatchQueue.main.async {
-      let router = self.detailPlanBuilder.build(withListener: self.interactor, currentPlan: plan, model: model)
+    Task(priority: .userInitiated) {
+      let router = await self.detailPlanBuilder.build(withListener: self.interactor, currentPlan: plan, model: model)
       self.attachChild(router)
       self.viewController.addChild(viewContronller: router.viewControllable)
     }
   }
 
   func routeToNewPlan() {
-    DispatchQueue.main.async {
-      let router = self.editingBuilder.build(withListener: self.interactor, currentPlan: nil)
+    Task(priority: .userInitiated) {
+      let router = await self.editingBuilder.build(withListener: self.interactor, currentPlan: nil)
       self.viewController.push(viewController: router.viewControllable)
       self.attachChild(router)
     }
@@ -73,8 +73,8 @@ extension HomeRouter {
   }
 
   func routeToEditing(plan: Plan) {
-    DispatchQueue.main.async {
-      let router = self.editingBuilder.build(withListener: self.interactor, currentPlan: plan)
+    Task(priority: .userInitiated) {
+      let router = await self.editingBuilder.build(withListener: self.interactor, currentPlan: plan)
       self.viewController.push(viewController: router.viewControllable)
       self.attachChild(router)
     }
